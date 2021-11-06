@@ -14,7 +14,13 @@ class CreatePertenecesTable extends Migration
     public function up()
     {
         Schema::create('perteneces', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('idVivienda');
+            $table->unsignedBigInteger('idResidente');
+            $table->primary(['idVivienda', 'idResidente']);
+
+            $table->foreign('idVivienda')->references('id')->on('viviendas');
+            $table->foreign('idResidente')->references('id')->on('residentes');
+
             $table->timestamps();
         });
     }

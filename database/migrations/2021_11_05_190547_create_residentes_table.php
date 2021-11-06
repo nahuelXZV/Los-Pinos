@@ -15,6 +15,15 @@ class CreateResidentesTable extends Migration
     {
         Schema::create('residentes', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 50);
+            $table->char('sexo', 1);
+            $table->string('nroCarnet', 10);
+            $table->string('telefono', 10);
+            $table->string('tipoResidente', 20);
+            $table->unsignedBigInteger('idVivienda')->nullable();
+
+            $table->foreign('idVivienda')->references('id')->on('viviendas');
+
             $table->timestamps();
         });
     }

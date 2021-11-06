@@ -15,6 +15,13 @@ class CreateIngresoAcsTable extends Migration
     {
         Schema::create('ingreso_acs', function (Blueprint $table) {
             $table->id();
+            $table->time('hora');
+            $table->date('fecha');
+
+            $table->unsignedBigInteger('idVisitante');
+            $table->unsignedBigInteger('codigoRes');
+            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('codigoRes')->references('codigo')->on('reservas');
             $table->timestamps();
         });
     }

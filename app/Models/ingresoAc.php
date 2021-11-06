@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ingresoAc extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'hora', 'fecha', 'idVisitante', 'codigoRes'];
+
+    public function visitante()
+    {
+        return $this->belongsTo(visitante::class);
+    }
+    public function reserva()
+    {
+        return $this->belongsTo(reserva::class);
+    }
 }

@@ -15,6 +15,14 @@ class CreateIngresoUrbsTable extends Migration
     {
         Schema::create('ingreso_urbs', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('motivo', 50);
+            $table->unsignedBigInteger('idVivienda')->nullable();
+            $table->unsignedBigInteger('idMotorizado')->nullable();
+
+            $table->foreign('idVivienda')->references('id')->on('viviendas');
+            $table->foreign('idMotorizado')->references('id')->on('motorizados');
             $table->timestamps();
         });
     }

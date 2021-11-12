@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ReservaController;
+use App\Http\Livewire\AreaComun\LwAreaComun;
+use App\Http\Livewire\AreaComun\LwListAC;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +23,16 @@ Route::get('/', function () {
 Route::get('/icono', function () {
     return view('components.iconos');
 });
+
+/*MODULO AREAS COMUNES */
+Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva');
+Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all');
+Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list');
+Route::get('/reserva/show/{id}', [ReservaController::class, 'show'])->name('reserva.show');
+Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun');
+
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

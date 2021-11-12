@@ -41,9 +41,9 @@ class residente extends Model
             ->as('ingresoR')
             ->withPivot('idResidente', 'idIngresoUrb');
     }
-    
-    public function reserva()
+
+    public function Vreserva()
     {
-        return $this->hasMany(reserva::class);
+        return $this->hasMany(reserva::class, 'idResidente');
     }
 }

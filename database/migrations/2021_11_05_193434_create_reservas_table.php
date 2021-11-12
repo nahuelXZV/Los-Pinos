@@ -14,11 +14,14 @@ class CreateReservasTable extends Migration
     public function up()
     {
         Schema::create('reservas', function (Blueprint $table) {
-            $table->id('codigo');
+            $table->id();
             $table->date('fecha');
             $table->time('horaIni');
             $table->time('horaFin');
             $table->integer('cantsPers')->nullable();
+            $table->string('title')->nullable();
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
             $table->unsignedBigInteger('idResidente');
             $table->unsignedBigInteger('codigoAC');
 

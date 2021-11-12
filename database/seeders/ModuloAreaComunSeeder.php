@@ -3,11 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\areaComun;
-use App\Models\ingresoAc;
 use App\Models\invitado;
 use App\Models\reporteAc;
 use App\Models\reserva;
-use App\Models\salidaAc;
 use Illuminate\Database\Seeder;
 
 class ModuloAreaComunSeeder extends Seeder
@@ -73,7 +71,7 @@ class ModuloAreaComunSeeder extends Seeder
 
         /*RESERVA */
         reserva::create([
-            'codigo' => 1000,
+            'id' => 1000,
             'fecha' => '2021/05/11',
             'horaIni' => '10:00',
             'horaFin' => '12:00',
@@ -82,7 +80,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 104
         ]);
         reserva::create([
-            'codigo' => 1001,
+            'id' => 1001,
             'fecha' => '2021/04/26',
             'horaIni' => '15:00',
             'horaFin' => '18:30',
@@ -91,7 +89,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 101
         ]);
         reserva::create([
-            'codigo' => 1002,
+            'id' => 1002,
             'fecha' => '2021/03/15',
             'horaIni' => '11:30',
             'horaFin' => '14:00',
@@ -100,7 +98,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 104
         ]);
         reserva::create([
-            'codigo' => 1003,
+            'id' => 1003,
             'fecha' => '2021/06/24',
             'horaIni' => '16:00',
             'horaFin' => '18:00',
@@ -109,7 +107,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 104
         ]);
         reserva::create([
-            'codigo' => 1004,
+            'id' => 1004,
             'fecha' => '2021/07/16',
             'horaIni' => '10:00',
             'horaFin' => '13:00',
@@ -118,7 +116,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 101
         ]);
         reserva::create([
-            'codigo' => 1005,
+            'id' => 1005,
             'fecha' => '2021/01/14',
             'horaIni' => '12:00',
             'horaFin' => '14:30',
@@ -127,7 +125,7 @@ class ModuloAreaComunSeeder extends Seeder
             'codigoAC' => 101
         ]);
         reserva::create([
-            'codigo' => 1006,
+            'id' => 1006,
             'fecha' => '2021/08/11',
             'horaIni' => '10:00',
             'horaFin' => '12:30',
@@ -139,31 +137,31 @@ class ModuloAreaComunSeeder extends Seeder
         /*Reporte AC*/
 
         reporteAc::create([
-            'codigo' => 100,
+            'id' => 100,
             'reporte' => 'No hubo incidentes durante la reservacion',
             'codigoAC' => 104,
             'codigoRes' => 1001,
         ]);
         reporteAc::create([
-            'codigo' => 101,
+            'id' => 101,
             'reporte' => 'Se rompio un par de sillas',
             'codigoAC' => 104,
             'codigoRes' => 1002,
         ]);
         reporteAc::create([
-            'codigo' => 102,
+            'id' => 102,
             'reporte' => 'Se necesito atencion medica para un invitado por cortadora',
             'codigoAC' => 104,
             'codigoRes' => 1003,
         ]);
         reporteAc::create([
-            'codigo' => 103,
+            'id' => 103,
             'reporte' => 'Se perdieron 5 utensilios ',
             'codigoAC' => 101,
             'codigoRes' => 1004,
         ]);
         reporteAc::create([
-            'codigo' => 104,
+            'id' => 104,
             'reporte' => 'Se perdió el celular de un visitante',
             'codigoAC' => 102,
             'codigoRes' => 1004,
@@ -171,101 +169,39 @@ class ModuloAreaComunSeeder extends Seeder
 
         /* INVITADO */
         invitado::create([
+            'id' => 1,
             'idVisitante' => 1,
             'codigoRes' => 1000
         ]);
         invitado::create([
+            'id' => 2,
             'idVisitante' => 2,
-            'codigoRes' => 1000
+            'codigoRes' => 1000,
+            'horaIngreso' => '12:00',
+            'horaSalida' => null
         ]);
         invitado::create([
+            'id' => 3,
             'idVisitante' => 3,
-            'codigoRes' => 1004
+            'codigoRes' => 1004,
+            'horaIngreso' => '13:00',
+            'horaSalida' => '20:00'
         ]);
         invitado::create([
+            'id' => 4,
             'idVisitante' => 4,
-            'codigoRes' => 1004
+            'codigoRes' => 1004,
+            'horaIngreso' => '12:00',
+            'horaSalida' => '15:00'
         ]);
         invitado::create([
+            'id' => 5,
             'idVisitante' => 5,
             'codigoRes' => 1002
         ]);
         invitado::create([
+            'id' => 6,
             'idVisitante' => 5,
-            'codigoRes' => 1003
-        ]);
-
-        /*INGRESO AREA COMUN */
-        ingresoAc::create([
-            'id' => 1,
-            'hora' => '14:00',
-            'fecha' => '2021/06/02',
-            'idVisitante' => 1,
-            'codigoRes' => 1000
-        ]);
-        ingresoAc::create([
-            'id' => 2,
-            'hora' => '16:30',
-            'fecha' => '2021/03/05',
-            'idVisitante' => 5,
-            'codigoRes' => 1000
-        ]);
-        ingresoAc::create([
-            'id' => 3,
-            'hora' => '15:35',
-            'fecha' => '2021/08/22',
-            'idVisitante' => 10,
-            'codigoRes' => 1001
-        ]);
-        ingresoAc::create([
-            'id' => 4,
-            'hora' => '11:25',
-            'fecha' => '2021/04/15',
-            'idVisitante' => 8,
-            'codigoRes' => 1002
-        ]);
-        ingresoAc::create([
-            'id' => 5,
-            'hora' => '09:30',
-            'fecha' => '2021/09/15',
-            'idVisitante' => 10,
-            'codigoRes' => 1003
-        ]);
-
-        /*SALIDA AREA COMUN */
-        salidaAc::create([
-            'id' => 1,
-            'hora' => '20:30',
-            'fecha' => '2021/08/10',
-            'idVisitante' => 1,
-            'codigoRes' => 1000
-        ]);
-        salidaAc::create([
-            'id' => 2,
-            'hora' => '22:00',
-            'fecha' => '2021/10/02',
-            'idVisitante' => 5,
-            'codigoRes' => 1000
-        ]);
-        salidaAc::create([
-            'id' => 3,
-            'hora' => '10:00',
-            'fecha' => '2021/04/29',
-            'idVisitante' => 10,
-            'codigoRes' => 1001
-        ]);
-        salidaAc::create([
-            'id' => 4,
-            'hora' => '21:00',
-            'fecha' => '2021/01/30',
-            'idVisitante' => 8,
-            'codigoRes' => 1002
-        ]);
-        salidaAc::create([
-            'id' => 5,
-            'hora' => '15:00',
-            'fecha' => '2021/07/22',
-            'idVisitante' => 10,
             'codigoRes' => 1003
         ]);
     }

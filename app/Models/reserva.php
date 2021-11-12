@@ -8,32 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class reserva extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'fecha', 'horaIni', 'horaFin', 'cantPers', 'idResidente', 'codigoAC'];
+    protected $fillable = ['id', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'title', 'start', 'end', 'idResidente', 'codigoAC'];
 
-    public function areaComun()
+    public function VareaComun()
     {
-        return $this->belongsTo(areaComun::class);
+        return $this->belongsTo(areaComun::class, 'codigoAC');
     }
-    public function residente()
+    public function Vresidente()
     {
-        return $this->belongsTo(residente::class);
+        return $this->belongsTo(residente::class, 'idResidente');
     }
+
     public function reporteAC()
     {
-        return $this->hasMany(reporteAc::class);
+        return $this->hasMany(reporteAc::class, 'codigoRes');
     }
     public function invitado()
     {
-        return $this->belongsToMany(visitante::class, 'invitado', 'idVisitante', 'codigoRes')
+        return $this->belongsToMany(visitante::class, 'invitados', 'codigoRes', 'idVisitante')
             ->as('invitado')
-            ->withPivot('idVisitante', 'codigoRes');
-    }
-    public function ingresoAC()
-    {
-        return $this->hasMany(ingresoAc::class);
-    }
-    public function salidaAC()
-    {
-        return $this->hasMany(salidaAc::class);
+            ->withPivot('id', 'codigoRes', 'idVisitante', 'horaIngreso', 'horaSalida');
     }
 }

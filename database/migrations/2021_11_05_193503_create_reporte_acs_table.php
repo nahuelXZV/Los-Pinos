@@ -14,13 +14,13 @@ class CreateReporteAcsTable extends Migration
     public function up()
     {
         Schema::create('reporte_acs', function (Blueprint $table) {
-            $table->id('codigo');
+            $table->id();
             $table->text('reporte',250);
             $table->unsignedBigInteger('codigoAC');
             $table->unsignedBigInteger('codigoRes');
 
             $table->foreign('codigoAC')->references('codigo')->on('area_comuns');
-            $table->foreign('codigoRes')->references('codigo')->on('reservas');
+            $table->foreign('codigoRes')->references('id')->on('reservas');
             $table->timestamps();
         });
     }

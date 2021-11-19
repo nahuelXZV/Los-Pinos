@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class permiso extends Model
 {
     use HasFactory;
+
+    // relacion de muchos a uno
+    public function reporteA(){
+        return $this->belongsTo(reporteA::class);
+    }
 }

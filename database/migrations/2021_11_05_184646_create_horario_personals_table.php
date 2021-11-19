@@ -15,6 +15,12 @@ class CreateHorarioPersonalsTable extends Migration
     {
         Schema::create('horario_personals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idHorario');
+            $table->unsignedBigInteger('codigoPersonal');
+
+            $table->foreign('idHorario')->references('id')->on('horarios')->onDelete('cascade');
+            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

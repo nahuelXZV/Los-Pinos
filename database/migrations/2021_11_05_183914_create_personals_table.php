@@ -14,7 +14,18 @@ class CreatePersonalsTable extends Migration
     public function up()
     {
         Schema::create('personals', function (Blueprint $table) {
-            $table->id();
+            $table->id('codigo');
+            $table->string('nombre');
+            $table->string('carnet');
+            $table->string('telefono');
+            $table->string('direccion');
+            $table->date('fechaNac');
+            $table->string('nacionalidad');
+            $table->char('sexo', 1);
+            $table->string('estadoCivil');
+            $table->string('email')->unique();
+            $table->string('cargo');   
+            $table->string('estado');         
             $table->timestamps();
         });
     }

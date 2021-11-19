@@ -15,6 +15,10 @@ class CreateSalidaPersonalsTable extends Migration
     {
         Schema::create('salida_personals', function (Blueprint $table) {
             $table->id();
+            $table->time('hora');
+            $table->unsignedBigInteger('idReporteA');
+
+            $table->foreign('idReporteA')->references('id')->on('reporte_a_s')->onDelete('cascade');
             $table->timestamps();
         });
     }

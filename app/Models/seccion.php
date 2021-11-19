@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class seccion extends Model
 {
     use HasFactory;
+
+    // relacion de uno a muchos
+    public function trabajo(){
+        return $this->hasMany(trabajo::class);
+    }
 }

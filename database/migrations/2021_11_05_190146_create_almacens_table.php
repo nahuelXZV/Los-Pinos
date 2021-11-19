@@ -15,6 +15,9 @@ class CreateAlmacensTable extends Migration
     {
         Schema::create('almacens', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('calle');
+            $table->unsignedSmallInteger('manzano');
             $table->timestamps();
         });
     }

@@ -15,6 +15,13 @@ class CreateRegresosTable extends Migration
     {
         Schema::create('regresos', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idRegresoEquipo');
+            $table->unsignedBigInteger('codigoEquipo');
+            $table->string('estadoDevolucion');
+
+            $table->foreign('idRegresoEquipo')->references('id')->on('regreso_equipos')->onDelete('cascade');
+            $table->foreign('codigoEquipo')->references('codigo')->on('equipos')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

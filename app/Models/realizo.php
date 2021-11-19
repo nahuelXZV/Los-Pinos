@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class realizo extends Model
 {
     use HasFactory;
+
+    // relacion de muchos a uno
+    public function reporteT(){
+        return $this->belongsTo(reporteT::class);
+    }
+
+    // relacion de muchos a uno
+    public function trabajo(){
+        return $this->belongsTo(trabajo::class);
+    }
 }

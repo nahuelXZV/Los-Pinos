@@ -20,9 +20,20 @@ use App\Http\Controllers\seguridadController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/reporte', function () {
+    return view('diseño-reporte');
+});
+Route::get('/calendar', function () {
+    return view('layouts.plantilla');
+});
 Route::get('/icono', function () {
     return view('components.iconos');
 });
+<<<<<<< HEAD
+Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
+    return view('Inventario/show-inventario');
+})->name('show-inventario');
+=======
 
 
 
@@ -61,6 +72,7 @@ Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos
 Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas');
 
 
+>>>>>>> cfc3a4aadba7e96f2715b3d47cdbce9f1265ba12
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

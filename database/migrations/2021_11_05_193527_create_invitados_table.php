@@ -19,8 +19,10 @@ class CreateInvitadosTable extends Migration
             $table->unsignedBigInteger('codigoRes');
             $table->time('horaIngreso')->nullable();
             $table->time('horaSalida')->nullable();
-            $table->foreign('idVisitante')->references('id')->on('visitantes');
-            $table->foreign('codigoRes')->references('id')->on('reservas');
+            $table->foreign('idVisitante')->references('id')->on('visitantes')->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('codigoRes')->references('id')->on('reservas')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

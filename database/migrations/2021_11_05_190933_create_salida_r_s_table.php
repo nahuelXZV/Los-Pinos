@@ -18,7 +18,8 @@ class CreateSalidaRSTable extends Migration
             $table->unsignedBigInteger('idSalidaUrb');
             $table->primary(['idResidente', 'idSalidaUrb']);
 
-            $table->foreign('idResidente')->references('id')->on('residentes');
+            $table->foreign('idResidente')->references('id')->on('residentes')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idSalidaUrb')->references('id')->on('salida_urbs');
             $table->timestamps();
         });

@@ -19,7 +19,8 @@ class CreateSalidaUrbsTable extends Migration
             $table->time('hora');
             $table->unsignedBigInteger('idMotorizado')->nullable();
 
-            $table->foreign('idMotorizado')->references('id')->on('motorizados');
+            $table->foreign('idMotorizado')->references('id')->on('motorizados')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

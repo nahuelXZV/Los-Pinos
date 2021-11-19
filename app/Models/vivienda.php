@@ -8,20 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class vivienda extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','calle','manzano','nroCasa','lote','estadoResidencia','estadoVivienda'];
-   
+    protected $fillable = ['id', 'calle', 'manzano', 'nroCasa', 'lote', 'estadoResidencia', 'estadoVivienda'];
 
-    public function residente(){
-        return $this->hasMany(residente::class);
+
+    public function Vresidente()
+    {
+        return $this->hasMany(residente::class, 'idVivienda');
     }
 
-    public function pertenece(){
-        return $this->belongsToMany(residente::class,'perteneces','idVivienda', 'idResidente')
-                    ->as('pertenece')
-                    ->withPivot('idVivienda','idResidente');
+    public function pertenece()
+    {
+        return $this->belongsToMany(residente::class, 'perteneces', 'idVivienda', 'idResidente')
+            ->as('pertenece')
+            ->withPivot('idVivienda', 'idResidente');
     }
-    
-    public function ingresoUrb(){
+
+    public function ingresoUrb()
+    {
         return $this->hasMany(ingresoUrb::class);
     }
 }

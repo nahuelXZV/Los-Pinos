@@ -12,9 +12,9 @@ class residente extends Model
 
 
     //recibe el id de vivienda
-    public function vivienda()
+    public function Vvivienda()
     {
-        return $this->belongsTo(vivienda::class);
+        return $this->belongsTo(vivienda::class, 'idVivienda');
     }
 
     public function pertenece()

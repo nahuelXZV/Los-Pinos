@@ -20,8 +20,10 @@ class CreateMotorizadosTable extends Migration
             $table->unsignedBigInteger('idResidente')->nullable();
             $table->unsignedBigInteger('idVisitante')->nullable();
 
-            $table->foreign('idVisitante')->references('id')->on('visitantes');
-            $table->foreign('idResidente')->references('id')->on('residentes');
+            $table->foreign('idVisitante')->references('id')->on('visitantes')->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idResidente')->references('id')->on('residentes')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

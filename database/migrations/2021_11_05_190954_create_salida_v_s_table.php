@@ -17,8 +17,9 @@ class CreateSalidaVSTable extends Migration
             $table->unsignedBigInteger('idVisitante');
             $table->unsignedBigInteger('idSalidaUrb');
             $table->primary(['idVisitante', 'idSalidaUrb']);
-            
-            $table->foreign('idVisitante')->references('id')->on('visitantes');
+
+            $table->foreign('idVisitante')->references('id')->on('visitantes')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idSalidaUrb')->references('id')->on('salida_urbs');
             $table->timestamps();
         });

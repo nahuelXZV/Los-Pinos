@@ -17,7 +17,8 @@ class CreateIngresoVSTable extends Migration
             $table->unsignedBigInteger('idVisitante');
             $table->unsignedBigInteger('idIngresoUrb');
             $table->primary(['idVisitante', 'idIngresoUrb']);
-            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('idVisitante')->references('id')->on('visitantes')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idIngresoUrb')->references('id')->on('ingreso_urbs');
             $table->timestamps();
         });

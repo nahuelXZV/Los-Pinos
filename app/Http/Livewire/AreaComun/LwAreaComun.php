@@ -45,8 +45,7 @@ class LwAreaComun extends Component
             ->orWhere('codigo', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);
-        return view('livewire.area-comun.lw-area-comun', compact('areas'))
-            ->layout('layouts.plantilla');
+        return view('livewire.area-comun.lw-area-comun', compact('areas'));
     }
     public function order($sort)
     {

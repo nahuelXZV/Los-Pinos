@@ -25,8 +25,10 @@ class CreateReservasTable extends Migration
             $table->unsignedBigInteger('idResidente');
             $table->unsignedBigInteger('codigoAC');
 
-            $table->foreign('idResidente')->references('id')->on('residentes');
-            $table->foreign('codigoAC')->references('codigo')->on('area_comuns');
+            $table->foreign('idResidente')->references('id')->on('residentes')->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('codigoAC')->references('codigo')->on('area_comuns')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

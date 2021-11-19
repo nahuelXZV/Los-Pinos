@@ -128,3 +128,45 @@ Livewire.on('deleteReporte', reporte => {
         }
     })
 })
+Livewire.on('deleteResidente', persona => {
+    Swal.fire({
+        title: 'Esta seguro?',
+        text: "Los datos se borraran permanentemente!",
+        icon: 'Advertencia',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo('seguridad.residente.lw-residente', 'delete', persona);
+            Swal.fire(
+                'Eliminado!',
+                'El residente fue eliminado con éxito.',
+                'éxito'
+            )
+        }
+    })
+})
+Livewire.on('deleteVisitante', persona => {
+    Swal.fire({
+        title: 'Esta seguro?',
+        text: "Los datos se borraran permanentemente!",
+        icon: 'Advertencia',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo('seguridad.visitante.lw-visitante', 'delete', persona);
+            Swal.fire(
+                'Eliminado!',
+                'El visitante fue eliminado con éxito.',
+                'éxito'
+            )
+        }
+    })
+})

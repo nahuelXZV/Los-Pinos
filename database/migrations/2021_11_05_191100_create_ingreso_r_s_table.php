@@ -17,7 +17,8 @@ class CreateIngresoRSTable extends Migration
             $table->unsignedBigInteger('idResidente');
             $table->unsignedBigInteger('idIngresoUrb');
             $table->primary(['idResidente', 'idIngresoUrb']);
-            $table->foreign('idResidente')->references('id')->on('residentes');
+            $table->foreign('idResidente')->references('id')->on('residentes')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idIngresoUrb')->references('id')->on('ingreso_urbs');
             $table->timestamps();
         });

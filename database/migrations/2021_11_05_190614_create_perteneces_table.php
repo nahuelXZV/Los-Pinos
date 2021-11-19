@@ -18,8 +18,10 @@ class CreatePertenecesTable extends Migration
             $table->unsignedBigInteger('idResidente');
             $table->primary(['idVivienda', 'idResidente']);
 
-            $table->foreign('idVivienda')->references('id')->on('viviendas');
-            $table->foreign('idResidente')->references('id')->on('residentes');
+            $table->foreign('idVivienda')->references('id')->on('viviendas')->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idResidente')->references('id')->on('residentes')->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

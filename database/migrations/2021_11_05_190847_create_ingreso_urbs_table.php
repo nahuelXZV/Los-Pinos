@@ -21,8 +21,10 @@ class CreateIngresoUrbsTable extends Migration
             $table->unsignedBigInteger('idVivienda')->nullable();
             $table->unsignedBigInteger('idMotorizado')->nullable();
 
-            $table->foreign('idVivienda')->references('id')->on('viviendas');
-            $table->foreign('idMotorizado')->references('id')->on('motorizados');
+            $table->foreign('idVivienda')->references('id')->on('viviendas')->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idMotorizado')->references('id')->on('motorizados')->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

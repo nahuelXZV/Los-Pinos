@@ -72,11 +72,10 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
                  </a>
-
                  <!-- MODULO SEGURIDAD... -->
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">SEGURIDAD</span></h1>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('residentes')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -87,7 +86,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Residentes</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('visitantes')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -98,7 +97,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Visitantes</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('motorizados')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -110,7 +109,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Motorizados</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('viviendas')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -121,7 +120,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Viviendas</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('ingresos')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -132,7 +131,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Ingreso</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{route('salidas')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -185,6 +184,27 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Reservas</span>
                  </a>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
                  <a href="{{route('reserva.list')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
@@ -196,11 +216,79 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Lista Reservas</span>
                  </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              </li>
 
              <!-- Sidebar Links... -->
          </ul>
      </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      <!-- Sidebar footer -->
      <div class="flex-shrink-0 p-2 border-t max-h-14">
          <form method="POST" action="{{ route('logout') }}">

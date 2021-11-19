@@ -14,7 +14,12 @@ class CreateSalidaVSTable extends Migration
     public function up()
     {
         Schema::create('salida_v_s', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('idVisitante');
+            $table->unsignedBigInteger('idSalidaUrb');
+            $table->primary(['idVisitante', 'idSalidaUrb']);
+            
+            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('idSalidaUrb')->references('id')->on('salida_urbs');
             $table->timestamps();
         });
     }

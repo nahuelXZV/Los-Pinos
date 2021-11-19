@@ -85,19 +85,93 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
                  </a>
 
+                 <!-- MODULO SEGURIDAD... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">SEGURIDAD</span></h1>
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                          </svg>
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Residentes</span>
                  </a>
-
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Visitantes</span>
+                 </a>
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Motorizados</span>
+                 </a>
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Viviendas</span>
+                 </a>
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Ingreso</span>
+                 </a>
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
+                 </a>
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Reportes</span>
+                 </a>
+
+                 <!-- MODULO AREA COMUN... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">ÁREA COMÚN</span></h1>
+
+                 <a href="{{route('areacomun')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -108,9 +182,10 @@
                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                          </svg>
                      </span>
-                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Areas Comunes</span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Areas comunes</span>
                  </a>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+
+                 <a href="{{route('reserva')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -121,6 +196,7 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Reservas</span>
                  </a>
+<<<<<<< HEAD
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                  :class="{'justify-center': !isSidebarOpen}">
                  <span>
@@ -132,7 +208,22 @@
                  </span>
                  <span :class="{ 'lg:hidden': !isSidebarOpen }">Reporte</span>
              </a>
+=======
+
+                 <a href="{{route('reserva.list')}}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Lista Reservas</span>
+                 </a>
+>>>>>>> cfc3a4aadba7e96f2715b3d47cdbce9f1265ba12
              </li>
+
              <!-- Sidebar Links... -->
          </ul>
      </nav>

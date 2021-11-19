@@ -15,6 +15,12 @@ class CreateInvitadosTable extends Migration
     {
         Schema::create('invitados', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idVisitante');
+            $table->unsignedBigInteger('codigoRes');
+            $table->time('horaIngreso')->nullable();
+            $table->time('horaSalida')->nullable();
+            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('codigoRes')->references('id')->on('reservas');
             $table->timestamps();
         });
     }

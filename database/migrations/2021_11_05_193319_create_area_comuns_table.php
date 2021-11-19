@@ -14,7 +14,11 @@ class CreateAreaComunsTable extends Migration
     public function up()
     {
         Schema::create('area_comuns', function (Blueprint $table) {
-            $table->id();
+            $table->id('codigo');
+            $table->string('nombre',50);
+            $table->string('calle',50);
+            $table->integer('manzano');
+            $table->string('estadoRes',20);
             $table->timestamps();
         });
     }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class salidaUrb extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'fecha', 'hora','idMotorizado'];
+
+    public function motorizado()
+    {
+        return $this->belongsTo(motorizado::class);
+    }
 }

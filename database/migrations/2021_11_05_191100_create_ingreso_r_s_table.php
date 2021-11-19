@@ -14,7 +14,11 @@ class CreateIngresoRSTable extends Migration
     public function up()
     {
         Schema::create('ingreso_r_s', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('idResidente');
+            $table->unsignedBigInteger('idIngresoUrb');
+            $table->primary(['idResidente', 'idIngresoUrb']);
+            $table->foreign('idResidente')->references('id')->on('residentes');
+            $table->foreign('idIngresoUrb')->references('id')->on('ingreso_urbs');
             $table->timestamps();
         });
     }

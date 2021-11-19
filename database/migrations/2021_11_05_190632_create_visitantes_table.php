@@ -15,6 +15,9 @@ class CreateVisitantesTable extends Migration
     {
         Schema::create('visitantes', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 50);
+            $table->string('nroCarnet', 10);
+            $table->char('sexo', 1);
             $table->timestamps();
         });
     }

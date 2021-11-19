@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ingresoV extends Model
 {
     use HasFactory;
+    protected $fillable = ['idVisitante', 'idIngresoUrb'];
 }

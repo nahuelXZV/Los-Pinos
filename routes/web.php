@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ReservaController;
+use App\Http\Livewire\AreaComun\LwAreaComun;
+use App\Http\Livewire\AreaComun\LwListAC;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +29,21 @@ Route::get('/calendar', function () {
 Route::get('/icono', function () {
     return view('components.iconos');
 });
+<<<<<<< HEAD
 Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
     return view('Inventario/show-inventario');
 })->name('show-inventario');
+=======
+
+/*MODULO AREAS COMUNES */
+Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva');
+Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all');
+Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list');
+Route::get('/reserva/show/{id}', [ReservaController::class, 'show'])->name('reserva.show');
+Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun');
+
+
+>>>>>>> cfc3a4aadba7e96f2715b3d47cdbce9f1265ba12
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

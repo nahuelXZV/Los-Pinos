@@ -15,6 +15,11 @@ class CreateSalidaUrbsTable extends Migration
     {
         Schema::create('salida_urbs', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->unsignedBigInteger('idMotorizado')->nullable();
+
+            $table->foreign('idMotorizado')->references('id')->on('motorizados');
             $table->timestamps();
         });
     }

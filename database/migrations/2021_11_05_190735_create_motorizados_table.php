@@ -15,6 +15,13 @@ class CreateMotorizadosTable extends Migration
     {
         Schema::create('motorizados', function (Blueprint $table) {
             $table->id();
+            $table->string('placa', 10);
+            $table->string('descripcion', 200)->nullable();
+            $table->unsignedBigInteger('idResidente')->nullable();
+            $table->unsignedBigInteger('idVisitante')->nullable();
+
+            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('idResidente')->references('id')->on('residentes');
             $table->timestamps();
         });
     }

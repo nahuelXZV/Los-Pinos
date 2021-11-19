@@ -14,7 +14,11 @@ class CreateIngresoVSTable extends Migration
     public function up()
     {
         Schema::create('ingreso_v_s', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('idVisitante');
+            $table->unsignedBigInteger('idIngresoUrb');
+            $table->primary(['idVisitante', 'idIngresoUrb']);
+            $table->foreign('idVisitante')->references('id')->on('visitantes');
+            $table->foreign('idIngresoUrb')->references('id')->on('ingreso_urbs');
             $table->timestamps();
         });
     }

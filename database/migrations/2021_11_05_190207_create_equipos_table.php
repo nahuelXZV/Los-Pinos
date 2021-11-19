@@ -14,7 +14,18 @@ class CreateEquiposTable extends Migration
     public function up()
     {
         Schema::create('equipos', function (Blueprint $table) {
-            $table->id();
+            $table->id('codigo');
+            $table->string('nombre');
+            $table->string('modelo')->nullable();
+            $table->string('marca')->nullable();
+            $table->unsignedSmallInteger('stock')->nullable();
+            $table->string('multiplicidad');
+            $table->string('descripcion')->nullable();
+            $table->string('estadoServicio');
+            $table->string('estadoFuncionamiento');
+            $table->unsignedBigInteger('idAlmacen');
+
+            $table->foreign('idAlmacen')->references('id')->on('almacens')->onDelete('cascade');
             $table->timestamps();
         });
     }

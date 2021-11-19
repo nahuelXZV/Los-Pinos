@@ -15,6 +15,10 @@ class CreateReporteASTable extends Migration
     {
         Schema::create('reporte_a_s', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha');
+            $table->unsignedBigInteger('codigoPersonal');
+
+            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onDelete('cascade');
             $table->timestamps();
         });
     }

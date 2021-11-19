@@ -15,6 +15,12 @@ class CreateSalidaEquiposTable extends Migration
     {
         Schema::create('salida_equipos', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('motivo');
+            $table->unsignedBigInteger('codigoPersonal');
+
+            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onDelete('cascade');
             $table->timestamps();
         });
     }

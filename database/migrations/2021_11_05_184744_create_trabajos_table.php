@@ -15,6 +15,10 @@ class CreateTrabajosTable extends Migration
     {
         Schema::create('trabajos', function (Blueprint $table) {
             $table->id();
+            $table->string('actividad');
+            $table->unsignedBigInteger('idSeccion');
+
+            $table->foreign('idSeccion')->references('id')->on('seccions')->onDelete('cascade');
             $table->timestamps();
         });
     }

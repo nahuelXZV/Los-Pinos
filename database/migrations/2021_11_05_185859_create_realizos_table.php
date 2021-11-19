@@ -15,6 +15,13 @@ class CreateRealizosTable extends Migration
     {
         Schema::create('realizos', function (Blueprint $table) {
             $table->id();
+            $table->time('hora');
+            $table->unsignedBigInteger('idTrabajo');
+            $table->unsignedBigInteger('idReporteT');
+            
+            $table->foreign('idTrabajo')->references('id')->on('trabajos')->onDelete('cascade'); 
+            $table->foreign('idReporteT')->references('id')->on('reporte_t_s')->onDelete('cascade'); 
+            
             $table->timestamps();
         });
     }

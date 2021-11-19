@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class saco extends Model
 {
     use HasFactory;
+
 }

@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
             'email' => "David@gmail.com",
             'password' => bcrypt('12345678')
         ]);
+
+        $this->call(ModuloPersonalSeeder::class);
+        $this->call(ModuloInventarioSeeder::class);
     }
 }

@@ -15,6 +15,13 @@ class CreateBitacorasTable extends Migration
     {
         Schema::create('bitacoras', function (Blueprint $table) {
             $table->id();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('accion');
+            $table->unsignedBigInteger('idUsuario');
+            
+            $table->foreign('idUsuario')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

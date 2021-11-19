@@ -8,6 +8,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('favicon2.png') }}">
+    <link rel="stylesheet" href="sweetalert2.min.css">
     
     <!-- fullcalendar -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.css">
@@ -20,7 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    
     <!-- sweetalert2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    
     
     @livewireStyles()
 </head>
@@ -73,6 +76,18 @@
             }
         </script>
         @livewireScripts()
+
+        @stack('js')
+
+        <script>
+            Livewire.on('alert', function(message){
+                Swal.fire(
+                    'Good job!',
+                    meassage,
+                    'success'
+                )
+            })
+        </script>
     </div>
 </body>
 

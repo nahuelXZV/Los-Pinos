@@ -16,9 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/reporte', function () {
+    return view('diseño-reporte');
+});
+Route::get('/calendar', function () {
+    return view('layouts.plantilla');
+});
 Route::get('/icono', function () {
     return view('components.iconos');
 });
+Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
+    return view('Inventario/show-inventario');
+})->name('show-inventario');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

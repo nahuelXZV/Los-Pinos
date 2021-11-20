@@ -11,37 +11,44 @@
 
     <style>
         .efectoButton {
-        transition: 0.5s;
-    }
-    .efectoButton:hover {
-        transform: scale(1.1);
-        background-color: darkgreen;
-        -webkit-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-        -moz-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-        box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-    }
-    @font-face{
-        font-family: 'Ubuntu', sans-serif;
-    }
-    .fuente{
-        font-family: 'Ubuntu', sans-serif;;
-    }
-    .movimiento{
+            transition: 0.5s;
+        }
+
+        .efectoButton:hover {
+            transform: scale(1.1);
+            background-color: darkgreen;
+            -webkit-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
+            -moz-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
+            box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
+        }
+
+        @font-face {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .fuente {
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .movimiento {
             animation: movimiento 10s ease-in-out infinite;
             /*animation: name duration timing-function delay iteration-count direction fill-mode;*/
         }
-        @keyframes movimiento{
-            0%{
+
+        @keyframes movimiento {
+            0% {
                 transform: translateY(0);
             }
-            50%{
+
+            50% {
                 transform: translateY(30px);
             }
-            100%{
+
+            100% {
                 transform: translateY(0);
             }
         }
-    
+
     </style>
 </head>
 
@@ -56,7 +63,8 @@
             style="background-image: url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80);">
             <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
             <div class="w-full px-24 z-10">
-                <h1 class="fuente text-5xl font-bold text-left tracking-wide movimiento">Urbanización <br> Los Pinos </h1>
+                <h1 class="fuente text-5xl font-bold text-left tracking-wide movimiento">Urbanización <br> Los Pinos
+                </h1>
             </div>
         </div>
         <div class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
@@ -66,7 +74,8 @@
                 <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
             </div>
             <div class="w-full py-6 z-20">
-                <p class="fuente pb-2 pt-4 mb-4 text-white font-medium text-center text-4xl font-bold">Iniciar sesión</p>
+                <p class="fuente pb-2 pt-4 mb-4 text-white font-medium text-center text-4xl font-bold">Iniciar sesión
+                </p>
                 <form action="{{ route('login') }}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     @csrf
 
@@ -96,7 +105,8 @@
                     </div>
 
                     <div class="px-4 pb-2 pt-4">
-                         <button class="efectoButton uppercase fuente bg-green-700 block w-full p-4 text-lg rounded-full focus:outline-none">Entrar</button>
+                        <button
+                            class="efectoButton uppercase fuente bg-green-700 block w-full p-4 text-lg rounded-full focus:outline-none">Entrar</button>
                         <!--button
                             class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
                             Entrar</button-->

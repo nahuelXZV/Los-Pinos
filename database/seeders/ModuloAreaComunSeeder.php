@@ -24,49 +24,49 @@ class ModuloAreaComunSeeder extends Seeder
             'nombre' => 'Piscina',
             'calle' => 'Centenares',
             'manzano' => 3,
-            'estadoRes' => 'Reservacion'
+            'estadoRes' => 'Reservación'
         ]);
         areaComun::create([
             'codigo' => 102,
             'nombre' => 'Mercado Principal',
             'calle' => 'Argentina',
             'manzano' => 6,
-            'estadoRes' => 'No reservacion'
+            'estadoRes' => 'No Reservación'
         ]);
         areaComun::create([
             'codigo' => 103,
             'nombre' => 'Mercado Vimax',
             'calle' => 'Santa Cruz',
             'manzano' => 1,
-            'estadoRes' => 'No reservacion'
+            'estadoRes' => 'No Reservación'
         ]);
         areaComun::create([
             'codigo' => 104,
             'nombre' => 'Churrasqueria',
             'calle' => 'España',
             'manzano' => 5,
-            'estadoRes' => 'Reservacion'
+            'estadoRes' => 'Reservación'
         ]);
         areaComun::create([
             'codigo' => 105,
             'nombre' => 'Plaza Central',
             'calle' => 'Portugal',
             'manzano' => 9,
-            'estadoRes' => 'No reservacion'
+            'estadoRes' => 'No Reservación'
         ]);
         areaComun::create([
             'codigo' => 106,
             'nombre' => 'Plaza Hormiguita',
             'calle' => 'España',
             'manzano' => 5,
-            'estadoRes' => 'No reservacion'
+            'estadoRes' => 'No Reservación'
         ]);
         areaComun::create([
             'codigo' => 107,
             'nombre' => 'Salon de Eventos',
             'calle' => 'Santa Cruz',
             'manzano' => 11,
-            'estadoRes' => 'Reservacion'
+            'estadoRes' => 'Reservación'
         ]);
 
         /*RESERVA */

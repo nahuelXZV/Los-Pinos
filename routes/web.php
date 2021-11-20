@@ -23,38 +23,17 @@ Route::get('/', function () {
 Route::get('/reporte', function () {
     return view('diseño-reporte');
 });
+
 Route::get('/calendar', function () {
     return view('layouts.plantilla');
 });
 Route::get('/icono', function () {
     return view('components.iconos');
 });
-<<<<<<< HEAD
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
     return view('Inventario/show-inventario');
 })->name('show-inventario');
-=======
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*MODULO AREAS COMUNES */
 Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva');
@@ -70,9 +49,6 @@ Route::get('/motorizados', [seguridadController::class, 'motorizados'])->name('m
 Route::get('/viviendas', [seguridadController::class, 'viviendas'])->name('viviendas');
 Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos');
 Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas');
-
-
->>>>>>> cfc3a4aadba7e96f2715b3d47cdbce9f1265ba12
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

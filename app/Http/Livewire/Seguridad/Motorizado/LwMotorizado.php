@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Seguridad\Motorizado;
 
 use App\Models\motorizado;
 use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\visitante;
 
 class LwMotorizado extends Component
 {

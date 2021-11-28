@@ -1,114 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.plantilla')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    <style>
-        .efectoButton {
-        transition: 0.5s;
-    }
-    .efectoButton:hover {
-        transform: scale(1.1);
-        background-color: darkgreen;
-        -webkit-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-        -moz-box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-        box-shadow: 3px 10px 56px 10px rgba(0, 0, 0, 0.72);
-    }
-    @font-face{
-        font-family: 'Ubuntu', sans-serif;
-    }
-    .fuente{
-        font-family: 'Ubuntu', sans-serif;;
-    }
-    .movimiento{
-            animation: movimiento 10s ease-in-out infinite;
-            /*animation: name duration timing-function delay iteration-count direction fill-mode;*/
-        }
-        @keyframes movimiento{
-            0%{
-                transform: translateY(0);
-            }
-            50%{
-                transform: translateY(30px);
-            }
-            100%{
-                transform: translateY(0);
-            }
-        }
+@section('title')
+    Inicio
+@endsection
+@section('action')
     
-    </style>
-</head>
+@endsection
 
-<body>
-    @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
-        </div>
-    @endif
-    <section class="min-h-screen flex items-stretch text-white ">
-        <div class="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
-            style="background-image: url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80);">
-            <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
-            <div class="w-full px-24 z-10">
-                <h1 class="fuente text-5xl font-bold text-left tracking-wide movimiento">Urbanización <br> Los Pinos </h1>
+@section('content')
+    <div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+            <div
+                class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl">1,257</p>
+                    <p>Visitors</p>
+                </div>
+            </div>
+            <div
+                class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl">557</p>
+                    <p>Orders</p>
+                </div>
+            </div>
+            <div
+                class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl">$11,257</p>
+                    <p>Sales</p>
+                </div>
+            </div>
+            <div
+                class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+                <div
+                    class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                    <svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl">$75,257</p>
+                    <p>Balances</p>
+                </div>
             </div>
         </div>
-        <div class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0"
-            style="background-color: #161616;">
-            <div class="absolute lg:hidden z-10 inset-0 bg-gray-500 bg-no-repeat bg-cover items-center"
-                style="background-image: url(https://images.unsplash.com/photo-1577495508048-b635879837f1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80);">
-                <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
-            </div>
-            <div class="w-full py-6 z-20">
-                <p class="fuente pb-2 pt-4 mb-4 text-white font-medium text-center text-4xl font-bold">Iniciar sesión</p>
-                <form action="{{ route('login') }}" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
-                    @csrf
+    </div>
 
-                    <label class="fuente w-full text-xl text-white pb-2 pt-4">Usuario</label>
-                    <div class="pb-2 pt-4">
-                        <input type="email" name="email" id="email" :value="old('email')" required autofocus
-                            placeholder="Escribe Tu Correo Electrónico"
-                            class="block w-full p-4 text-lg rounded-sm bg-black">
-                    </div>
 
-                    <label class="fuente w-full text-xl text-white pb-2 pt-4">Contraseña</label>
-                    <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-sm bg-black" type="password" name="password"
-                            id="password" required autocomplete="current-password" placeholder="Escribe Tu Contraseña">
-                    </div>
-
-                    <div class="text-right">
-                        <input type="checkbox" name="remember" id="remember" class="mr-2 "> <label
-                            for="remember" class="fuente text-sm text-grey-dark hover:text-gray-100">Recuerdame</label>
-
-                        @if (Route::has('password.request'))
-                            <a class="fuente ml-20 text-sm text-grey-dark hover:underline cursor-pointer hover:text-gray-100"
-                                href="{{ route('password.request') }}">
-                                ¿Olvidaste Tu Contraseña?
-                            </a>
-                        @endif
-                    </div>
-
-                    <div class="px-4 pb-2 pt-4">
-                         <button class="efectoButton uppercase fuente bg-green-700 block w-full p-4 text-lg rounded-full focus:outline-none">Entrar</button>
-                        <!--button
-                            class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none">
-                            Entrar</button-->
-                    </div>
-
-                    <div class="p-4 text-center right-0 left-0 flex justify-center space-x-4 mt-16 lg:hidden ">
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-</body>
-
-</html>
+@endsection

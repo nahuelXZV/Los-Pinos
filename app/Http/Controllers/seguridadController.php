@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ingresoUrb;
 use Illuminate\Http\Request;
 
 class seguridadController extends Controller
@@ -29,5 +30,10 @@ class seguridadController extends Controller
     public function salidas()
     {
         return view('seguridad.salida');
-    } 
+    }
+    public function showIngreso($id)
+    {
+        $ingreso = ingresoUrb::find($id);
+        return view('seguridad.showIngreso', compact('ingreso'));
+    }
 }

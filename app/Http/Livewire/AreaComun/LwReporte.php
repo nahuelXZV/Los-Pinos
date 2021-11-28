@@ -22,6 +22,9 @@ class LwReporte extends Component
         'descripcion' => 'required',
     ];
 
+    protected $messages = [
+        'descripcion.required' => 'El campo descripción es obligatorio.'
+    ];
     public function mount($reserva)
     {
         $this->identify = rand();
@@ -60,7 +63,7 @@ class LwReporte extends Component
         $this->editRep->save();
         $this->reset(['idR', 'descripcion', 'editRep', 'open_edit']);
         $this->identify = rand();
-        $this->emit('alert', 'Editado Correctamente');
+        $this->emit('alert', 'Actualizado Correctamente');
     }
 
     public function delete(reporteAc $reported)

@@ -47,6 +47,14 @@ class LwListReserva extends Component
         'end' => 'required'
     ];
 
+    protected $messages = [
+        'horaIni.required' => 'El campo hora de inicio es obligatorio.',
+        'horaFin.required' => 'El campo hora de final es obligatorio.',
+        'cantsPers.required' => 'El campo cantidad de personas es obligatorio.',
+        'idResidente.required' => 'El campo residente es obligatorio.',
+        'codigoAC.required' => 'El campo área común es obligatorio.',
+    ];
+
     public function mount()
     {
         $this->identify = rand();
@@ -58,8 +66,7 @@ class LwListReserva extends Component
             ->paginate($this->pagination);
         $areas = areaComun::all();
         $residentes = residente::all();
-        return view('livewire.area-comun.lw-list-reserva', compact('reservas', 'areas', 'residentes'))
-            ->layout('layouts.plantilla');
+        return view('livewire.area-comun.lw-list-reserva', compact('reservas', 'areas', 'residentes'));
     }
     public function order($sort)
     {
@@ -90,6 +97,7 @@ class LwListReserva extends Component
     public function delete(reserva $reserva)
     {
         $reserva->delete();
+        $this->emit('alert', 'Eliminado Correctamente');
     }
     public function save()
     {

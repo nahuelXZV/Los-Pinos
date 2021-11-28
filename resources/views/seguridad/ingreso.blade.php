@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-
+    @livewire('seguridad.ingreso.lw-ingreso')
 @endsection

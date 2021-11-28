@@ -17,7 +17,7 @@ class CreateViviendasTable extends Migration
             $table->id();
             $table->string('calle', 50);
             $table->integer('manzano');
-            $table->integer('nroCasa');
+            $table->integer('nroCasa')->unique();
             $table->integer('lote');
             $table->string('estadoResidencia', 20);
             $table->string('estadoVivienda', 20);

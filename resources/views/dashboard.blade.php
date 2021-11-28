@@ -4,11 +4,9 @@
     Inicio
 @endsection
 @section('action')
-
+    Información de la Urbanización
 @endsection
 
 @section('content')
-
-
-
+    @livewire('inicio.dashboard')
 @endsection

@@ -24,7 +24,10 @@ class LwAddResidente extends Component
         'telefono' => 'required',
         'tipoResidente' => 'required',
     ];
-
+    protected $messages = [
+        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
+        'tipoResidente.required' => 'El campo Tipo de residente es obligatorio.',
+    ];
     public function mount()
     {
         $primero = vivienda::all()->first();

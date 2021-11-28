@@ -27,7 +27,9 @@ class LwVisitante extends Component
         'numeroDeCarnet' => 'required',
         'sexo' => 'required',
     ];
-
+    protected $messages = [
+        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
+    ];
     public function mount()
     {
         $this->identify = rand();
@@ -82,6 +84,7 @@ class LwVisitante extends Component
     public function delete(visitante $persona)
     {
         $persona->delete();
+        $this->emit('alert', 'Eliminado Correctamente!');
     }
 
     public function render()

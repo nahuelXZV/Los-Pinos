@@ -199,7 +199,7 @@
                             </td>
 
                             <td class="px-6 py-4 text-sm text-white font-bold">
-                                @if ($area->estadoRes == 'Reservacion')
+                                @if ($area->estadoRes == 'Reservación')
                                     <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-green-500">
                                         {{ $area->estadoRes }}
                                     </span>
@@ -235,7 +235,8 @@
 
         @else
             <div class="px-6 py-4">
-                No hay registros
+                <label class="text-sm text-black font-semibold">
+                    No hay registros</label>
             </div>
         @endif
 
@@ -295,7 +296,7 @@
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name='title'>
-            Añadir Área Común
+            Nueva Área Común
         </x-slot>
 
         <x-slot name='content'>

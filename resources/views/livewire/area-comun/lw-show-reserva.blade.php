@@ -7,34 +7,49 @@
             @livewire('area-comun.lw-editar-reserva',['reserva' => $reserva->id])
         </div>
 
-        <div class="px-6 py-4  w-auto grid grid-cols-2 ">
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Código de Reserva' />
-                <x-jet-input value='{{ $reserva->id }}' type='text' class="w-full" readonly />
+        <div class="px-6 py-4 w-auto">
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Código de Reserva:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->id }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Nombre residente' />
-                <x-jet-input value='{{ $reserva->Vresidente->nombre }}' type='text' class="w-full" readonly />
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Nombre del residente:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->Vresidente->nombre }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Nombre del área común' />
-                <x-jet-input value='{{ $reserva->VareaComun->nombre }}' type='text' class="w-full" readonly />
+
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Nombre del área común:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->VareaComun->nombre }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Fecha' />
-                <x-jet-input value='{{ $reserva->fecha }}' type='date' class="w-full" readonly />
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Fecha:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->fecha }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Hora de inicio' />
-                <x-jet-input value='{{ $reserva->horaIni }}' type='text' class="w-full" readonly />
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Hora de inicio:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->horaIni }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Hora de final' />
-                <x-jet-input value='{{ $reserva->horaFin }}' type='text' class="w-full" readonly />
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Hora de final:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->horaFin }}</label>
+                </label>
             </div>
-            <div class="mb-4 ml-2">
-                <x-jet-label value='Cantidad aproximada de invitados' />
-                <x-jet-input value='{{ $reserva->cantsPers }}' type='number' class="w-full" readonly />
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Cantidad aproximada de invitados:
+                    <label class="font-semibold text-gray-700"> {{ $reserva->cantsPers }}</label>
+                </label>
             </div>
         </div>
     </x-table>
@@ -46,11 +61,13 @@
         </h1>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
-                <span class="mr-2">Buscar</span>
+                <span class="mr-2 font-semibold">Buscar</span>
             </div>
-            <x-jet-input type="text" class="flex-1 mr-2" placeholder="Escriba el nombre del visitante"
+
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
-            <x-jet-danger-button class="mr-2" wire:click="$set('open_add',true)">
+            @livewire('area-comun.lw-add-visitante',['codigoRes' => $reserva->id])
+            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,10 +79,10 @@
 
         @if ($lista->count())
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
                         <th scope="col"
-                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
                             Código
 
@@ -74,26 +91,26 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
 
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('nombre')">
                             Nombre Visitante
 
@@ -102,26 +119,26 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
 
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('nroCarnet')">
                             Numero de carnet
 
@@ -130,25 +147,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
 
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('horaIngreso')">
                             Hora Ingreso
 
@@ -157,25 +174,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('horaSalida')">
                             Hora de salida
                             @if ($sort == 'horaSalida')
@@ -183,23 +200,23 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
-                        <th scope="col" class="w-20 px-6 py-4">
+                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                             Acciones
                         </th>
                     </tr>
@@ -209,7 +226,8 @@
                     @foreach ($lista as $visitantes)
                         <tr>
                             <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
+                                <div
+                                    class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
                                     {{ $visitantes->id }}
                                 </div>
                             </td>
@@ -234,7 +252,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
                                     wire:click="open_edit({{ $visitantes->invitado->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -256,7 +274,9 @@
                 </tbody>
             </table>
         @else
-            <x-jet-label value='No hay invitados' class="mt-4 ml-4 mb-2 text-lg" />
+            <label class="text-sm text-black font-semibold mt-4 ml-4 mb-10">
+                No hay invitados
+            </label>
         @endif
 
     </x-table>
@@ -284,12 +304,12 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de ingreso' />
-                <x-jet-input wire:model='horaIngreso' type='text' class="w-full" />
+                <x-jet-input wire:model='horaIngreso' type='time' class="w-full" />
                 <x-jet-input-error for="horaIngreso" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de salida' />
-                <x-jet-input wire:model='horaSalida' type='text' class="w-full" />
+                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
                 <x-jet-input-error for="horaSalida" />
             </div>
         </x-slot>
@@ -307,7 +327,7 @@
 
     <x-jet-dialog-modal wire:model="open_add">
         <x-slot name='title'>
-            Añadir invitados
+            Añadir invitado
         </x-slot>
 
         <x-slot name='content'>
@@ -322,14 +342,15 @@
                     <x-jet-input-error for="idVisitante" />
                 </label>
             </div>
+            <x-jet-input-error for="idVisitante" />
             <div class="mb-4">
                 <x-jet-label value='Hora de ingreso' />
-                <x-jet-input wire:model='horaIngreso' type='text' class="w-full" />
+                <x-jet-input wire:model='horaIngreso' type='time' class="w-full" />
                 <x-jet-input-error for="horaIngreso" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de salida' />
-                <x-jet-input wire:model='horaSalida' type='text' class="w-full" />
+                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
                 <x-jet-input-error for="horaSalida" />
             </div>
 
@@ -344,7 +365,6 @@
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
-
 
     <script>
         document.addEventListener('livewire:load', function() {

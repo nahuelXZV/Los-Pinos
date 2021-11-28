@@ -26,20 +26,20 @@ class residente extends Model
 
     public function motorizado()
     {
-        return $this->hasMany(motorizado::class);
+        return $this->hasMany(motorizado::class, 'idResidente');
     }
 
     public function salidaR()
     {
         return $this->belongsToMany(salidaUrb::class, 'salida_r_s', 'idResidente', 'idSalidaUrb')
             ->as('salidaR')
-            ->withPivot('idResidente', 'idSalidaUrb');
+            ->withPivot('id','idResidente', 'idSalidaUrb');
     }
     public function ingresoR()
     {
         return $this->belongsToMany(ingresoUrb::class, 'ingreso_r_s', 'idResidente', 'idIngresoUrb')
             ->as('ingresoR')
-            ->withPivot('idResidente', 'idIngresoUrb');
+            ->withPivot('id','idResidente', 'idIngresoUrb');
     }
 
     public function Vreserva()

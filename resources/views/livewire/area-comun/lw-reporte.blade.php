@@ -2,20 +2,23 @@
     <x-table>
         <div class="flex mt-4 ">
             <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">
-                Reporte</h1>
-            <x-jet-danger-button wire:click="$set('open_rep',true)" class="flex-grow ml-2" wire:loading.attr='disabled'
-                class="disabled:opacity-15">
+                Reportes</h1>
+            <x-jet-danger-button wire:click="$set('open_rep',true)"
+                class="flex-none ml-2 mr-2 bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
                 Crear reporte
             </x-jet-danger-button>
-
         </div>
 
         <div class="mb-4 pl-4 pr-4 flex flex-wrap">
 
             @if ($reportes->count())
-                <x-jet-label value='Descripcion de los reportes' class="text-lg" />
+                <label class="text-sm text-black font-semibold mb-2">
+                    Descripción de los reportes
+                </label>
             @else
-                <x-jet-label value='No hay reportes disponibles' class="text-lg" />
+                <label class="text-sm text-black font-semibold mb-2">
+                    No hay reportes disponibles
+                </label>
             @endif
 
             @foreach ($reportes as $report)
@@ -23,7 +26,7 @@
                     class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
                     rows="1">{{ $report->reporte }}</textarea>
 
-                <a class="mb-4 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4"
+                <a class="mb-4 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
                     wire:click="edit({{ $report->id }})">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -45,7 +48,7 @@
 
     <x-jet-dialog-modal wire:model="open_rep">
         <x-slot name='title'>
-            Crear Reporte
+            Nuevo Reporte
         </x-slot>
 
         <x-slot name='content'>
@@ -53,6 +56,7 @@
             <textarea wire:model='descripcion'
                 class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
                 rows="4"></textarea>
+            <x-jet-input-error for="descripcion" />
         </x-slot>
 
         <x-slot name='footer'>
@@ -67,7 +71,7 @@
 
     <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
-            Crear Reporte
+            Editar Reporte
         </x-slot>
 
         <x-slot name='content'>
@@ -75,6 +79,7 @@
             <textarea wire:model='descripcion'
                 class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
                 rows="4"></textarea>
+            <x-jet-input-error for="descripcion" />
         </x-slot>
 
         <x-slot name='footer'>

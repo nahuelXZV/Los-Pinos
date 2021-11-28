@@ -2,13 +2,12 @@
     <div class="flex items-center justify-between p-2">
         <!-- Navbar left -->
         <div class="flex items-center space-x-3">
-            <span class="p-2 text-xl font-semibold tracking-wider uppercase lg:hidden">Los Pinos</span>
+            <a href="{{ route('inicio') }}" class="p-2 text-xl font-semibold tracking-wider uppercase lg:hidden">Los
+                Pinos</a>
             <!-- Toggle sidebar button -->
             <button @click="toggleSidbarMenu()" class="p-2 rounded-md focus:outline-none focus:ring">
-                <svg class="w-4 h-4 text-gray-600"
-                    :class="{'transform transition-transform -rotate-180': isSidebarOpen}"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+                <svg class="w-4 h-4 text-gray-600" :class="{'transform transition-transform -rotate-180': isSidebarOpen}"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                 </svg>
@@ -34,11 +33,12 @@
         <!-- Navbar right -->
         <div class="relative flex items-center space-x-3">
             <!-- avatar button -->
-            <div class="relative"  x-data="{ isOpen: false }">
+            <div class="relative" x-data="{ isOpen: false }">
                 <a type='button' href="{{ route('profile.show') }}"
-                    class="p-1 focus:outline-none focus:ring">
-                    <span class="text-gray-800">{{auth()->user()->name}}</span>
-                 </a>
+                    class="p-1  flex text-center flex-col focus:outline-none focus:ring">
+                    <span class="text-gray-800">{{ auth()->user()->name }}</span>
+                    <span class="text-black text-sm font-bold">Administrador</span>
+                </a>
             </div>
         </div>
     </div>

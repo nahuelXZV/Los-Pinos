@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Seguridad\Motorizado;
 
 use App\Models\motorizado;
+use App\Models\residente;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\visitante;
@@ -20,18 +21,18 @@ class LwMotorizado extends Component
 
     public $placa;
     public $descripcion;
-    public $sexo;
-
+    public $idResidente;
+    public $idVisitante;
+    public $motorizado;
 
     protected $rules = [
-        'nombre' => 'required',
-        'numeroDeCarnet' => 'required',
-        'sexo' => 'required',
+        'placa' => 'required'
     ];
 
     public function mount()
     {
         $this->identify = rand();
+        $this->motorizado = new motorizado();
     }
 
     public function order($sort)
@@ -59,37 +60,46 @@ class LwMotorizado extends Component
         $this->render();
     }
 
-    public function datos($idPersona)
+    public function datos($idMotorizado)
     {
-        $this->persona = visitante::find($idPersona);
-        $this->nombre = $this->persona->nombre;
-        $this->numeroDeCarnet = $this->persona->nroCarnet;
-        $this->sexo = $this->persona->sexo;
+        $this->motorizado = motorizado::find($idMotorizado);
+        $this->placa = $this->motorizado->placa;
+        $this->descripcion = $this->motorizado->descripcion;
+        $this->sexo = $this->motorizado->sexo;
+        if ($this->motorizado->idVisitante) {
+            $this->idVisitante = $this->motorizado->idVisitante;
+        } else {
+            $this->idResidente = $this->motorizado->idResidente;
+        }
         $this->open = true;
     }
 
     public function update()
     {
         $this->validate();
-        $this->persona->nombre = $this->nombre;
-        $this->persona->nroCarnet = $this->numeroDeCarnet;
-        $this->persona->sexo = $this->sexo;
-        $this->persona->save();
-        $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo']);
+        $this->motorizado->placa = $this->placa;
+        $this->motorizado->descripcion = $this->descripcion;
+        $this->motorizado->idVisitante = $this->idVisitante;
+        $this->motorizado->idResidente = $this->idResidente;
+        $this->motorizado->save();
+        $this->reset(['open', 'descripcion', 'placa', 'idVisitante', 'idResidente']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
 
-    public function delete(motorizado $persona)
+    public function delete(motorizado $motorizado)
     {
-        $persona->delete();
+        $motorizado->delete();
+        $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()
     {
-        $motorizados = motorizado::where('nombre', 'like', '%' . $this->search . '%')
-            ->orWhere('nroCarnet', 'like', '%' . $this->search . '%')
+        $motorizados = motorizado::where('placa', 'like', '%' . $this->search . '%')
+            ->orWhere('descripcion', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);
-        return view('livewire.seguridad.motorizado.lw-motorizado', compact('motorizados'));
+        $residentes = residente::all();
+        $visitantes = visitante::all();
+        return view('livewire.seguridad.motorizado.lw-motorizado', compact('motorizados', 'residentes', 'visitantes'));
     }
 }

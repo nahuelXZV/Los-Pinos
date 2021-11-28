@@ -6,7 +6,7 @@
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name='title'>
-            Registrar Reserva
+            Nueva Reserva
         </x-slot>
 
         <x-slot name='content'>
@@ -44,12 +44,12 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de inicio' />
-                <x-jet-input wire:model='horaIni' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaIni' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaIni" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de final' />
-                <x-jet-input wire:model='horaFin' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaFin' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaFin" />
             </div>
             <div class="mb-4">
@@ -104,17 +104,17 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de inicio' />
-                <x-jet-input wire:model='horaIni' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaIni' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaIni" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de final' />
-                <x-jet-input wire:model='horaFin' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaFin' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaFin" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Cantidad de personas' />
-                <x-jet-input wire:model='cantsPers' type='text' class="w-full"
+                <x-jet-input wire:model='cantsPers' type='number' class="w-full"
                     placeholder='Cantidad de personas' />
                 <x-jet-input-error for="cantsPers" />
             </div>

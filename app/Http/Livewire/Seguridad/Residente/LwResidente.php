@@ -32,7 +32,10 @@ class LwResidente extends Component
         'telefono' => 'required',
         'tipoResidente' => 'required',
     ];
-
+    protected $messages = [
+        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
+        'tipoResidente.required' => 'El campo Tipo de residente es obligatorio.',
+    ];
     public function mount()
     {
         $this->identify = rand();
@@ -93,6 +96,7 @@ class LwResidente extends Component
     public function delete(residente $persona)
     {
         $persona->delete();
+        $this->emit('alert', 'Eliminado Correctamente!');
     }
 
     public function render()

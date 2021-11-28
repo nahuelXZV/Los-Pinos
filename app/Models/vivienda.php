@@ -25,6 +25,6 @@ class vivienda extends Model
 
     public function ingresoUrb()
     {
-        return $this->hasMany(ingresoUrb::class);
+        return $this->hasMany(ingresoUrb::class,'idVivienda');
     }
 }

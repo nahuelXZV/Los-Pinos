@@ -2,27 +2,27 @@
     <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
-                <span class="mr-2">Mostrar</span>
+                <span class="mr-2 font-bold ">Paginar</span>
                 <select wire:model='pagination'
-                    class="mr-2 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+                    class="mr-2 px-6 py-3 border-gray-300 rounded-full text-left text-sm  font-medium text-black-600 uppercase tracking-wider ">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span class="mr-2">Entradas</span>
+                <span class="mr-2 font-bold">Buscar</span>
             </div>
-            <x-jet-input type="text" class="flex-1 mr-2" placeholder="Escriba lo que esta buscando"
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
-                @livewire('seguridad.residente.lw-add-residente')
+            @livewire('seguridad.residente.lw-add-residente')
         </div>
 
         @if ($residentes->count())
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
                         <th scope="col"
-                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
                             Código
 
@@ -31,26 +31,26 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
 
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('nombre')">
                             Nombre
 
@@ -59,26 +59,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
-
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('nroCarnet')">
                             Número de Carnet
 
@@ -87,26 +86,26 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
 
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('sexo')">
                             Sexo
 
@@ -115,25 +114,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('telefono')">
                             Teléfono
 
@@ -142,25 +141,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('tipoResidente')">
                             Tipo de residente
 
@@ -169,25 +168,25 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('idVivienda')">
                             Código de casa
 
@@ -196,34 +195,35 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
                                     </svg>
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
                                     </svg>
                                 @endif
                             @else
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
                         </th>
-                        <th scope="col" class="w-20 px-6 py-4">
+                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                             Acciones
                         </th>
                     </tr>
                 </thead>
-                @foreach ($residentes as $persona)
 
-                    <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($residentes as $persona)
                         <tr>
                             <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
+                                <div
+                                    class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
                                     {{ $persona->id }}
                                 </div>
                             </td>
@@ -237,32 +237,54 @@
                                     {{ $persona->nroCarnet }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
-                                    {{ $persona->sexo }}
-                                </div>
+                            <td class="px-6 py-4 text-sm text-white font-bold ">
+                                @if ($persona->sexo == 'M')
+                                    <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-blue-500">
+                                        Hombre
+                                    </span>
+                                @else
+                                    <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-red-500 ">
+                                        Mujer
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
                                     {{ $persona->telefono }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
-                                    {{ $persona->tipoResidente }}
-                                </div>
+                            <td class="px-6 py-4 text-sm text-white font-bold">
+                                @if ($persona->tipoResidente == 'Propietario')
+                                    <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-green-500">
+                                        {{ $persona->tipoResidente }}
+                                    </span>
+                                @else
+                                    @if ($persona->tipoResidente == 'Inquilino')
+                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-blue-500 ">
+                                            {{ $persona->tipoResidente }}
+                                        </span>
+                                    @else
+                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-red-500 ">
+                                            {{ $persona->tipoResidente }}
+                                        </span>
+                                    @endif
+
+                                @endif
                             </td>
+
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
                                     @if ($persona->Vvivienda != null)
                                         {{ $persona->Vvivienda->nroCasa }}
                                     @else
-                                        Sin domicilio
+                                        <label class="text-sm text-black font-bold">
+                                            Sin domicilio</label>
+
                                     @endif
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
                                     wire:click="datos({{ $persona->id }})">
                                     <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -281,9 +303,10 @@
                                 </a>
                             </td>
                         </tr>
-                    </tbody>
+                    @endforeach
+                </tbody>
 
-                @endforeach
+
 
             </table>
 
@@ -327,7 +350,7 @@
             <div class="mb-4">
                 <x-jet-label value='Sexo' class="mb-2" />
                 <select wire:model='sexo'
-                    class="w-full mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
+                    class="w-full mr-2 px-6 py-3 border-gray-300 rounded-lg text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                 </select>
@@ -337,7 +360,7 @@
             <div class="mb-4">
                 <x-jet-label value='Tipo de residente' class="mb-2" />
                 <select wire:model='tipoResidente'
-                    class="w-full mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider"
+                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider"
                     defer='Propietario'>
                     <option value="Propietario">Propietario</option>
                     <option value="Empleado">Empleado</option>

@@ -8,11 +8,11 @@
      x-transition:leave-end="-translate-x-full opacity-0 ease-in"
      class="fixed inset-y-0 z-10 flex flex-col flex-shrink-0 w-64 max-h-screen overflow-hidden transition-all transform bg-gray-50 border-r shadow-lg lg:z-auto lg:static lg:shadow-none"
      :class="{'-translate-x-full lg:translate-x-0 lg:w-20': !isSidebarOpen}">
+
      <!-- sidebar header -->
      <div class="flex items-center justify-between flex-shrink-0 p-2" :class="{'lg:justify-center': !isSidebarOpen}">
-         <span class="p-2 text-xl font-semibold leading-8 tracking-wider uppercase whitespace-nowrap">
-             <span :class="{'lg:hidden': isSidebarOpen}" class="">P</span>
-             <span :class="{'lg:hidden': !isSidebarOpen}">Los Pinos</span>
+         <span class="p-2 text-lg font-semibold leading-8 tracking-wider uppercase whitespace-nowrap">
+             <a href="{{ Route('inicio') }}" :class="{'lg:hidden': !isSidebarOpen}">Menú</a>
          </span>
          <button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
              <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -26,7 +26,8 @@
      <nav class="flex-1 overflow-y-scroll hover:overflow-y-auto">
          <ul class="p-2">
              <li>
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                 <a href="{{ route('dashboard') }}"
+                     class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -37,6 +38,10 @@
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Inicio</span>
                  </a>
+
+                 <!-- MODULO PERSONAL... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
 
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
@@ -50,7 +55,15 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Usuarios</span>
                  </a>
 
+<<<<<<< HEAD
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+=======
+                 <!-- MODULO INVENTARIO... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">INVENTARIO</span></h1>
+
+                 <a href="{{ 'inventario' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+>>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -74,6 +87,7 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
                  </a>
 
+<<<<<<< HEAD
                  <!-- MODULO EQUIPOS... -->
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">EQUIPOS</span></h1>
@@ -127,6 +141,9 @@
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
                  <a href="{{ 'personal' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+=======
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+>>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"

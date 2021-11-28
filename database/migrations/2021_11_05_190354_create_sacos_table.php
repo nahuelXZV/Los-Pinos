@@ -14,6 +14,7 @@ class CreateSacosTable extends Migration
     public function up()
     {
         Schema::create('sacos', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('idSalidaEquipo');
             $table->unsignedBigInteger('codigoEquipo');
             $table->string('estadoSalida');

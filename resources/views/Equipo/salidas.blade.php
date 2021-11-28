@@ -1,14 +1,14 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Áreas Comunes
+    Salida de Equipos
 @endsection
 @section('action')
-    Áreas Comunes
+    Salida de Equipos
 @endsection
 
 @section('content')
 
-@livewire('area-comun.lw-area-comun')
+@livewire('equipo.show-salida-equipos')
 
 @endsection

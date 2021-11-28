@@ -9,4 +9,7 @@ class saco extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'idSalidaEquipo', 'codigoEquipo', 'estadoSalida'];
+    protected $primaryKey = 'id';
+
 }

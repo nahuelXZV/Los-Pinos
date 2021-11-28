@@ -13,13 +13,22 @@ class equipo extends Model
     protected $primaryKey = "codigo";
 
     // relacion de muchos a muchos 
-    public function salidaEquipo(){
-        return $this->belongsToMany(salidaEquipo::class);
+    public function saco(){
+        return $this->belongsToMany(salidaEquipo::class, 'sacos', 'codigoEquipo', 'idSalidaEquipo')
+                ->as('saco')
+                ->withPivot('id', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida');
+    }  
+
+     // relacion de muchos a muchos 
+     public function regreso(){
+        return $this->belongsToMany(regresoEquipo::class, 'regresos', 'codigoEquipo', 'idRegresoEquipo')
+                ->as('regreso')
+                ->withPivot('id', 'codigoEquipo', 'idRegresoEquipo', 'estadoDevolucion');
     }  
 
     // relacion de muchos a uno 
     public function almacen(){
-        return $this->belongsTo(almacen::class);
+        return $this->belongsTo(almacen::class, 'idAlmacen');
     }
 
 }

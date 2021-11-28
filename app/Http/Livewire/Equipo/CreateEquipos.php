@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Equipo;
 
 use App\Models\equipo;
 use Livewire\Component;
 
-class CreateEquipo extends Component
-{
+class CreateEquipos extends Component
+{ 
     public $open = false;
 
     public $multiplicity = "Unico";
@@ -44,13 +44,13 @@ class CreateEquipo extends Component
 
         $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'idAlmacen']);
 
-        $this->emitTo('show-inventarios', 'render');
+        $this->emitTo('equipo.show-equipos', 'render');
         $this->emit('alert', '¡El equipo se creó satisfactoriamente!');
     }
 
     public function render()
     {
-        return view('livewire.create-equipo');
+        return view('livewire.equipo.create-equipos');
     }
 
     public function check()

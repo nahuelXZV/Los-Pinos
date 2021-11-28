@@ -1,14 +1,14 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Áreas Comunes
+    Almacenes
 @endsection
 @section('action')
-    Áreas Comunes
+    Almacenes
 @endsection
 
 @section('content')
 
-@livewire('area-comun.lw-area-comun')
+@livewire('equipo.show-almacens')
 
 @endsection

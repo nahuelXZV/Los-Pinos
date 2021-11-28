@@ -11,16 +11,18 @@ class regresoEquipo extends Model
 
     // relacion de muchos a uno 
     public function personal(){
-        return $this->belongsTo(personal::class);
+        return $this->belongsTo(personal::class, 'codigoPersonal');
     } 
 
     // relacion de muchos a muchos 
-    public function equipo(){
-        return $this->belongsToMany(equipo::class);
-    } 
+    public function regreso(){
+        return $this->belongsToMany(equipo::class, 'regresos', 'idRegresoEquipo', 'codigoEquipo')
+                ->as('regreso')
+                ->withPivot('id', 'codigoEquipo', 'idRegresoEquipo', 'estadoDevolucion');
+        }  
 
      // relacion de muchos a uno 
-     public function regresoEquipo(){
-        return $this->belongsTo(regresoEquipo::class);
+     public function salidaEquipo(){
+        return $this->belongsTo(salidaEquipo::class, 'idSalidaEquipo');
     } 
 }

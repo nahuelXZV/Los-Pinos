@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Equipo;
 
 use App\Models\equipo;
 use Livewire\Component;
 
-class EditEquipo extends Component
+class EditEquipos extends Component
 {
     public $open = false;
     public $equipo;
@@ -37,7 +37,7 @@ class EditEquipo extends Component
 
     public function render()
     {
-        return view('livewire.edit-equipo');
+        return view('livewire.equipo.edit-equipos');
     }
 
     public function open()
@@ -73,7 +73,7 @@ class EditEquipo extends Component
 
         $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'stock', 'multiplicidad', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
         $this->identify = rand();
-        $this->emitTo('show-inventarios', 'render');
+        $this->emitTo('equipo.show-equipos', 'render');
         $this->emit('alert', '¡El equipo se actualizó satisfactoriamente!');
     }
 }

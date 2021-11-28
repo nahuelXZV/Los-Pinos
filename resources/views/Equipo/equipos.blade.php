@@ -4,11 +4,11 @@
     Inventario
 @endsection
 @section('action')
-
+    Inventario
 @endsection
 
 @section('content')
 
-@livewire('show-inventarios')
+@livewire('equipo.show-equipos')
 
 @endsection

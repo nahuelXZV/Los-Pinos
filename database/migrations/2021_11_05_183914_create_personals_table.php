@@ -15,17 +15,17 @@ class CreatePersonalsTable extends Migration
     {
         Schema::create('personals', function (Blueprint $table) {
             $table->id('codigo');
-            $table->string('nombre');
-            $table->string('carnet');
-            $table->string('telefono');
-            $table->string('direccion');
+            $table->string('nombre', 50);
+            $table->string('carnet', 10);
+            $table->string('telefono', 10)->nullable();
+            $table->string('direccion', 70)->nullable();
             $table->date('fechaNac');
-            $table->string('nacionalidad');
+            $table->string('nacionalidad', 20);
             $table->char('sexo', 1);
-            $table->string('estadoCivil');
-            $table->string('email')->unique();
-            $table->string('cargo');   
-            $table->string('estado');         
+            $table->string('estadoCivil', 15)->nullable();
+            $table->string('email', 50)->unique();
+            $table->string('cargo', 20);   
+            $table->string('estado', 20);         
             $table->timestamps();
         });
     }

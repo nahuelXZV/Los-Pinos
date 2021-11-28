@@ -1,14 +1,14 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Áreas Comunes
+    Personal
 @endsection
 @section('action')
-    Áreas Comunes
+    Personal
 @endsection
 
 @section('content')
 
-@livewire('area-comun.lw-area-comun')
+@livewire('personal.show-personal')
 
 @endsection

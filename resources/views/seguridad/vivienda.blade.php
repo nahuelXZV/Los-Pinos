@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
- 
+    @livewire('seguridad.vivienda.lw-vivienda')
 @endsection

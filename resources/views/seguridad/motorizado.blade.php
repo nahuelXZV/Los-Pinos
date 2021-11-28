@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-
+    @livewire('seguridad.motorizado.lw-motorizado')
 @endsection

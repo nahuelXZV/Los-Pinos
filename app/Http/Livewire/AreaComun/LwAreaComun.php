@@ -19,7 +19,7 @@ class LwAreaComun extends Component
     public $open = false;
     public $lastAC;
     public $identify;
-    
+
     public $codigo;
     public $nombre;
     public $calle;
@@ -32,6 +32,9 @@ class LwAreaComun extends Component
         'calle' => 'required',
         'manzano' => 'required',
         'estadoRes' => 'required',
+    ];
+    protected $messages = [
+        'estadoRes.required' => 'El campo estado de reserva es obligatorio.'
     ];
 
     public function mount()
@@ -111,5 +114,6 @@ class LwAreaComun extends Component
     public function delete(areaComun $area)
     {
         $area->delete();
+        $this->emit('alert', 'Eliminado Correctamente');
     }
 }

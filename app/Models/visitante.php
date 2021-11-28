@@ -10,23 +10,23 @@ class visitante extends Model
     use HasFactory;
     protected $fillable = ['id', 'nombre', 'nroCarnet', 'sexo'];
 
-    public function motorizado()
+    public function Vmotorizado()
     {
-        return $this->hasMany(motorizado::class);
+        return $this->hasMany(motorizado::class, 'idVisitante');
     }
 
     public function salidaV()
     {
         return $this->belongsToMany(salidaUrb::class, 'salida_v_s', 'idVisitante', 'idSalidaUrb')
             ->as('salidaV')
-            ->withPivot('idVisitante', 'idSalidaUrb');
+            ->withPivot('id', 'idVisitante', 'idSalidaUrb');
     }
 
     public function ingresoV()
     {
         return $this->belongsToMany(ingresoUrb::class, 'ingreso_v_s', 'idVisitante', 'idIngresoUrb')
             ->as('ingresoV')
-            ->withPivot('idVisitante', 'idIngresoUrb');
+            ->withPivot('id', 'idVisitante', 'idIngresoUrb');
     }
 
     public function invitado()

@@ -11,19 +11,19 @@ class motorizado extends Model
     protected $fillable = ['id', 'placa', 'descripcion', 'idResidente', 'idVisitante'];
 
 
-    public function residente()
+    public function Vresidente()
     {
-        return $this->belongsTo(residente::class);
+        return $this->belongsTo(residente::class, 'idResidente');
     }
 
-    public function visitante()
+    public function Vvisitante()
     {
-        return $this->belongsTo(visitante::class);
+        return $this->belongsTo(visitante::class, 'idVisitante');
     }
 
     public function ingresoUrb()
     {
-        return $this->hasMany(ingresoUrb::class);
+        return $this->hasMany(ingresoUrb::class,'idMotorizado');
     }
     public function salidaUrb()
     {

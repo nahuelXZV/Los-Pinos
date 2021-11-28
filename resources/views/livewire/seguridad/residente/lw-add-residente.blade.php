@@ -1,5 +1,5 @@
 <div>
-    <x-jet-danger-button class="mr-2" wire:click="$set('open',true)">
+    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open',true)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -35,7 +35,7 @@
             <div class="mb-4">
                 <x-jet-label value='Sexo' class="mb-2" />
                 <select wire:model='sexo'
-                    class="w-full mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
+                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                 </select>
@@ -45,7 +45,7 @@
             <div class="mb-4">
                 <x-jet-label value='Tipo de residente' class="mb-2" />
                 <select wire:model='tipoResidente'
-                    class="w-full mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider"
+                    class="w-full border-gray-300 rounded-lg  mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider"
                     defer='Propietario'>
                     <option value="Propietario">Propietario</option>
                     <option value="Empleado">Empleado</option>

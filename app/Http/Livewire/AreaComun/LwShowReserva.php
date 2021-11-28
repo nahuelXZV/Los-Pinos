@@ -7,6 +7,7 @@ use App\Models\reserva;
 use App\Models\visitante;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class LwShowReserva extends Component
 {
@@ -15,9 +16,10 @@ class LwShowReserva extends Component
     public $sort = 'id';
     public $direction = 'asc';
     public $pagination = 10;
-    protected $listeners = ['delete' => 'delete', 'mensajeEdit' => 'actualizarDatos'];
+    protected $listeners = ['delete' => 'delete', 'mensajeEdit' => 'actualizarDatos', 'NewInvitado' => 'NewInvitado'];
     public $open_editar = false;
     public $open_add = false;
+    public $open_new = false;
     public $lastAC;
     public $identify;
     public $reserva;
@@ -25,12 +27,16 @@ class LwShowReserva extends Component
     public $idVisitante = 1;
     public $nombre;
     public $nroCarnet;
+    public $sexo;
     public $horaIngreso;
     public $horaSalida;
     public $idInvitado;
 
     protected $rules = [
         'idVisitante' => 'required',
+    ];
+    protected $messages = [
+        'idVisitante.required' => 'El campo visitante es obligatorio.',
     ];
     public function mount($reserva)
     {
@@ -91,15 +97,23 @@ class LwShowReserva extends Component
     public function save()
     {
         $this->validate();
-        invitado::create([
-            'idVisitante' => $this->idVisitante,
-            'codigoRes' => $this->reserva->id,
-            'horaIngreso' => $this->horaIngreso,
-            'horaSalida' => $this->horaSalida,
-        ]);
-        $this->reset(['open_add', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
-        $this->identify = rand();
-        $this->emit('alert', 'Añadido Correctamente');
+        $contador = DB::table('invitados')->where('idVisitante', '=', $this->idVisitante)
+            ->where('codigoRes', '=', $this->reserva->id)->count();
+        if ($contador > 0) {
+            $this->reset(['open_add', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
+            $this->identify = rand();
+            $this->emit('alert', 'Ya se encuentra en la lista');
+        } else {
+            invitado::create([
+                'idVisitante' => $this->idVisitante,
+                'codigoRes' => $this->reserva->id,
+                'horaIngreso' => $this->horaIngreso,
+                'horaSalida' => $this->horaSalida,
+            ]);
+            $this->reset(['open_add', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
+            $this->identify = rand();
+            $this->emit('alert', 'Añadido Correctamente');
+        }
     }
 
     public function delete($invitadod)
@@ -112,5 +126,10 @@ class LwShowReserva extends Component
     {
         $this->reserva = reserva::find($idreserva);
         $this->emit('alert', 'Actualizado Correctamente');
+    }
+    public function NewInvitado()
+    {
+        $this->render();
+        $this->emit('alert', 'Añadido Correctamente');
     }
 }

@@ -1,7 +1,7 @@
 <div>
 
-    <x-jet-danger-button wire:click='openModal()' class="flex-none" wire:loading.attr='disabled'
-        class="disabled:opacity-15">
+    <x-jet-danger-button wire:click='openModal()' class="flex-none bg-green-600 hover:bg-green-500"
+        wire:loading.attr='disabled'>
         Editar reserva
     </x-jet-danger-button>
 
@@ -23,17 +23,17 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de inicio' />
-                <x-jet-input wire:model='horaIni' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaIni' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaIni" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de final' />
-                <x-jet-input wire:model='horaFin' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='horaFin' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="horaFin" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Cantidad de personas' />
-                <x-jet-input wire:model='cantsPers' type='text' class="w-full"
+                <x-jet-input wire:model='cantsPers' type='number' class="w-full"
                     placeholder='Cantidad de personas' />
                 <x-jet-input-error for="cantsPers" />
             </div>

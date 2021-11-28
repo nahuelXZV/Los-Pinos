@@ -423,7 +423,7 @@ class ModuloSeguridadSeeder extends Seeder
             'id' => 101,
             'fecha' => '2021/07/01',
             'hora' => '12:00',
-            'motivo' => 'Visitante',
+            'motivo' => 'Visita',
             'idVivienda' => 100,
             'idMotorizado' => 100
         ]);
@@ -447,7 +447,7 @@ class ModuloSeguridadSeeder extends Seeder
             'id' => 104,
             'fecha' => '2021/10/22',
             'hora' => '05:40',
-            'motivo' => 'Empleado',
+            'motivo' => 'Trabajo',
             'idVivienda' => 107,
             'idMotorizado' => null
         ]);
@@ -455,7 +455,7 @@ class ModuloSeguridadSeeder extends Seeder
             'id' => 105,
             'fecha' => '2021/05/12',
             'hora' => '10:00',
-            'motivo' => 'Visitante',
+            'motivo' => 'Visita',
             'idVivienda' => 107,
             'idMotorizado' => 104
         ]);
@@ -487,7 +487,7 @@ class ModuloSeguridadSeeder extends Seeder
             'id' => 109,
             'fecha' => '2021/10/01',
             'hora' => '11:00',
-            'motivo' => 'Empleado',
+            'motivo' => 'Trabajo',
             'idVivienda' => 100,
             'idMotorizado' => 100
         ]);
@@ -495,7 +495,7 @@ class ModuloSeguridadSeeder extends Seeder
             'id' => 110,
             'fecha' => '2021/06/02',
             'hora' => '09:30',
-            'motivo' => 'Residente',
+            'motivo' => 'Visita',
             'idVivienda' => 107,
             'idMotorizado' => null
         ]);

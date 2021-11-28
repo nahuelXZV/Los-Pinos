@@ -46,6 +46,13 @@ class LwReserva extends Component
         'start' => 'required',
         'end' => 'required',
     ];
+    protected $messages = [
+        'horaIni.required' => 'El campo hora de inicio es obligatorio.',
+        'horaFin.required' => 'El campo hora de final es obligatorio.',
+        'cantsPers.required' => 'El campo cantidad de personas es obligatorio.',
+        'idResidente.required' => 'El campo residente es obligatorio.',
+        'codigoAC.required' => 'El campo área común es obligatorio.',
+    ];
     public function mount($areas, $residentes)
     {
         $this->identify = rand();

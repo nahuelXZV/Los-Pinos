@@ -22,9 +22,9 @@ class CreateIngresoUrbsTable extends Migration
             $table->unsignedBigInteger('idMotorizado')->nullable();
 
             $table->foreign('idVivienda')->references('id')->on('viviendas')->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->foreign('idMotorizado')->references('id')->on('motorizados')->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->timestamps();
         });
     }

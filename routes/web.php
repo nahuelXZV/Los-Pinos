@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\inicioController;
 use App\Http\Controllers\ReservaController;
-use App\Http\Livewire\AreaComun\LwAreaComun;
-use App\Http\Livewire\AreaComun\LwListAC;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\seguridadController;
 
@@ -17,38 +16,31 @@ use App\Http\Controllers\seguridadController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [inicioController::class, 'dashboard'])->name('inicio')->middleware('auth');
+
 Route::get('/reporte', function () {
     return view('diseño-reporte');
 });
 
-Route::get('/calendar', function () {
-    return view('layouts.plantilla');
-});
-Route::get('/icono', function () {
-    return view('components.iconos');
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
     return view('Inventario/show-inventario');
-})->name('show-inventario');
+})->name('show-inventario')->middleware('auth');
 
 /*MODULO AREAS COMUNES */
-Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva');
-Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all');
-Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list');
-Route::get('/reserva/show/{id}', [ReservaController::class, 'show'])->name('reserva.show');
-Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun');
+Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
+Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
+Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
+Route::get('/reserva/show/{id}', [ReservaController::class, 'show'])->name('reserva.show')->middleware('auth');
+Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
 
 /*MODULO DE SEGURIDAD */
-Route::get('/residentes', [seguridadController::class, 'residentes'])->name('residentes');
-Route::get('/visitantes', [seguridadController::class, 'visitantes'])->name('visitantes');
-Route::get('/motorizados', [seguridadController::class, 'motorizados'])->name('motorizados');
-Route::get('/viviendas', [seguridadController::class, 'viviendas'])->name('viviendas');
-Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos');
-Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas');
+Route::get('/residentes', [seguridadController::class, 'residentes'])->name('residentes')->middleware('auth');
+Route::get('/visitantes', [seguridadController::class, 'visitantes'])->name('visitantes')->middleware('auth');
+Route::get('/motorizados', [seguridadController::class, 'motorizados'])->name('motorizados')->middleware('auth');
+Route::get('/viviendas', [seguridadController::class, 'viviendas'])->name('viviendas')->middleware('auth');
+Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos')->middleware('auth');
+Route::get('/ingreso/show/{id}', [seguridadController::class, 'showIngreso'])->name('ingresos.show')->middleware('auth');
+Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas')->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

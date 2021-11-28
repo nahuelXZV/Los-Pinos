@@ -9,4 +9,5 @@ class ingresoR extends Model
 {
     use HasFactory;
     protected $fillable = ['idResidente', 'idIngresoUrb'];
+    protected $primaryKey = 'id';
 }

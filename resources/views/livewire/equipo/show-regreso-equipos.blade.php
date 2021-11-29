@@ -17,8 +17,8 @@
                     <span class="mr-2 font-bold">Paginar</span>
                 </div>
 
-                <x-jet-input type="text" placeholder="Introduzca el ID de la Salida del Equipo"
-                    wire:model="search" class=" mx-4 mr-4 flex-1 rounded-full w-full">
+                <x-jet-input type="text" placeholder="Introduzca el ID del Regereso del Equipo" wire:model="search"
+                    class=" mx-4 mr-4 flex-1 rounded-full w-full">
                 </x-jet-input>
 
                 <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open', true)">
@@ -122,7 +122,6 @@
                                 @endif
                             </th>
 
-                            </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                                 wire:click="order('hora')">
@@ -154,10 +153,10 @@
 
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('idSalidaEquipo')">
-                                ID de la Salida
+                                wire:click="order('stockRequerido')">
+                                Stock Regresado
 
-                                @if ($sort == 'idSalidaEquipo')
+                                @if ($sort == 'stockRequerido')
                                     @if ($direction == 'asc')
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
@@ -180,8 +179,36 @@
                                 @endif
                             </th>
 
-                            <th scope="col" class="relative px-6 py-3">
-                                <span class="sr-only">Edit</span>
+                            <th scope="col"
+                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                                wire:click="order('stockRequerido')">
+                                ID de Salida de Equipo
+
+                                @if ($sort == 'stockRequerido')
+                                    @if ($direction == 'asc')
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                        </svg>
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                        </svg>
+                                    @endif
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                    </svg>
+                                @endif
+                            </th>
+
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
                             </th>
                         </tr>
                     </thead>
@@ -197,8 +224,9 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{$regreso->personal->codigo}}-{{ $regreso->personal->nombre }}
+                                    {{ $regreso->personal->codigo }}-{{ $regreso->personal->nombre }}
                                 </td>
+
 
                                 <td class="px-6 py-4 text-sm text-gray-500">
                                     {{ $regreso->fecha }}
@@ -209,21 +237,25 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-sm text-gray-500">
+                                    {{ $regreso->stockRegresado }}
+                                </td>
+
+                                <td class="px-6 py-4 text-sm text-gray-500">
                                     {{ $regreso->idSalidaEquipo }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap flex">
-                                        <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                        wire:click='open()'>
-                                            
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
+                                    <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                        href=" {{ route('regresos.show', $regreso->id) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                    </a>
+
                                     <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteRegreso', {{ $regreso->id }})">
+                                        wire:click="$emit('deleteRegreso', {{ $regreso->id }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -256,7 +288,7 @@
         </x-slot>
 
         <x-slot name='content'>
-       
+
             <div class="mb-4">
                 <x-jet-label value="Encargado del Equipo" />
                 <select
@@ -270,25 +302,59 @@
             </div>
 
             <div class="mb-4">
+                <x-jet-label value='Nombre y Stock Faltante del Equipo' />
+                <label class="text-gray-500 text-xs">*Si el equipo no tiene Stock, es de multiplicidad Unico</label>
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='codigoEquipo'>
+                    @foreach ($equipos as $equipo)
+                        <option value="{{ $equipo->codigo }}">{{ $equipo->nombre }} -
+                            {{ $equipo->stockFaltante }} </option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="codigoEquipo" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Estado de Devolución del Equipo' />
+                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de multiplicidad Unico</label>
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='estadoDevolucion'>
+                    <option value="Buen Estado">Buen Estado</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Dañado">Dañado</option>
+                </select>
+                <x-jet-input-error for="estadoDevolucion" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Stock Regresado' />
+                <label class="text-gray-500 text-xs">*El stock regresado se aumentará al stock actual y reducirá el stock faltante.</label>
+                    <x-jet-input wire:model='stockRegresado' type='number' min="0" class="w-full" />
+                    <x-jet-input-error for="stockRegresado" />
+            </div>
+
+            <div class="mb-4">
                 <x-jet-label value='Fecha' />
                 <x-jet-input wire:model='fecha' type='date' class="w-full" />
                 <x-jet-input-error for="fecha" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora' />
-                <x-jet-input wire:model='hora' type='text' class="w-full" placeholder='hh:mm' />
+                <x-jet-input wire:model='hora' type='time' class="w-full" placeholder='hh:mm' />
                 <x-jet-input-error for="hora" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='ID de Salida del Equipo' />
-                    <select
-                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                        wire:model='idSalidaEquipo'>
-                        @foreach ($salidas as $salida)
-                            <option value="{{ $salida->id }}">{{ $salida->id }}</option>
-                        @endforeach
-                    </select>
-                    <x-jet-input-error for="codigoPersonal" />
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='idSalidaEquipo'>
+                    @foreach ($salidas as $salida)
+                        <option value="{{ $salida->id }}">{{ $salida->id }}</option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="idSalidaEquipo" />
             </div>
         </x-slot>
 
@@ -309,13 +375,13 @@
             Livewire.on('deleteRegreso',
                 regresoID => {
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
+                        title: '¿Estás seguro?',
+                        text: "Los datos se borrarán permanentemente",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: '¡Sí, eliminar!'
                     }).then((result) => {
                         if (result.isConfirmed) {
 

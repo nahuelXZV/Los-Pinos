@@ -9,6 +9,9 @@ class regresoEquipo extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'fecha', 'hora', 'stockRegresado', 'codigoPersonal', 'idSalidaEquipo'];
+    protected $primaryKey = 'id';
+
     // relacion de muchos a uno 
     public function personal(){
         return $this->belongsTo(personal::class, 'codigoPersonal');

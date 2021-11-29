@@ -17,11 +17,12 @@ class CreateRegresoEquiposTable extends Migration
             $table->id();
             $table->date('fecha');
             $table->time('hora');
+            $table->unsignedSmallInteger('stockRegresado')->nullable();
             $table->unsignedBigInteger('codigoPersonal');
             $table->unsignedBigInteger('idSalidaEquipo');
 
-            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onDelete('cascade');
-            $table->foreign('idSalidaEquipo')->references('id')->on('salida_equipos')->onDelete('cascade');
+            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('idSalidaEquipo')->references('id')->on('salida_equipos')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

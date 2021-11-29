@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Equipo;
 
 use App\Models\equipo;
 use App\Models\personal;
+use App\Models\regreso;
 use App\Models\regresoEquipo;
+use App\Models\saco;
 use App\Models\salidaEquipo;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,17 +26,19 @@ class ShowRegresoEquipos extends Component
     public $readyToLoad = false;
     public $identify;
 
-    public $fecha, $hora, $motivo, $idSalidaEquipo, $personalN, $estadoSalida, $idS, $lastSE;
+    public $hora, $fecha, $idRegresoEquipo, $idSalidaEquipo,
+    $lastR, $idR, $estadoDevolucion, $stockTotal, $stockRegresado;
     public $codigoPersonal = '100';
-    public $nombre;
+    public $codigoEquipo = '1000';
 
     protected $listeners = ['render', 'delete'];
 
     protected $rules = [
         'codigoPersonal' => 'required',
+        'codigoEquipo' => 'required',
+        'stockRequerido' => 'max:10',
         'fecha' => 'required',
         'hora' => 'required',
-        'motivo' => 'required',
         'idSalidaEquipo' => 'required'
     ];
 
@@ -54,14 +58,18 @@ class ShowRegresoEquipos extends Component
                         ->orderBy($this->sort, $this->direction)
                         ->paginate($this->cant);
             $salidas = salidaEquipo::all();
+            $equipos = equipo::all();
             $personals = personal::all();
        }else{
            $personals = [];
+           $salidas = [];
            $regresos = [];
-           $salidas= [];
+           $equipos= [];
        }
-        return view('livewire.equipo.show-regreso-equipos', compact('regresos', 'salidas', 'personals'));
+
+        return view('livewire.equipo.show-regreso-equipos', compact('regresos', 'salidas', 'equipos', 'personals'));
     }
+
     public function loadRegresos()
     {
         $this->readyToLoad = true;
@@ -83,8 +91,9 @@ class ShowRegresoEquipos extends Component
 
     public function openModal()
     {
-        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal', 'idSalidaEquipo', 'open']);
-        
+        $this->lastR = regresoEquipo::find('id')->last();
+        $this->idR = $this->lastR->id + 1;
+        $this->reset(['fecha', 'hora', 'codigoPersonal', 'codigoEquipo', 'estadoDevolucion', 'stockRegresado', 'open']);
         $this->open = true;
     }
 
@@ -95,18 +104,48 @@ class ShowRegresoEquipos extends Component
 
     public function save()
     {
-        $this->validate();
-     
-        regresoEquipo::create([
-            'fecha' => $this->fecha,
-            'hora' => $this->hora,
-            'motivo' => $this->motivo,
-            'idSalidaEquipo' => $this->idSalidaEquipo,
-            'codigoPersonal' => $this->codigoPersonal
-        ]);
-        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal', 'idSalidaEquipo', 'open']);
+        
+        $this->lastR = regresoEquipo::latest('id')->first();
+        $this->idRegresoEquipo = $this->lastR->id + 1;
+        $equipo = equipo::find($this->codigoEquipo);
+        if($equipo->multiplicidad == 'Unico')
+        {
+            $equipo->stock = null;
+            $equipo->stockFaltante = null;
+            $equipo->estadoFuncionamiento = $this->estadoDevolucion;
+            $this->stockRegresado = null;
+        }
+        else{
+
+            $equipo->stock = $equipo->stock + $this->stockRegresado;
+            if($equipo->stockFaltante - $this->stockRegresado <= 0){
+                $equipo->stockFaltante = 0;
+            
+            }else{
+                $equipo->stockFaltante = $equipo->stockFaltante - $this->stockRegresado; 
+            }
+                $this->estadoDevolucion = 'Buen Estado';
+        }
+            regresoEquipo::create([
+                'fecha' => $this->fecha,
+                'hora' => $this->hora,
+                'stockRegresado' => $this->stockRegresado,
+                'idSalidaEquipo' => $this->idSalidaEquipo,
+                'codigoPersonal' => $this->codigoPersonal
+            ]);
+            regreso::create([
+                'idRegresoEquipo' => $this->idRegresoEquipo,
+                'codigoEquipo' => $this->codigoEquipo,
+                'estadoDevolucion' => $this->estadoDevolucion
+            ]);
+            $equipo->save();
+            $this->emit('alert', 'Añadido Correctamente');
+        $this->reset(['fecha', 'hora', 'codigoPersonal', 'codigoEquipo', 'stockRegresado', 'estadoDevolucion', 'open']);
         $this->identify = rand();
-        $this->emit('alert', 'Añadido Correctamente');
     }
+    
+
+    
+    
     
 }

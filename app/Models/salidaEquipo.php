@@ -9,7 +9,7 @@ class salidaEquipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'fecha', 'hora', 'motivo', 'codigoPersonal'];
+    protected $fillable = ['id', 'fecha', 'hora', 'motivo', 'stockRequerido', 'codigoPersonal'];
     protected $primaryKey = 'id';
 
        // relacion de muchos a uno 

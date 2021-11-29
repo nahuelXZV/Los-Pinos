@@ -55,15 +55,9 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Usuarios</span>
                  </a>
 
-<<<<<<< HEAD
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
-=======
                  <!-- MODULO INVENTARIO... -->
-                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
-                         :class="{ 'lg:hidden': !isSidebarOpen }">INVENTARIO</span></h1>
 
                  <a href="{{ 'inventario' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
->>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -87,7 +81,6 @@
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
                  </a>
 
-<<<<<<< HEAD
                  <!-- MODULO EQUIPOS... -->
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">EQUIPOS</span></h1>
@@ -141,9 +134,6 @@
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
                  <a href="{{ 'personal' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
-=======
-                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
->>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"

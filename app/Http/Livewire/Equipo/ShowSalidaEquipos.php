@@ -24,16 +24,24 @@ class ShowSalidaEquipos extends Component
     public $readyToLoad = false;
     public $identify;
 
-    public $fecha, $hora, $motivo, $personalN, $estadoSalida, $idS, $lastSE;
+    public $fecha, $hora, $motivo, $personalN, $estadoSalida, $stockTotal, $validatedData,
+    $stockRequerido, $stockFaltante, $idSalidaEquipo, $lastS, $multiplicidad;
     public $codigoPersonal = '100';
+    public $codigoEquipo = '1000';
 
     protected $listeners = ['render', 'delete'];
 
     protected $rules = [
         'codigoPersonal' => 'required',
+        'codigoEquipo' => 'required',
+        'stockRequerido' => 'max:10',
         'fecha' => 'required',
         'hora' => 'required',
         'motivo' => 'required'
+    ];
+
+    protected $messages = [
+        'stockRequerido.max' => 'El stock requerido no puede ser mayor al stock actual.',
     ];
 
     public function mount()
@@ -84,8 +92,9 @@ class ShowSalidaEquipos extends Component
 
     public function openModal()
     {
-        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal','open']);
-        
+        $equipo = equipo::find($this->codigoEquipo);
+        $this->stockTotal = $equipo->stock;
+        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal', 'codigoEquipo', 'stockRequerido', 'open']);
         $this->open = true;
     }
 
@@ -96,16 +105,44 @@ class ShowSalidaEquipos extends Component
 
     public function save()
     {
-        //$this->start = $this->fecha;
-        //$this->end = $this->fecha;
-        $this->validate();
+        
+        $this->lastS = salidaEquipo::latest('id')->first();
+        $this->idSalidaEquipo = $this->lastS->id + 1;
+        $equipo = equipo::find($this->codigoEquipo);
+        if($equipo->multiplicidad == 'Unico')
+        {
+            $equipo->stock = null;
+            $equipo->stockFaltante = null;
+            $this->stockRequerido = null;
+            $this->estadoSalida = $equipo->estadoFuncionamiento;
+        }
+        else{
+
+            if($this->stockRequerido > $equipo->stock)
+            {
+               $this->stockRequerido = $equipo->stock;
+               $equipo->stock = 0;
+            }else{
+                $equipo->stock = $equipo->stock - $this->stockRequerido;
+                
+            }
+            $equipo->stockFaltante = $equipo->stockFaltante + $this->stockRequerido;
+            $this->estadoSalida = 'Buen Estado';
+        }
         salidaEquipo::create([
             'fecha' => $this->fecha,
             'hora' => $this->hora,
             'motivo' => $this->motivo,
+            'stockRequerido' => $this->stockRequerido,
             'codigoPersonal' => $this->codigoPersonal
         ]);
-        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal', 'open']);
+        saco::create([
+            'idSalidaEquipo' => $this->idSalidaEquipo,
+            'codigoEquipo' => $this->codigoEquipo,
+            'estadoSalida' => $this->estadoSalida
+        ]);
+        $equipo->save();
+        $this->reset(['fecha', 'hora', 'motivo', 'codigoPersonal', 'codigoEquipo', 'stockRequerido', 'open']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');
     }

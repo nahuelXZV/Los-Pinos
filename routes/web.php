@@ -1,11 +1,8 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\PersonalController;
-=======
 use App\Http\Controllers\inicioController;
->>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
 use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\seguridadController;
@@ -27,7 +24,6 @@ Route::get('/reporte', function () {
     return view('diseño-reporte');
 });
 
-<<<<<<< HEAD
 Route::get('/calendar', function () {
     return view('layouts.plantilla');
 });
@@ -40,12 +36,12 @@ Route::get('/icono', function () {
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/equipos', function () {
     return view('equipo.equipos');
 })->name('equipos');*/
-Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos');
-Route::get('/almacenes', [EquipoController::class, 'almacens'])->name('almacenes');
-Route::get('/salida-equipos', [EquipoController::class, 'salidas'])->name('salidas');
-Route::get('/salida-equipos/show/{id}', [EquipoController::class, 'salidas'])->name('salidas.show');
-Route::get('/regreso-equipos', [EquipoController::class, 'regresos'])->name('regresos');
-Route::get('/regreso-equipos/show{id}', [EquipoController::class, 'regresos'])->name('regresos.show');
+Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos')->middleware('auth');;
+Route::get('/almacenes', [EquipoController::class, 'almacens'])->name('almacenes')->middleware('auth');;
+Route::get('/salida-equipos', [EquipoController::class, 'salidas'])->name('salidas')->middleware('auth');;
+Route::get('/salida-equipos/show/{id}', [EquipoController::class, 'show_salidas'])->name('salidas.show')->middleware('auth');;
+Route::get('/regreso-equipos', [EquipoController::class, 'regresos'])->name('regresos')->middleware('auth');;
+Route::get('/regreso-equipos/show/{id}', [EquipoController::class, 'show_regresos'])->name('regresos.show')->middleware('auth');;
 
 
 /* MODULO PERSONAL */
@@ -63,11 +59,6 @@ Route::get('/privilegios', [PersonalController::class, 'privilegio'])->name('per
 
 
 
-=======
-Route::middleware(['auth:sanctum', 'verified'])->get('/inventario', function () {
-    return view('Inventario/show-inventario');
-})->name('show-inventario')->middleware('auth');
->>>>>>> ca0320f4b7881b2b8f4f47e1b572c22b040e1bc1
 
 /*MODULO AREAS COMUNES */
 Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');

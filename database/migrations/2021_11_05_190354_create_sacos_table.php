@@ -19,8 +19,8 @@ class CreateSacosTable extends Migration
             $table->unsignedBigInteger('codigoEquipo');
             $table->string('estadoSalida');
 
-            $table->foreign('idSalidaEquipo')->references('id')->on('salida_equipos')->onDelete('cascade');
-            $table->foreign('codigoEquipo')->references('codigo')->on('equipos')->onDelete('cascade');
+            $table->foreign('idSalidaEquipo')->references('id')->on('salida_equipos')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('codigoEquipo')->references('codigo')->on('equipos')->onUpdate('cascade')->onDelete('cascade');
            
             $table->timestamps();
         });

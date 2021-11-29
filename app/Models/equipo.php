@@ -9,7 +9,7 @@ class equipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['codigo', 'nombre', 'modelo', 'marca', 'descripcion', 'multiplicidad', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']; 
+    protected $fillable = ['codigo', 'nombre', 'modelo', 'marca', 'descripcion', 'multiplicidad', 'stock', 'stockFaltante', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']; 
     protected $primaryKey = "codigo";
 
     // relacion de muchos a muchos 

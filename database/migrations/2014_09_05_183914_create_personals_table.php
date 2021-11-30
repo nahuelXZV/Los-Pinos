@@ -17,12 +17,12 @@ class CreatePersonalsTable extends Migration
             $table->id('codigo');
             $table->string('nombre');
             $table->string('carnet');
-            $table->string('telefono');
-            $table->string('direccion');
+            $table->string('telefono')->nullable();
+            $table->string('direccion')->nullable();
             $table->date('fechaNac');
             $table->string('nacionalidad');
-            $table->char('sexo', 1);
-            $table->string('estadoCivil');
+            $table->char('sexo');
+            $table->string('estadoCivil')->nullable();
             $table->string('email')->unique();
             $table->string('cargo');   
             $table->string('estado');         

@@ -42,6 +42,23 @@
                  <!-- MODULO SISTEMA... -->
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-800"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">SISTEMA</span></h1>
+                 <!-- MODULO PERSONAL... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
+
+                 <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Usuarios</span>
+                 </a>
+
+                 <!-- MODULO INVENTARIO... -->
 
                  <a href="{{ route('usuarios') }}"
                      class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-800"
@@ -50,10 +67,11 @@
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor">
                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
                          </svg>
                      </span>
                      <span :class="{ 'lg:hidden': !isSidebarOpen }">Usuarios</span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Ingreso</span>
                  </a>
 
                  <a href="{{ route('roles') }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-800"
@@ -71,6 +89,75 @@
                  <!-- MODULO PERSONAL... -->
                  <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-800"> <span
                          :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
+                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
+                 </a>
+
+                 <!-- MODULO EQUIPOS... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">EQUIPOS</span></h1>
+                 <a href="{{ 'equipos' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Equipos</span>
+                 </a>
+
+                 <a href="{{ 'almacenes' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Almacenes</span>
+                 </a>
+
+                 <a href="{{ 'salida-equipos' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                         </svg>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida de Equipos</span>
+                 </a>
+
+                 <a href="{{ 'regreso-equipos' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                         </svg>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Regreso de Equipos</span>
+                 </a>
+
+                 <!-- MODULO PERSONAL... -->
+                 <h1 class="items-center p-2 space-x-2 rounded-md hover:bg-gray-100"> <span
+                         :class="{ 'lg:hidden': !isSidebarOpen }">PERSONAL</span></h1>
+                 <a href="{{ 'personal' }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                     :class="{'justify-center': !isSidebarOpen}">
+                     <span>
+                         <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                         </svg>
+                     </span>
+                     <span :class="{ 'lg:hidden': !isSidebarOpen }">Personal</span>
+                 </a>
 
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-800"
                      :class="{'justify-center': !isSidebarOpen}">
@@ -113,6 +200,8 @@
                  </a>
 
                  <a href="#" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-800"
+                 <a href="{{ route('salidas') }}"
+                     class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"

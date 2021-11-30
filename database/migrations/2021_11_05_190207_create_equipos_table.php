@@ -19,13 +19,14 @@ class CreateEquiposTable extends Migration
             $table->string('modelo')->nullable();
             $table->string('marca')->nullable();
             $table->unsignedSmallInteger('stock')->nullable();
+            $table->unsignedSmallInteger('stockFaltante')->nullable();
             $table->string('multiplicidad');
             $table->string('descripcion')->nullable();
             $table->string('estadoServicio');
             $table->string('estadoFuncionamiento');
             $table->unsignedBigInteger('idAlmacen');
 
-            $table->foreign('idAlmacen')->references('id')->on('almacens')->onDelete('cascade');
+            $table->foreign('idAlmacen')->references('id')->on('almacens')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

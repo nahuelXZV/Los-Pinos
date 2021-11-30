@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Equipo;
 
-use App\Models\equipo;
+use App\Models\almacen;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ShowInventarios extends Component
+class ShowAlmacens extends Component
 {
-
     use WithPagination;
 
     public $search = "";
-    public $sort = 'codigo';
+    public $sort = 'id';
     public $direction = 'desc';
     public $cant = 10;
     
@@ -33,23 +32,23 @@ class ShowInventarios extends Component
     {
         $this->resetPage();
     }
-
     public function render()
     {
 
         if($this->readyToLoad){
-             $equipos = equipo::where('nombre', 'like', '%' . $this->search . '%')
-                            ->orWhere('descripcion', 'like', '%' . $this->search . '%')
-                            ->orderBy($this->sort, $this->direction)
-                            ->paginate($this->cant);
-        }else{
-            $equipos = [];
-        }
+            $almacens = almacen::where('id', 'like', '%' . $this->search . '%')
+                           ->orWhere('nombre', 'like', '%' . $this->search . '%')
+                           ->orWhere('manzano', 'like', '%' . $this->search . '%')
+                           ->orderBy($this->sort, $this->direction)
+                           ->paginate($this->cant);
+       }else{
+           $almacens = [];
+       }
 
-        return view('livewire.show-inventarios', compact('equipos'));
+        return view('livewire.equipo.show-almacens', compact('almacens'));
     }
 
-    public function loadEquipos()
+    public function loadAlmacens()
     {
         $this->readyToLoad = true;
     }
@@ -68,8 +67,9 @@ class ShowInventarios extends Component
         }
     }
 
-    public function delete(equipo $equipo)
+    public function delete(almacen $almacen)
     {
-        $equipo->delete();
+        $almacen->delete();
     }
+    
 }

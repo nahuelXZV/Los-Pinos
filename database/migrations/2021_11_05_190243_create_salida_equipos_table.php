@@ -18,9 +18,10 @@ class CreateSalidaEquiposTable extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->string('motivo');
+            $table->unsignedSmallInteger('stockRequerido')->nullable();
             $table->unsignedBigInteger('codigoPersonal');
 
-            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onDelete('cascade');
+            $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

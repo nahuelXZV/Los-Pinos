@@ -1,12 +1,12 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Reserva
+    Regreso de Equipos
 @endsection
 @section('action')
-    Informacion de Equipos Regresados
+    Información del Regreso
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-show-reserva',['reserva' => $reserva])
+    @livewire('equipo.show-regreso',['regreso' => $regreso])
 @endsection

@@ -1,12 +1,14 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Reserva
+    Personal
 @endsection
 @section('action')
-    Informacion de Equipos Regresados
+    Personal
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-show-reserva',['reserva' => $reserva])
+
+@livewire('personal.show-personal')
+
 @endsection

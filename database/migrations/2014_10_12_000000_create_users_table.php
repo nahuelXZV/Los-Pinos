@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-
+ 
             $table->unsignedBigInteger('codigoPersonal')->nullable();
             $table->foreign('codigoPersonal')->references('codigo')->on('personals')->onUpdate('cascade')
             ->onDelete('set null');

@@ -4,6 +4,7 @@ use App\Http\Controllers\inicioController;
 use App\Http\Controllers\ReservaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\seguridadController;
+use App\Http\Controllers\sistemaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,11 @@ Route::get('/viviendas', [seguridadController::class, 'viviendas'])->name('vivie
 Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos')->middleware('auth');
 Route::get('/ingreso/show/{id}', [seguridadController::class, 'showIngreso'])->name('ingresos.show')->middleware('auth');
 Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas')->middleware('auth');
+Route::get('/salida/show/{id}', [seguridadController::class, 'showSalidas'])->name('salidas.show')->middleware('auth');
+
+/*MODULO SISTEMA */
+Route::get('/usuarios', [sistemaController::class, 'usuarios'])->name('usuarios')->middleware('auth');
+Route::get('/roles', [sistemaController::class, 'roles'])->name('roles')->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

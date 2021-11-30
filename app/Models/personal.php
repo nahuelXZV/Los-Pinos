@@ -8,29 +8,39 @@ use Illuminate\Database\Eloquent\Model;
 class personal extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'codigo';
     // relacion de uno a muchos
-    public function reporteT(){
+    public function reporteT()
+    {
         return $this->hasMany(reporteT::class);
     }
 
-     // relacion de uno a muchos
-    public function reporteA(){
+    // relacion de uno a muchos
+    public function reporteA()
+    {
         return $this->hasMany(reporteA::class);
     }
 
     // relacion de muchos a muchos
-    public function horario(){
+    public function horario()
+    {
         return $this->belongsToMany(horario::class);
     }
 
     // relacion de uno a muchos
-    public function salidaEquipo(){
+    public function salidaEquipo()
+    {
         return $this->hasMany(salidaEquipo::class);
     }
 
-      // relacion de uno a muchos
-    public function ingresoEquipo(){
+    // relacion de uno a muchos
+    public function ingresoEquipo()
+    {
         return $this->hasMany(regresoEquipo::class);
+    }
+
+    public function Vpersonal()
+    {
+        return $this->hasMany(personal::class, 'codigoPersonal');
     }
 }

@@ -9,6 +9,15 @@ use App\Models\residente;
 class ReservaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:reserva')->only('index');
+        $this->middleware('can:reserva.all')->only('reservas');
+        $this->middleware('can:reserva.list')->only('list');
+        $this->middleware('can:reserva.show')->only('show');
+        $this->middleware('can:areacomun')->only('areas');
+    }
+
     public function index()
     {
         $areas = areaComun::where('estadoRes', 'Reservacion')->get();

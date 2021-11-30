@@ -27,7 +27,7 @@
 
 <body>
 
-    <div class="flex h-screen overflow-y-hidden bg-gray-100" x-data="setup()"
+    <div class="flex h-screen overflow-y-hidden bg-gray-200" x-data="setup()"
         x-init="$refs.loading.classList.add('hidden')">
 
         <!-- Loading screen -->

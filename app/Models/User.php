@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'codigoPersonal'
     ];
 
     /**
@@ -60,14 +61,14 @@ class User extends Authenticatable
     ];
 
     // relacion de uno a uno
-    public function personal()
+    public function Vpersonal()
     {
-        return $this->hasOne(personal::class);
+        return $this->belongsTo(personal::class, 'codigoPersonal');
     }
 
     // relacion de uno a muchos
     public function bitacora()
     {
-        return $this->hasMany(bitacora::class);
+        return $this->hasMany(bitacora::class, 'idUsuario');
     }
 }

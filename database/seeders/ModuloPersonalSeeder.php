@@ -211,39 +211,7 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
 
-        //---------- TABLA USER ----------//
-        User::create([
-            'name' => "Sonia Añez Copi",
-            'email' => "soniaanez@gmail.com",
-            'password' => bcrypt('aagdfhadfh68a64854a'),
-            'codigoPersonal' => 104,
-        ]);
-        User::create([
-            'name' => "Sergio Andres Copi Añez",
-            'email' => "sergiocopi@gmail.com",
-            'password' => bcrypt('a6fdg464gs6g54dv8a98'),
-            'codigoPersonal' => 101,
-        ]);
-        User::create([
-            'name' => "Hugo Cruz Rojas",
-            'email' => "hugocruz@gmail.com",
-            'password' => bcrypt('s65shn65f4h65nmd56as'),
-            'codigoPersonal' => 105,
-        ]);
-        User::create([
-            'name' => "Fernando Suarez Suarez",
-            'email' => "fersuarez@gmail.com",
-            'password' => bcrypt('s56d4fb687a897d89jj'),
-            'codigoPersonal' => 106,
-        ]);
-        User::create([
-            'name' => "Elena Garcia Taborga",
-            'email' => "elenagarcia@gmail.com",
-            'password' => bcrypt('4a65vb4a65nbaj4hh4'),
-            'codigoPersonal' => 111,
-        ]);
-
-        //---------- TABLA BITÁCORA ----------//
+        /*/---------- TABLA BITÁCORA ----------//
         bitacora::create([
             'fecha' => "2021/08/10",
             'hora' => "11:00",
@@ -255,7 +223,7 @@ class ModuloPersonalSeeder extends Seeder
             'hora' => "10:00",
             'accion' => "Añadir personal",
             'idUsuario' => 5,
-        ]);
+        ]);*/
 
         //---------- TABLA HORARIO ----------//
         horario::create([
@@ -748,6 +716,5 @@ class ModuloPersonalSeeder extends Seeder
             'idTrabajo' => 5,
             'idReporteT' => 1,
         ]);
-    
     }
 }

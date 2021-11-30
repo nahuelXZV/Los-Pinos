@@ -20,6 +20,7 @@ class RoleSeeder extends Seeder
         $gerente = Role::create(['name' => 'Gerente']);
         $guardia = Role::create(['name' => 'Guardia']);
         $portero = Role::create(['name' => 'Portero']);
+        $jardinero = Role::create(['name' => 'Jardinero']);
         $ninguno = Role::create(['name' => 'Ninguno']);
 
         //SISTEMA

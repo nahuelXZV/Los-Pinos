@@ -15,6 +15,7 @@
                 <x-jet-input wire:model='idR' type='text' class="w-full" readonly />
                 <x-jet-input-error for="idR" />
             </div>
+            
             <div class="mb-4 w-full" wire:ignore>
                 <label for="id_label_single">
                     Selecciona un Área Común <br>
@@ -26,6 +27,7 @@
                     <x-jet-input-error for="codigoAC" />
                 </label>
             </div>
+
             <div class="mb-4 w-full" wire:ignore>
                 <label for="id_label_single">
                     Selecciona un residente <br>

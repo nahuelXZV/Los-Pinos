@@ -1,286 +1,286 @@
 <div wire:init="loadRegresos">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <!-- This example requires Tailwind CSS v2.0+ -->
-        <x-table>
 
-            <div class=" px-4 py-6 flex items-center">
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <x-table>
 
-                <div class="flex items-center">
-                    <select wire:model="cant"
-                        class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+        <div class=" px-4 py-6 flex items-center">
 
-                    <span class="mr-2 font-bold">Paginar</span>
-                </div>
+            <div class="flex items-center">
+                <select wire:model="cant"
+                    class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
 
-                <x-jet-input type="text" placeholder="Introduzca el ID del Regereso del Equipo" wire:model="search"
-                    class=" mx-4 mr-4 flex-1 rounded-full w-full">
-                </x-jet-input>
-
-                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open', true)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                    </svg>
-                    Añadir
-                </x-jet-danger-button>
-
+                <span class="mr-2 font-bold">Paginar</span>
             </div>
-            @if (count($regresos))
 
-                <table class=" min-w-full divide-y divide-gray-200 ">
-                    <thead class=" rounded-3xl bg-green-500 text-white">
+            <x-jet-input type="text" placeholder="Introduzca el ID del Regereso del Equipo" wire:model="search"
+                class=" mx-4 mr-4 flex-1 rounded-full w-full">
+            </x-jet-input>
+
+            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open', true)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Añadir
+            </x-jet-danger-button>
+
+        </div>
+        @if (count($regresos))
+
+            <table class=" min-w-full divide-y divide-gray-200 ">
+                <thead class=" rounded-3xl bg-green-500 text-white">
+                    <tr>
+
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('id')">
+                            ID
+
+                            @if ($sort == 'id')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+
+                        </th>
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('codigoPersonal')">
+                            Código y Nombre del encargado del Equipo
+
+                            @if ($sort == 'codigoPersonal')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+
+                        </th>
+
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('fecha')">
+                            Fecha
+
+                            @if ($sort == 'fecha')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('hora')">
+                            Hora
+
+                            @if ($sort == 'hora')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+
+                        </th>
+
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('stockRequerido')">
+                            Stock Regresado
+
+                            @if ($sort == 'stockRequerido')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('stockRequerido')">
+                            ID de Salida de Equipo
+
+                            @if ($sort == 'stockRequerido')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+
+                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                            Acciones
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class=" bg-white divide-y divide-gray-200">
+                    @foreach ($regresos as $regreso)
                         <tr>
 
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('id')">
-                                ID
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
+                                    {{ $regreso->id }}
+                                </span>
+                            </td>
 
-                                @if ($sort == 'id')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                {{ $regreso->personal->codigo }}-{{ $regreso->personal->nombre }}
+                            </td>
+
+
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                {{ $regreso->fecha }}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                {{ $regreso->hora }}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                {{ $regreso->stockRegresado }}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                {{ $regreso->idSalidaEquipo }}
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-nowrap flex">
+                                <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                    href=" {{ route('regresosEquipos.show', $regreso->id) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
-                                @endif
+                                </a>
 
-                            </th>
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('codigoPersonal')">
-                                Código y Nombre del encargado del Equipo
-
-                                @if ($sort == 'codigoPersonal')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                    wire:click="$emit('deleteRegreso', {{ $regreso->id }})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
-                                @endif
+                                </a>
+                            </td>
 
-                            </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('fecha')">
-                                Fecha
-
-                                @if ($sort == 'fecha')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-                            </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('hora')">
-                                Hora
-
-                                @if ($sort == 'hora')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-
-                            </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('stockRequerido')">
-                                Stock Regresado
-
-                                @if ($sort == 'stockRequerido')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-                            </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('stockRequerido')">
-                                ID de Salida de Equipo
-
-                                @if ($sort == 'stockRequerido')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-                            </th>
-
-                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                                Acciones
-                            </th>
                         </tr>
-                    </thead>
-                    <tbody class=" bg-white divide-y divide-gray-200">
-                        @foreach ($regresos as $regreso)
-                            <tr>
-
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ $regreso->id }}
-                                    </span>
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $regreso->personal->codigo }}-{{ $regreso->personal->nombre }}
-                                </td>
-
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $regreso->fecha }}
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $regreso->hora }}
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $regreso->stockRegresado }}
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $regreso->idSalidaEquipo }}
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap flex">
-                                    <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                        href=" {{ route('regresos.show', $regreso->id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
-
-                                    <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                        wire:click="$emit('deleteRegreso', {{ $regreso->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </a>
-                                </td>
-
-                            </tr>
-                            <!-- More people... -->
-                        @endforeach
-                    </tbody>
-                </table>
-                @if ($regresos->hasPages())
-                    <div class="px-6 py-3">
-                        {{ $regresos->links() }}
-                    </div>
-                @endif
-            @else
-                <div class="px-6 py-4">
-                    No hay equipos en el inventario con esas características
+                        <!-- More people... -->
+                    @endforeach
+                </tbody>
+            </table>
+            @if ($regresos->hasPages())
+                <div class="px-6 py-3">
+                    {{ $regresos->links() }}
                 </div>
             @endif
-        </x-table>
-    </div>
+        @else
+            <div class="px-6 py-4">
+                No hay equipos en el inventario con esas características
+            </div>
+        @endif
+    </x-table>
+
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name='title'>
@@ -317,7 +317,8 @@
 
             <div class="mb-4">
                 <x-jet-label value='Estado de Devolución del Equipo' />
-                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de multiplicidad Unico</label>
+                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de multiplicidad
+                    Unico</label>
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model='estadoDevolucion'>
@@ -330,9 +331,10 @@
 
             <div class="mb-4">
                 <x-jet-label value='Stock Regresado' />
-                <label class="text-gray-500 text-xs">*El stock regresado se aumentará al stock actual y reducirá el stock faltante.</label>
-                    <x-jet-input wire:model='stockRegresado' type='number' min="0" class="w-full" />
-                    <x-jet-input-error for="stockRegresado" />
+                <label class="text-gray-500 text-xs">*El stock regresado se aumentará al stock actual y reducirá el
+                    stock faltante.</label>
+                <x-jet-input wire:model='stockRegresado' type='number' min="0" class="w-full" />
+                <x-jet-input-error for="stockRegresado" />
             </div>
 
             <div class="mb-4">

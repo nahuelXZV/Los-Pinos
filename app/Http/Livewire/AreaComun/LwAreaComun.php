@@ -5,6 +5,7 @@ namespace App\Http\Livewire\AreaComun;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\areaComun;
+use Illuminate\Support\Facades\DB;
 
 class LwAreaComun extends Component
 {
@@ -33,6 +34,7 @@ class LwAreaComun extends Component
         'manzano' => 'required',
         'estadoRes' => 'required',
     ];
+
     protected $messages = [
         'estadoRes.required' => 'El campo estado de reserva es obligatorio.'
     ];
@@ -42,14 +44,19 @@ class LwAreaComun extends Component
         $this->identify = rand();
         $this->area = new areaComun();
     }
+
     public function render()
     {
         $areas = areaComun::where('nombre', 'like', '%' . $this->search . '%')
             ->orWhere('codigo', 'like', '%' . $this->search . '%')
+            ->orWhere('calle', 'like', '%' . $this->search . '%')
+            ->orWhere('manzano', 'like', '%' . $this->search . '%')
+            ->orWhere('estadoRes', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);
         return view('livewire.area-comun.lw-area-comun', compact('areas'));
     }
+
     public function order($sort)
     {
         if ($this->sort == $sort) {
@@ -68,6 +75,7 @@ class LwAreaComun extends Component
     {
         $this->resetPage();
     }
+
     public function edit(areaComun $area)
     {
         $this->codigo = $area->codigo;
@@ -94,6 +102,7 @@ class LwAreaComun extends Component
             'manzano' => $this->manzano,
             'estadoRes' => $this->estadoRes
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una área común con código: ' . $this->codigo, auth()->user()->id]);
         $this->reset(['open', 'codigo', 'nombre', 'calle', 'manzano', 'estadoRes']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');
@@ -107,13 +116,16 @@ class LwAreaComun extends Component
         $area->manzano = $this->manzano;
         $area->estadoRes = $this->estadoRes;
         $area->save();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una área común con código: ' . $this->codigo, auth()->user()->id]);
         $this->reset(['open_edit', 'codigo', 'nombre', 'calle', 'manzano', 'estadoRes']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
     }
     public function delete(areaComun $area)
     {
+        $codigo = $area->codigo;
         $area->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una área común con código: ' . $codigo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 }

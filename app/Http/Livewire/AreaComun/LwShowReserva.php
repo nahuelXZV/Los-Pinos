@@ -89,6 +89,7 @@ class LwShowReserva extends Component
         $invitado->horaIngreso =  $this->horaIngreso;
         $invitado->horaSalida =  $this->horaSalida;
         $invitado->save();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifió un invitado con codigo ' . $invitado->idVisitante . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $this->reset(['open_editar', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -110,6 +111,7 @@ class LwShowReserva extends Component
                 'horaIngreso' => $this->horaIngreso,
                 'horaSalida' => $this->horaSalida,
             ]);
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con codigo ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
             $this->reset(['open_add', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
             $this->identify = rand();
             $this->emit('alert', 'Añadido Correctamente');
@@ -120,6 +122,7 @@ class LwShowReserva extends Component
     {
         $invitadode = invitado::find($invitadod);
         $invitadode->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un invitado con codigo ' . $invitadod . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
     public function actualizarDatos($idreserva)

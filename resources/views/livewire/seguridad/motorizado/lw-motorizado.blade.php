@@ -15,7 +15,9 @@
 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
-            @livewire('seguridad.motorizado.lw-add-motorizado')
+            @can('motorizados.add')
+                @livewire('seguridad.motorizado.lw-add-motorizado')
+            @endcan
         </div>
 
         @if ($motorizados->count())
@@ -110,10 +112,13 @@
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
                             Propietario
                         </th>
+                        @if (auth()->user()->can('motorizados.edit') ||
+    auth()->user()->can('motorizados.delete'))
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        @endif
 
-                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                            Acciones
-                        </th>
                     </tr>
                 </thead>
 
@@ -156,25 +161,34 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                    wire:click="datos({{ $motorizado->id }})">
-                                    <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </a>
+                            @if (auth()->user()->can('motorizados.edit') ||
+    auth()->user()->can('motorizados.delete'))
+                                <td class="px-6 py-4 whitespace-nowrap flex">
+                                    @can('motorizados.edit')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
+                                            wire:click="datos({{ $motorizado->id }})">
+                                            <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    @endcan
 
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteMotorizado',{{ $motorizado }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
-                            </td>
+                                    @can('motorizados.delete')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                            wire:click="$emit('deleteMotorizado',{{ $motorizado }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+
+                                </td>
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>

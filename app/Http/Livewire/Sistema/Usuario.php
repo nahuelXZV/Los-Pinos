@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class Usuario extends Component
 {
@@ -37,6 +38,8 @@ class Usuario extends Component
     public function mount()
     {
         $this->identify = rand();
+        $rol = Role::all()->first();
+        $this->idRol = $rol->id;
     }
     public function order($sort)
     {
@@ -70,11 +73,11 @@ class Usuario extends Component
             $this->idRol = $this->userA->Vpersonal->cargo;
             $this->rolAct = $this->userA->Vpersonal->cargo;
         } else {
-            $this->idRol = 'Ninguno';
             $this->rolAct = 'Ninguno';
         }
         $this->open = true;
     }
+
     public function update()
     {
         $this->validate();
@@ -84,15 +87,20 @@ class Usuario extends Component
         $persona = personal::find($this->userA->Vpersonal->codigo);
         $persona->cargo = $this->idRol;
         $persona->save();
-        $this->reset(['open', 'idRol']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un usuario con código: ' . $persona->codigo, auth()->user()->id]);
+        $this->reset(['open', 'idRol', 'rolAct']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
+
     public function delete(User $persona)
     {
+        $codigo = $persona->Vpersonal->codigo;
         $persona->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un usuario con código: ' . $codigo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
+
     public function render()
     {
         $usuarios = User::where('name', 'like', '%' . $this->search . '%')

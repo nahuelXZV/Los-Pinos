@@ -5,6 +5,7 @@ namespace App\Http\Livewire\AreaComun;
 use App\Models\reserva;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LwEditarReserva extends Component
 {
@@ -76,6 +77,7 @@ class LwEditarReserva extends Component
         $this->reserva->start = $this->fecha;
         $this->reserva->end = $this->fecha;
         $this->reserva->save();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open_edit']);
         $this->identify = rand();
         $this->emit('mensajeEdit', $this->reserva->id);

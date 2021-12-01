@@ -37,7 +37,7 @@
                 <a type='button' href="{{ route('profile.show') }}"
                     class="p-1  flex text-center flex-col focus:outline-none focus:ring">
                     <span class="text-gray-800">{{ auth()->user()->name }}</span>
-                    <span class="text-black text-sm font-bold">Cargo</span>
+                    <span class="text-black text-sm font-bold">{{ auth()->user()->Vpersonal->cargo }}</span>
                 </a>
             </div>
         </div>

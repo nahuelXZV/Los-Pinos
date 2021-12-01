@@ -5,6 +5,7 @@ namespace App\Http\Livewire\AreaComun;
 use App\Models\invitado;
 use Livewire\Component;
 use App\Models\visitante;
+use Illuminate\Support\Facades\DB;
 
 class LwAddVisitante extends Component
 {
@@ -16,7 +17,6 @@ class LwAddVisitante extends Component
     public $codigoRes;
     public $horaIngreso;
     public $horaSalida;
-
     protected $rules = [
         'nombre' => 'required',
         'numeroDeCarnet' => 'required',
@@ -39,6 +39,7 @@ class LwAddVisitante extends Component
             'nroCarnet' => $this->numeroDeCarnet,
             'sexo' => $this->sexo,
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo visitante con nombre: ' . $this->nombre, auth()->user()->id]);
         $ultimoadd = visitante::latest('id')->first();
         invitado::create([
             'idVisitante' => $ultimoadd->id,
@@ -46,6 +47,7 @@ class LwAddVisitante extends Component
             'horaIngreso' => $this->horaIngreso,
             'horaSalida' => $this->horaSalida,
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con nombre ' . $this->nombre . ' a la reserva con código: ' . $this->codigoRes, auth()->user()->id]);
         $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo', 'horaIngreso', 'horaSalida']);
         $this->identify = rand();
         $this->emit('NewInvitado');

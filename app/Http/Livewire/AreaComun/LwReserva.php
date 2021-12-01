@@ -7,6 +7,7 @@ use App\Models\reserva;
 use Illuminate\Support\Carbon;
 use App\Models\areaComun;
 use App\Models\residente;
+use Illuminate\Support\Facades\DB;
 
 class LwReserva extends Component
 {
@@ -95,6 +96,7 @@ class LwReserva extends Component
             'idResidente' => $this->idResidente,
             'codigoAC' => $this->codigoAC
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open']);
         $this->identify = rand();
         return redirect()->route('reserva');
@@ -130,6 +132,7 @@ class LwReserva extends Component
         $reserva->start = $this->start;
         $reserva->end = $this->end;
         $reserva->save();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open_edit']);
         $this->identify = rand();
         return redirect()->route('reserva');
@@ -139,6 +142,7 @@ class LwReserva extends Component
     {
         $reserva = reserva::find($idReserva);
         $reserva->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la reserva con código: ' . $idReserva, auth()->user()->id]);
         return redirect()->route('reserva');
     }
     public function openModal()
@@ -168,6 +172,7 @@ class LwReserva extends Component
             'idResidente' => $this->idResidente,
             'codigoAC' => $this->codigoAC
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open']);
         $this->identify = rand();
         return redirect()->route('reserva.show', $this->idR);

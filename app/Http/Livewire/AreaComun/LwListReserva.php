@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Livewire\Component;
 use App\Models\residente;
 use App\Models\areaComun;
+use Illuminate\Support\Facades\DB;
 
 class LwListReserva extends Component
 {
@@ -96,7 +97,9 @@ class LwListReserva extends Component
     }
     public function delete(reserva $reserva)
     {
+        $codigoRes = $reserva->id;
         $reserva->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una reserva con código: ' . $codigoRes, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
     public function save()
@@ -118,8 +121,33 @@ class LwListReserva extends Component
             'idResidente' => $this->idResidente,
             'codigoAC' => $this->codigoAC
         ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');
+    }
+    public function invitados()
+    {
+        $this->start = $this->fecha;
+        $this->end = $this->fecha;
+        $this->nombreRes = residente::find($this->idResidente);
+        $this->title =  $this->nombreRes->nombre;
+        $this->validate();
+        reserva::create([
+            'id' => $this->idR,
+            'fecha' => $this->fecha,
+            'horaIni' => $this->horaIni,
+            'horaFin' => $this->horaFin,
+            'cantsPers' => $this->cantsPers,
+            'title' => $this->title,
+            'start' => $this->start,
+            'end' => $this->end,
+            'idResidente' => $this->idResidente,
+            'codigoAC' => $this->codigoAC
+        ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $this->idR, auth()->user()->id]);
+        $this->reset(['fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open']);
+        $this->identify = rand();
+        return redirect()->route('reserva.show', $this->idR);
     }
 }

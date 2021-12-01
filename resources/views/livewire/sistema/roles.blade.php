@@ -16,14 +16,16 @@
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
-            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open',true)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                </svg>
-                Añadir
-            </x-jet-danger-button>
+            @can('roles.add')
+                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="abrirADD()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Añadir
+                </x-jet-danger-button>
+            @endcan
         </div>
         @if ($roles->count())
             <table class="min-w-full divide-y divide-gray-200">
@@ -85,9 +87,12 @@
                             @endif
 
                         </th>
-                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                            Acciones
-                        </th>
+                        @if (auth()->user()->can('roles.delete') ||
+    auth()->user()->can('roles.edit'))
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        @endif
                     </tr>
                 </thead>
 
@@ -105,25 +110,34 @@
                                     {{ $rol->name }}
                                 </div>
                             </td>
+                            @if (auth()->user()->can('roles.delete') ||
+    auth()->user()->can('roles.edit'))
+                                <td class="px-6 py-4 whitespace-nowrap flex">
+                                    @can('roles.edit')
+                                        <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                            wire:click="datos({{ $rol->id }}) ">
+                                            <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                    @can('roles.delete')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                            wire:click="$emit('deleteRol',{{ $rol }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    @endcan
 
-                            <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                    wire:click="edit({{ $rol }}) ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </a>
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteArea',{{ $rol }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
-                            </td>
+
+                                </td>
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -144,7 +158,7 @@
 
     <x-jet-dialog-modal wire:model="open">
         <x-slot name='title'>
-            Editar Rol
+            Nuevo Rol
         </x-slot>
 
         <x-slot name='content'>
@@ -153,11 +167,11 @@
                 <x-jet-input wire:model='name' type='text' class="w-full" />
                 <x-jet-input-error for="name" />
             </div>
-            <div class="mb-4 grid">
-                <x-jet-label value='Selecciona Permisos' class="mb-2" />
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-2 ">
+                <x-jet-label value='Selecciona Permisos' class="mb-2 col-span-1 md:col-span-2" />
                 @foreach ($permisos as $permizo)
                     <label>
-                        <input type="checkbox" name="" id="" value="{{ $permizo->id }}">
+                        <input wire:model='permisosR' type="checkbox" name="" id="" value="{{ $permizo->id }}">
                         {{ $permizo->descripcion }}
                     </label>
                 @endforeach
@@ -168,13 +182,47 @@
             <x-jet-secondary-button wire:click="$set('open',false)">
                 Cancelar
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">
-                Actualizar
+            <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
+                Guardar
             </x-jet-danger-button>
+            <span wire:loading wire:target='update' class="font-bold">Cargando...</span>
         </x-slot>
 
     </x-jet-dialog-modal>
 
 
+    <x-jet-dialog-modal wire:model="open_edit">
+        <x-slot name='title'>
+            Editar Rol
+        </x-slot>
 
+        <x-slot name='content'>
+            <div class="mb-4">
+                <x-jet-label value='Nombre' />
+                <x-jet-input wire:model='name' type='text' class="w-full" />
+                <x-jet-input-error for="name" />
+            </div>
+            <div class="mb-4 grid grid-cols-1 md:grid-cols-2 ">
+                <x-jet-label value='Selecciona Permisos' class="mb-2 col-span-1 md:col-span-2" />
+                @foreach ($permisos as $key => $permizo)
+                    <label>
+                        <input wire:model='permisosR.{{ $key + 1 }}' type="checkbox" name="" id=""
+                            value="{{ $permizo->id }}">
+                        {{ $permizo->descripcion }}
+                    </label>
+                @endforeach
+            </div>
+        </x-slot>
+
+
+        <x-slot name='footer'>
+            <x-jet-secondary-button wire:click="$set('open_edit',false)">
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-20">
+                Actualizar
+            </x-jet-danger-button>
+            <span wire:loading wire:target='update' class="font-bold">Cargando...</span>
+        </x-slot>
+    </x-jet-dialog-modal>
 </div>

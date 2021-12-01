@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 class AddUsuario extends Component
 {
@@ -41,6 +42,7 @@ class AddUsuario extends Component
             'password' => bcrypt($this->contra),
             'codigoPersonal' => $this->codigoPersonal
         ])->assignRole($rol->name);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un usuario para el empleado con código: ' . $this->codigoPersonal, auth()->user()->id]);
         $this->reset(['open', 'contra', 'codigoPersonal', 'idRol', 'email']);
         $this->emit('actualizar');
     }

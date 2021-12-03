@@ -4,7 +4,7 @@
     Reservas
 @endsection
 @section('action')
-    Reserva de Áreas Comunes
+    <a href="{{ route('reserva') }}" class="hover:underline ">Calendario de reservas </a>
 @endsection
 
 @section('content')

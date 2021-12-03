@@ -61,7 +61,7 @@ class LwNewVisitante extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con nombre ' . $this->nombre . ' a la reserva con código: ' . $this->codigoRes, auth()->user()->id]);
         $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo', 'horaIngreso', 'horaSalida']);
         $this->identify = rand();
-        $this->emitTo('area-comun.reserva.lw-show-reserva', 'guardar');
+        $this->emitTo('area-comun.reserva.lw-lista-invitados', 'guardar');
     }
 
     //Renderizado

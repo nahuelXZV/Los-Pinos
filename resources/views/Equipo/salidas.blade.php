@@ -4,11 +4,11 @@
     Salida de Equipos
 @endsection
 @section('action')
-    Salida de Equipos
+    <a href="{{ route('salidasEquipo') }}" class="hover:underline "> Salida de Equipos</a>
 @endsection
 
 @section('content')
 
-@livewire('equipo.show-salida-equipos')
+    @livewire('equipo.show-salida-equipos')
 
 @endsection

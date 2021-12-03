@@ -1,4 +1,4 @@
-<header class="flex-shrink-0 border-b">
+<header class="flex-shrink-0 border-b bg-gray-200">
     <div class="flex items-center justify-between p-2">
         <!-- Navbar left -->
         <div class="flex items-center space-x-3">
@@ -34,10 +34,14 @@
         <div class="relative flex items-center space-x-3">
             <!-- avatar button -->
             <div class="relative" x-data="{ isOpen: false }">
-                <a type='button' href="{{ route('profile.show') }}"
-                    class="p-1  flex text-center flex-col focus:outline-none focus:ring">
-                    <span class="text-gray-800">{{ auth()->user()->name }}</span>
-                    <span class="text-black text-sm font-bold">{{ auth()->user()->Vpersonal->cargo }}</span>
+                <a href="{{ route('profile.show') }}">
+                    <div class='mt-1 flex items-center '>
+                        <!--  <img src='https://picsum.photos/60/60' class='rounded-full w-12 h-auto'>*-->
+                        <div class="ml-3">
+                            <h3 class="font-semibold"> {{ auth()->user()->name }} </h2>
+                                <p class="text-gray-500"> {{ auth()->user()->Vpersonal->cargo }} </p>
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>

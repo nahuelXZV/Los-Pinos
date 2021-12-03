@@ -52,7 +52,7 @@
             </div>
             <div>
                 <label class="text-sm text-black font-bold">
-                    Cantidad aproximada de invitados:
+                    Cantidad de invitados:
                     <label class="font-semibold text-gray-700"> {{ $reserva->cantsPers }}</label>
                 </label>
             </div>

@@ -4,7 +4,8 @@
     Reserva
 @endsection
 @section('action')
-    Información de reservas
+    <a href="{{ route('reserva.list') }}" class="hover:underline ">Lista de reservas</a> &nbsp/&nbsp
+    <a href="{{ route('reserva.show', $reserva->id) }}" class="hover:underline ">Detalles de reserva</a>
 @endsection
 
 @section('content')

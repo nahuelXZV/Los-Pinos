@@ -87,6 +87,8 @@ class LwAddReserva extends Component
             'idResidente' => $this->idResidente,
             'codigoAC' => $this->codigoAC
         ]);
+        $last = reserva::latest('id')->first();
+        $this->idR = $last->id;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open_add']);
         $this->identify = rand();
@@ -108,7 +110,6 @@ class LwAddReserva extends Component
             return;
         }
         reserva::create([
-            'id' => $this->idR,
             'fecha' => $this->fecha,
             'horaIni' => $this->horaIni,
             'horaFin' => $this->horaFin,
@@ -119,6 +120,8 @@ class LwAddReserva extends Component
             'idResidente' => $this->idResidente,
             'codigoAC' => $this->codigoAC
         ]);
+        $last = reserva::latest('id')->first();
+        $this->idR = $last->id;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $this->idR, auth()->user()->id]);
         $this->reset(['fecha', 'horaIni', 'horaFin', 'cantsPers', 'codigoAC', 'idResidente', 'title', 'start', 'end', 'open_add']);
         $this->identify = rand();

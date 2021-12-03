@@ -4,7 +4,8 @@
     Regreso de Equipos
 @endsection
 @section('action')
-    Información del Regreso
+    <a href="{{ route('regresosEquipo') }}" class="hover:underline "> Regreso de Equipos</a>&nbsp/&nbsp
+    <a href="{{ route('regresosEquipos.show', $regreso->id) }}" class="hover:underline "> Detalles de regresos</a>
 @endsection
 
 @section('content')

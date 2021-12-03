@@ -4,11 +4,11 @@
     Almacenes
 @endsection
 @section('action')
-    Almacenes
+    <a href="{{ route('almacenes') }}" class="hover:underline ">Almacenes</a>
 @endsection
 
 @section('content')
 
-@livewire('equipo.show-almacens')
+    @livewire('equipo.show-almacens')
 
 @endsection

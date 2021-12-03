@@ -68,7 +68,7 @@ class LwReporteReserva extends Component
             'codigoAC' => $this->reserva->codigoAC
         ]);
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo reporte a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
-        $this->reset(['descripcion', 'open_add']);
+        $this->reset(['idR', 'descripcion', 'editRep', 'open_add']);
         $this->identify = rand();
         $this->emit('guardar');
     }

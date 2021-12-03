@@ -27,7 +27,7 @@
             @foreach ($reportes as $report)
                 <textarea
                     class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
-                    rows="1">{{ $report->reporte }}</textarea>
+                    rows="1" readonly>{{ $report->reporte }}</textarea>
 
                 @can('reserva.reporte.edit')
                     <a class="mb-4 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
@@ -38,7 +38,6 @@
                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                     </a>
-
                 @endcan
                 @can('reserva.reporte.delete')
                     <a class="mb-4 ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "

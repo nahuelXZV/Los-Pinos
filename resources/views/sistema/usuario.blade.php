@@ -4,7 +4,8 @@
     Usuarios
 @endsection
 @section('action')
-    Gestionar usuarios
+    <a href="{{ route('usuarios') }}" class="hover:underline ">Usuarios</a>
+
 @endsection
 
 @section('content')

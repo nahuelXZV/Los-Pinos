@@ -4,11 +4,11 @@
     Regreso de Equipos
 @endsection
 @section('action')
-    Regreso de Equipos
+    <a href="{{ route('regresosEquipo') }}" class="hover:underline "> Regreso de Equipos</a>
 @endsection
 
 @section('content')
 
-@livewire('equipo.show-regreso-equipos')
+    @livewire('equipo.show-regreso-equipos')
 
 @endsection

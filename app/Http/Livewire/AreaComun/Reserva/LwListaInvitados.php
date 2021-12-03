@@ -22,7 +22,8 @@ class LwListaInvitados extends Component
     public $open_edit = false;
     public $open_add = false;
     protected $listeners = [
-        'delete' => 'delete'
+        'delete' => 'delete',
+        'guardar' => 'guardar'
     ];
 
     //Atributos de la clase
@@ -130,6 +131,12 @@ class LwListaInvitados extends Component
         $this->emit('eliminar');
     }
 
+    //Metodo de mensaje de añadido
+    public function guardar()
+    {
+        $this->render();
+        $this->emit('alert', 'Añadido Correctamente');
+    }
     //Renderizado
     public function render()
     {

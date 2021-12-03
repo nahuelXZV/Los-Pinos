@@ -4,7 +4,7 @@
     Reservas
 @endsection
 @section('action')
-    Lista de reservas
+    <a href="{{ route('reserva.list') }}" class="hover:underline ">Lista de reservas</a>
 @endsection
 
 @section('content')

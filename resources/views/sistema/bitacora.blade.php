@@ -4,7 +4,7 @@
     Bitácora
 @endsection
 @section('action')
-    Gestionar bitácora
+    <a href="{{ route('bitacora') }}" class="hover:underline ">Bitácora</a>
 @endsection
 
 @section('content')

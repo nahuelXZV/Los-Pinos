@@ -12,24 +12,52 @@
                 </select>
                 <span class="mr-2 font-bold">Buscar</span>
             </div>
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full"
+                placeholder="Escriba el codigo de reserva que esta buscando" wire:model="search" />
 
-            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
-                wire:model="search" />
-
-            @can('usuarios.add')
-                @livewire('sistema.add-usuario')
+            @can('reserva.add')
+                @livewire('area-comun.reserva.lw-add-reserva')
             @endcan
         </div>
-        @if ($usuarios->count())
+
+        @if ($reservas->count())
+
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
-                            Código trabajor
+                            Código
 
-                            @if ($sort == 'id')
+                            @if ($sort == 'idR')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+
+                        </th>
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-fond uppercase tracking-wider"
+                            wire:click="order('idResidente')">
+                            Nombre Residente
+                            @if ($sort == 'idResidente')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -53,10 +81,9 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('name')">
-                            Nombre
-
-                            @if ($sort == 'name')
+                            wire:click="order('codigoAC')">
+                            Área Común
+                            @if ($sort == 'codigoAC')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -77,14 +104,12 @@
                                         d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
-
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('email')">
-                            Correo electrónico
-
-                            @if ($sort == 'email')
+                            wire:click="order('fecha')">
+                            Fecha
+                            @if ($sort == 'fecha')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -105,14 +130,61 @@
                                         d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
-
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
-                            Cargo
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('horaIni')">
+                            Hora Inicio
+                            @if ($sort == 'horaIni')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
                         </th>
-                        @if (auth()->user()->can('usuarios.delete') ||
-    auth()->user()->can('usuarios.edit'))
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('horaFin')">
+                            Hora final
+                            @if ($sort == 'horaFin')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+                        @if (auth()->user()->can('reserva.show') ||
+    auth()->user()->can('reserva.delete'))
                             <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                                 Acciones
                             </th>
@@ -121,56 +193,58 @@
                     </tr>
                 </thead>
 
+
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($usuarios as $personas)
+                    @foreach ($reservas as $reserva)
                         <tr>
                             <td class="px-6 py-4 ">
                                 <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    @if ($personas->Vpersonal)
-                                        {{ $personas->Vpersonal->codigo }}
-                                    @else
-                                        Sin Codigo
-                                    @endif
-
+                                    {{ $reserva->id }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $personas->name }}
+                                    {{ $reserva->Vresidente->nombre }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $personas->email }}
+                                    {{ $reserva->VareaComun->nombre }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    @if ($personas->Vpersonal)
-                                        {{ $personas->Vpersonal->cargo }}
-                                    @else
-                                        Sin cargo
-                                    @endif
-
+                                    {{ $reserva->fecha }}
                                 </div>
                             </td>
-                            @if (auth()->user()->can('usuarios.delete') ||
-    auth()->user()->can('usuarios.edit'))
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $reserva->horaIni }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $reserva->horaFin }}
+                                </div>
+                            </td>
+                            @if (auth()->user()->can('reserva.show') ||
+    auth()->user()->can('reserva.delete'))
                                 <td class="px-6 py-4 whitespace-nowrap flex">
-                                    @can('usuarios.edit')
+                                    @can('reserva.show')
                                         <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            wire:click="open_modal_edit({{ $personas->id }}) ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            href=" {{ route('reserva.show', $reserva->id) }}">
+                                            <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                             </svg>
                                         </a>
                                     @endcan
-                                    @can('usuarios.delete')
+
+                                    @can('reserva.delete')
                                         <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                            wire:click="$emit('deleteUsuario',{{ $personas }})">
+                                            wire:click="$emit('deleteReserva',{{ $reserva }})">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -184,47 +258,20 @@
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
 
         @else
             <div class="px-6 py-4">
-                No hay registros
+                <label class="text-sm text-black font-semibold">
+                    No hay registros</label>
             </div>
         @endif
 
-        @if ($usuarios->hasPages())
+        @if ($reservas->hasPages())
             <div class="px-6 py-3">
-                {{ $usuarios->links() }}
+                {{ $reservas->links() }}
             </div>
         @endif
     </x-table>
-
-    <x-jet-dialog-modal wire:model="open_edit">
-        <x-slot name='title'>
-            Editar Cargo
-        </x-slot>
-
-        <x-slot name='content'>
-            <div class="mb-4">
-                <x-jet-label value='Selecciona un rol' class="mb-2" />
-                <select wire:model.defer='idRol'
-                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
-                    @foreach ($roles as $rol)
-                        <option value="{{ $rol->name }}">{{ $rol->name }}</option>
-                    @endforeach
-                </select>
-                <x-jet-input-error for="idRol" />
-            </div>
-        </x-slot>
-
-        <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
-                Cancelar
-            </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">
-                Actualizar
-            </x-jet-danger-button>
-        </x-slot>
-
-    </x-jet-dialog-modal>
 </div>

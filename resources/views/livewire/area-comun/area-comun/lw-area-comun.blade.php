@@ -17,14 +17,7 @@
                 wire:model="search" />
 
             @can('areacomun.add')
-                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="open">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                    </svg>
-                    Añadir
-                </x-jet-danger-button>
+                @livewire('area-comun.area-comun.lw-add-area-comun')
             @endcan
 
         </div>
@@ -220,7 +213,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap flex">
                                     @can('areacomun.edit')
                                         <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            wire:click="edit({{ $area }}) ">
+                                            wire:click="open_modal_edit({{ $area }}) ">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -259,99 +252,50 @@
         @endif
     </x-table>
 
+
     <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
             Editar Área común
         </x-slot>
 
         <x-slot name='content'>
-
-            <div class="mb-4">
-                <x-jet-label value='Código del área común' />
-                <x-jet-input wire:model='codigo' type='text' class="w-full" readonly />
-                <x-jet-input-error for="codigo" />
-            </div>
             <div class="mb-4">
                 <x-jet-label value='Nombre' />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full"
+                    placeholder="Ingrese el nombre" />
                 <x-jet-input-error for="nombre" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Calle' />
-                <x-jet-input wire:model='calle' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='calle' type='text' class="w-full"
+                    placeholder="Ingrese la calle" />
                 <x-jet-input-error for="calle" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Manzano' />
-                <x-jet-input wire:model='manzano' type='number' class="w-full" />
+                <x-jet-input wire:model.defer='manzano' type='number' class="w-full"
+                    placeholder="Ingrese el manzano" />
                 <x-jet-input-error for="manzano" />
             </div>
-
-            <select wire:model='estadoRes'
-                class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
-                <option value="Reservación">Reservación</option>
-                <option value="No Reservación">No Reservación</option>
-            </select>
-            <x-jet-input-error for="estadoRes" />
+            <div class="mb-4">
+                <x-jet-label value='Estado de reservación' class="mb-1" />
+                <select wire:model.defer='estadoRes'
+                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
+                    <option value="Reservación">Reservación</option>
+                    <option value="No Reservación">No Reservación</option>
+                </select>
+                <x-jet-input-error for="estadoRes" />
+            </div>
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_edit',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update' wire:loading.attr='disabled' class="disabled:opacity-15">
                 Actualizar
             </x-jet-danger-button>
         </x-slot>
-
     </x-jet-dialog-modal>
-
-    <x-jet-dialog-modal wire:model="open">
-        <x-slot name='title'>
-            Nueva Área Común
-        </x-slot>
-
-        <x-slot name='content'>
-            <div class="mb-4">
-                <x-jet-label value='Código del área común' />
-                <x-jet-input wire:model='codigo' type='text' class="w-full" readonly />
-                <x-jet-input-error for="codigo" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='Nombre' />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" />
-                <x-jet-input-error for="nombre" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='Calle' />
-                <x-jet-input wire:model='calle' type='text' class="w-full" />
-                <x-jet-input-error for="calle" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='Manzano' />
-                <x-jet-input wire:model='manzano' type='number' class="w-full" />
-                <x-jet-input-error for="manzano" />
-            </div>
-
-            <select wire:model='estadoRes'
-                class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
-                <option value="Reservación">Reservación</option>
-                <option value="No Reservación">No Reservación</option>
-            </select>
-            <x-jet-input-error for="estadoRes" />
-        </x-slot>
-
-        <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
-                Cancelar
-            </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
-                Guardar
-            </x-jet-danger-button>
-        </x-slot>
-
-    </x-jet-dialog-modal>
-
-
 
 </div>

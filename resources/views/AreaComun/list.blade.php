@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-list-reserva')
+    @livewire('area-comun.reserva.lw-reserva')
 @endsection

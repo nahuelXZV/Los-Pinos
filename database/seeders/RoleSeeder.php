@@ -329,6 +329,40 @@ class RoleSeeder extends Seeder
             'descripcion' => 'Gestionar detalles de reservas'
         ])->syncRoles([$admi, $gerente, $portero, $guardia]);
 
+        Permission::create([
+            'name' => 'reserva.reporte',
+            'descripcion' => 'Ver reportes'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.reporte.add',
+            'descripcion' => 'Añadir reportes'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.reporte.edit',
+            'descripcion' => 'Editar reportes'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.reporte.delete',
+            'descripcion' => 'Eliminar reportes'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+
+        Permission::create([
+            'name' => 'reserva.invitado',
+            'descripcion' => 'Ver invitados'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.invitado.add',
+            'descripcion' => 'Añadir invitados'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.invitado.edit',
+            'descripcion' => 'Editar invitados'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'reserva.invitado.delete',
+            'descripcion' => 'Eliminar invitados'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+
 
         Permission::create([
             'name' => 'areacomun',

@@ -67,6 +67,19 @@ class UserSeeder extends Seeder
             'cargo' => "Administrador",
             'estado' => "Activo",
         ]);
+        personal::create([
+            'nombre' => "Diego Hurtado Vargas",
+            'carnet' => "25365478",
+            'telefono' => "785452159",
+            'direccion' => "Av. Baras #1500",
+            'fechaNac' => "2001/12/25",
+            'nacionalidad' => "Boliviano",
+            'sexo' => "M",
+            'estadoCivil' => "Soltero",
+            'email' => "Diego@gmail.com",
+            'cargo' => "Administrador",
+            'estado' => "Activo",
+        ]);
         User::create([
             'name' => "Nahuel Zalazar Villca",
             'email' => "Nahuel@gmail.com",
@@ -77,6 +90,7 @@ class UserSeeder extends Seeder
             'name' => "Diego Hurtado",
             'email' => "Diego@gmail.com",
             'password' => bcrypt('12345678'),
+            'codigoPersonal' => 117
         ])->assignRole('Administrador');
         User::create([
             'name' => "Paul Cruz",

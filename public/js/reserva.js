@@ -8,14 +8,13 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: 'es',
         displayEventTime: false,
         events: "http://los_pinos.test/reserva/all",
-
         eventClick: function (info) {
             var reserva = info.event;
-            Livewire.emit('edit', reserva.id);
+            Livewire.emit('open_modal_edit', reserva.id);
         },
 
         dateClick: function (info) {
-            Livewire.emit('register', info.dateStr);
+            Livewire.emit('obtener_fecha_calendario', info.dateStr);
         }
 
     });

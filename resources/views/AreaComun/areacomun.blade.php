@@ -8,7 +8,5 @@
 @endsection
 
 @section('content')
-
-@livewire('area-comun.lw-area-comun')
-
+    @livewire('area-comun.area-comun.lw-area-comun')
 @endsection

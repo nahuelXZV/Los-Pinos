@@ -17,7 +17,7 @@
                 wire:model="search" />
 
             @can('roles.add')
-                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="abrirADD()">
+                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="open_modal_add()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -99,7 +99,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($roles as $rol)
                         <tr>
-                            <td class="px-6 py-4 ">
+                            <td class="px-6 py-4 w-20 ">
                                 <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
                                     {{ $rol->id }}
@@ -115,7 +115,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap flex">
                                     @can('roles.edit')
                                         <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            wire:click="datos({{ $rol->id }}) ">
+                                            wire:click="open_modal_edit({{ $rol->id }}) ">
                                             <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -133,11 +133,8 @@
                                             </svg>
                                         </a>
                                     @endcan
-
-
                                 </td>
                             @endif
-
                         </tr>
                     @endforeach
                 </tbody>
@@ -156,7 +153,7 @@
         @endif
     </x-table>
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_add">
         <x-slot name='title'>
             Nuevo Rol
         </x-slot>
@@ -164,14 +161,14 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre' />
-                <x-jet-input wire:model='name' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='name' type='text' class="w-full" />
                 <x-jet-input-error for="name" />
             </div>
             <div class="mb-4 grid grid-cols-1 md:grid-cols-2 ">
                 <x-jet-label value='Selecciona Permisos' class="mb-2 col-span-1 md:col-span-2" />
                 @foreach ($permisos as $permizo)
                     <label>
-                        <input wire:model='permisosR' type="checkbox" name="" id="" value="{{ $permizo->id }}">
+                        <input wire:model.defer='permisosR' type="checkbox" value="{{ $permizo->id }}">
                         {{ $permizo->descripcion }}
                     </label>
                 @endforeach
@@ -179,7 +176,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_add',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
@@ -199,14 +196,14 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre' />
-                <x-jet-input wire:model='name' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='name' type='text' class="w-full" />
                 <x-jet-input-error for="name" />
             </div>
             <div class="mb-4 grid grid-cols-1 md:grid-cols-2 ">
                 <x-jet-label value='Selecciona Permisos' class="mb-2 col-span-1 md:col-span-2" />
                 @foreach ($permisos as $key => $permizo)
                     <label>
-                        <input wire:model='permisosR.{{ $key + 1 }}' type="checkbox" name="" id=""
+                        <input wire:model.defer='permisosR.{{ $key + 1 }}' type="checkbox" name="" id=""
                             value="{{ $permizo->id }}">
                         {{ $permizo->descripcion }}
                     </label>
@@ -216,7 +213,7 @@
 
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_edit',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-20">

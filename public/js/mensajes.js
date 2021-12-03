@@ -32,17 +32,12 @@ Livewire.on('deleteArea', area => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Livewire.emitTo('area-comun.lw-area-comun', 'delete', area);
-            Swal.fire(
-                'Eliminado!',
-                'El área común fue eliminado con éxito.',
-                'éxito'
-            )
+            Livewire.emitTo('area-comun.area-comun.lw-area-comun', 'delete', area);
         }
     })
 })
 
-Livewire.on('deleteReserva', area => {
+Livewire.on('deleteReserva', reserva => {
     Swal.fire({
         title: 'Esta seguro?',
         text: "Los datos se borraran permanentemente!",
@@ -54,16 +49,12 @@ Livewire.on('deleteReserva', area => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Livewire.emitTo('area-comun.lw-list-reserva', 'delete', area);
-            Swal.fire(
-                'Eliminado!',
-                'La reserva fue eliminada con éxito.',
-                'éxito'
-            )
+            Livewire.emitTo('area-comun.reserva.lw-reserva', 'delete', reserva);
         }
     })
 })
-Livewire.on('deleteReservaC', area => {
+
+Livewire.on('deleteReservaC', reserva => {
     Swal.fire({
         title: 'Esta seguro?',
         text: "Los datos se borraran permanentemente!",
@@ -75,12 +66,7 @@ Livewire.on('deleteReservaC', area => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Livewire.emitTo('area-comun.lw-reserva', 'delete', area);
-            Swal.fire(
-                'Eliminado!',
-                'La reserva fue eliminada con éxito.',
-                'éxito'
-            )
+            Livewire.emitTo('area-comun.calendario.lw-reserva-calendario', 'delete', reserva);
         }
     })
 })
@@ -97,12 +83,7 @@ Livewire.on('deleteInvitado', invitado => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Livewire.emitTo('area-comun.lw-show-reserva', 'delete', invitado);
-            Swal.fire(
-                'Eliminado!',
-                'El invitado fue eliminado con éxito.',
-                'éxito'
-            )
+            Livewire.emitTo('area-comun.reserva.lw-lista-invitados', 'delete', invitado);
         }
     })
 })
@@ -119,12 +100,7 @@ Livewire.on('deleteReporte', reporte => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            Livewire.emitTo('area-comun.lw-reporte', 'delete', reporte);
-            Swal.fire(
-                'Eliminado!',
-                'El reporte fue eliminado con éxito.',
-                'éxito'
-            )
+            Livewire.emitTo('area-comun.reserva.lw-reporte-reserva', 'delete', reporte);
         }
     })
 })

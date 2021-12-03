@@ -4,9 +4,9 @@
     Reserva
 @endsection
 @section('action')
-    Informacion de Equipos Regresados
+    Información de reservas
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-show-reserva',['reserva' => $reserva])
+    @livewire('area-comun.reserva.lw-show-reserva',['reserva' => $reserva])
 @endsection

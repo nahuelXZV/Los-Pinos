@@ -11,29 +11,39 @@ use Illuminate\Support\Facades\DB;
 class Roles extends Component
 {
     use WithPagination;
+    //Atributos de la vista
     public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
     public $pagination = 10;
-    protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
-    public $open = false;
-    public $open_edit = false;
     public $identify;
+    public $open_add = false;
+    public $open_edit = false;
+    protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
 
+    //Atributos de la clase
     public $name;
     public $role;
     public $permisosR = [];
     public $selectPermissions;
+
+    //Reglas de validacion
     protected $rules = [
         'name' => 'required|unique:roles'
     ];
 
-    protected $messages = [];
+    //Mensajes de validacion
+    protected $messages = [
+        'name' => 'el campo nombre es obligatorio.'
+    ];
 
+    //Iniciador
     public function mount()
     {
         $this->identify = rand();
     }
+
+    //Metodo de ordenado
     public function order($sort)
     {
         if ($this->sort == $sort) {
@@ -48,23 +58,22 @@ class Roles extends Component
             $this->direction = 'asc';
         }
     }
+
+    //Metodo de reinicio de buscador
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function actualizar()
+    //Abrir modal de añadir
+    public function open_modal_add()
     {
-        $this->render();
-        $this->emit('alert', 'Añadido Correctamente!');
+        $this->reset(['open_add', 'name', 'permisosR']);
+        $this->open_add = true;
     }
 
-    public function abrirADD()
-    {
-        $this->reset(['open', 'name', 'permisosR']);
-        $this->open = true;
-    }
-    public function datos($idRol)
+    //Abrir modal de editar
+    public function open_modal_edit($idRol)
     {
         $this->reset(['name', 'permisosR', 'selectPermissions']);
         $this->role = Role::find($idRol);
@@ -76,6 +85,7 @@ class Roles extends Component
         $this->open_edit = true;
     }
 
+    //Metodo de guardar
     public function save()
     {
         $this->validate();
@@ -86,19 +96,21 @@ class Roles extends Component
             $role->givePermissionTo($permi);
         }
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadio el rol: ' . $this->name, auth()->user()->id]);
-        $this->reset(['open', 'name', 'permisosR']);
+        $this->reset(['open_add', 'name', 'permisosR']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente!');
     }
+
+    //Metodo de editar
     public function update()
     {
         if ($this->role->name == $this->name) {
             $this->role->name = $this->name;
-            $this->role->save();
+            $this->role->update();
         } else {
             $this->validate();
             $this->role->name = $this->name;
-            $this->role->save();
+            $this->role->update();
         }
         foreach ($this->selectPermissions as $permi) {
             $this->role->revokePermissionTo($permi);
@@ -112,6 +124,8 @@ class Roles extends Component
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
+
+    //Metodo de eliminar
     public function delete(Role $idrole)
     {
         $name = $idrole->name;
@@ -119,6 +133,8 @@ class Roles extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el rol: ' . $name, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
+
+    //Metodo de renderizado
     public function render()
     {
         $roles = Role::where('name', 'like', '%' . $this->search . '%')

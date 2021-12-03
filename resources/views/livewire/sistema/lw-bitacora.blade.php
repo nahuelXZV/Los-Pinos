@@ -11,6 +11,12 @@
                     <option value="100">100</option>
                 </select>
                 <span class="mr-2 font-bold">Buscar</span>
+                <select wire:model='buscador'
+                    class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
+                    <option value="accion">Acción</option>
+                    <option value="fecha">Fecha</option>
+                    <option value="hora">Hora</option>
+                </select>
             </div>
 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
@@ -75,6 +81,9 @@
                                 </svg>
                             @endif
 
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+                            Cargo
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
@@ -173,6 +182,11 @@
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
                                     {{ $bitacora->user->name }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $bitacora->user->Vpersonal->cargo }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">

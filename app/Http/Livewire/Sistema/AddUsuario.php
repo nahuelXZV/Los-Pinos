@@ -11,18 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class AddUsuario extends Component
 {
-    public $open = false;
+    //Atributos de la vista
+    public $open_add = false;
+
+    //Atributos de la clase
     public $contra;
     public $codigoPersonal;
     public $idRol;
     public $email;
 
+    //Reglas de validacion
     protected $rules = [
         'contra' => 'required',
         'codigoPersonal' => 'required|unique:users',
         'idRol' => 'required',
         'email' => 'required|unique:users',
     ];
+
+    //Mensajes de validacion
     protected $messages = [
         'contra.required' => 'El campo contraseña es obligatorio.',
         'codigoPersonal.required' => 'El campo empleado es obligatorio.',
@@ -31,6 +37,18 @@ class AddUsuario extends Component
         'email.required' => 'El campo correo electrónico es obligatorio.',
         'email.unique' => 'El correo electronico ya esta en uso',
     ];
+
+    //Iniciador
+    public function mount()
+    {
+        $this->identify = rand();
+        $Personal = personal::all()->first();
+        $this->codigoPersonal = $Personal->codigo;
+        $rol = Role::all()->first();
+        $this->idRol = $rol->id;
+    }
+
+    //Metodo de guardar
     public function save()
     {
         $this->validate();
@@ -43,17 +61,11 @@ class AddUsuario extends Component
             'codigoPersonal' => $this->codigoPersonal
         ])->assignRole($rol->name);
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un usuario para el empleado con código: ' . $this->codigoPersonal, auth()->user()->id]);
-        $this->reset(['open', 'contra', 'codigoPersonal', 'idRol', 'email']);
+        $this->reset(['open_add', 'contra', 'codigoPersonal', 'idRol', 'email']);
         $this->emit('actualizar');
     }
-    public function mount()
-    {
-        $this->identify = rand();
-        $Personal = personal::all()->first();
-        $this->codigoPersonal = $Personal->codigo;
-        $rol = Role::all()->first();
-        $this->idRol = $rol->id;
-    }
+
+    //Renderizado
     public function render()
     {
         $personal = personal::all();

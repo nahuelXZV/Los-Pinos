@@ -4,7 +4,8 @@
     Salida de Equipos
 @endsection
 @section('action')
-    Información de la Salida
+    <a href="{{ route('salidasEquipo') }}" class="hover:underline "> Salida de Equipos</a>&nbsp/&nbsp
+    <a href="{{ route('salidasEquipos.show', $salida->id) }}" class="hover:underline "> Detalles de salidas</a>
 @endsection
 
 @section('content')

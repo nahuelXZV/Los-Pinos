@@ -4,9 +4,10 @@
     Reserva
 @endsection
 @section('action')
-    Informacion de Equipos Regresados
+    <a href="{{ route('reserva.list') }}" class="hover:underline ">Lista de reservas</a> &nbsp/&nbsp
+    <a href="{{ route('reserva.show', $reserva->id) }}" class="hover:underline ">Detalles de reserva</a>
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-show-reserva',['reserva' => $reserva])
+    @livewire('area-comun.reserva.lw-show-reserva',['reserva' => $reserva])
 @endsection

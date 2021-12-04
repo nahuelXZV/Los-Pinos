@@ -1,94 +1,36 @@
 <div>
     <x-table>
-        <div class="flex ">
-            <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">Información sobre la reserva:
-                {{ $reserva->id }}
-            </h1>
-            @livewire('area-comun.lw-editar-reserva',['reserva' => $reserva->id])
-        </div>
-
-        <div class="px-6 py-4 w-auto">
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Código de Reserva:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->id }}</label>
-                </label>
-            </div>
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Nombre del residente:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->Vresidente->nombre }}</label>
-                </label>
-            </div>
-
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Nombre del área común:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->VareaComun->nombre }}</label>
-                </label>
-            </div>
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Fecha:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->fecha }}</label>
-                </label>
-            </div>
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Hora de inicio:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->horaIni }}</label>
-                </label>
-            </div>
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Hora de final:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->horaFin }}</label>
-                </label>
-            </div>
-            <div>
-                <label class="text-sm text-black font-bold">
-                    Cantidad aproximada de invitados:
-                    <label class="font-semibold text-gray-700"> {{ $reserva->cantsPers }}</label>
-                </label>
-            </div>
-        </div>
-    </x-table>
-
-    @livewire('area-comun.lw-reporte',['reserva' => $reserva->id])
-
-    <x-table>
-        <h1 class="mt-4 px-6 py-2 font-mono text-xl font-bold uppercase">Lista de Invitados
-        </h1>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
-                <span class="mr-2 font-semibold">Buscar</span>
+                <span class="mr-2 font-bold ">Paginar</span>
+                <select wire:model='pagination'
+                    class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                <span class="mr-2 font-bold">Buscar</span>
             </div>
 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
-            @livewire('area-comun.lw-add-visitante',['codigoRes' => $reserva->id])
-            
-            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                </svg>
-                Añadir
-            </x-jet-danger-button>
-        </div>
+            @can('areacomun.add')
+                @livewire('area-comun.area-comun.lw-add-area-comun')
+            @endcan
 
-        @if ($lista->count())
+        </div>
+        @if ($areas->count())
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
                         <th scope="col"
                             class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('id')">
+                            wire:click="order('codigo')">
                             Código
 
-                            @if ($sort == 'id')
+                            @if ($sort == 'codigo')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -114,7 +56,7 @@
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('nombre')">
-                            Nombre Visitante
+                            Nombre
 
                             @if ($sort == 'nombre')
                                 @if ($direction == 'asc')
@@ -141,10 +83,10 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('nroCarnet')">
-                            Numero de carnet
+                            wire:click="order('calle')">
+                            Calle
 
-                            @if ($sort == 'nroCarnet')
+                            @if ($sort == 'calle')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -166,12 +108,13 @@
                                 </svg>
                             @endif
 
+                        </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('horaIngreso')">
-                            Hora Ingreso
+                            wire:click="order('manzano')">
+                            Manzano
 
-                            @if ($sort == 'horaIngreso')
+                            @if ($sort == 'manzano')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -195,9 +138,10 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('horaSalida')">
-                            Hora de salida
-                            @if ($sort == 'horaSalida')
+                            wire:click="order('estadoRes')">
+                            Estado Reservación
+
+                            @if ($sort == 'estadoRes')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -218,167 +162,140 @@
                                         d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                 </svg>
                             @endif
-                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                            Acciones
                         </th>
+                        @if (auth()->user()->can('areacomun.delete') ||
+    auth()->user()->can('areacomun.edit'))
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        @endif
                     </tr>
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($lista as $visitantes)
+                    @foreach ($areas as $area)
                         <tr>
                             <td class="px-6 py-4 ">
                                 <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    {{ $visitantes->id }}
+                                    {{ $area->codigo }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $visitantes->nombre }}
+                                    {{ $area->nombre }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $visitantes->nroCarnet }}
+                                    {{ $area->calle }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $visitantes->invitado->horaIngreso }}
+                                    {{ $area->manzano }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
-                                    {{ $visitantes->invitado->horaSalida }}
-                                </div>
+
+                            <td class="px-6 py-4 text-sm text-white font-bold">
+                                @if ($area->estadoRes == 'Reservación')
+                                    <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-green-500">
+                                        {{ $area->estadoRes }}
+                                    </span>
+                                @else
+                                    <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-red-500 ">
+                                        {{ $area->estadoRes }}
+                                    </span>
+                                @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                    wire:click="open_edit({{ $visitantes->invitado->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </a>
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteInvitado',{{ $visitantes->invitado->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
-                            </td>
+                            @if (auth()->user()->can('areacomun.delete') ||
+    auth()->user()->can('areacomun.edit'))
+                                <td class="px-6 py-4 whitespace-nowrap flex">
+                                    @can('areacomun.edit')
+                                        <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                            wire:click="open_modal_edit({{ $area }}) ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                    @can('areacomun.delete')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                            wire:click="$emit('deleteArea',{{ $area }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
         @else
-            <label class="text-sm text-black font-semibold mt-4 ml-4 mb-10">
-                No hay invitados
-            </label>
+            <div class="px-6 py-4">
+                <label class="text-sm text-black font-semibold">
+                    No hay registros</label>
+            </div>
         @endif
 
+        @if ($areas->hasPages())
+            <div class="px-6 py-3">
+                {{ $areas->links() }}
+            </div>
+        @endif
     </x-table>
 
-    <x-jet-dialog-modal wire:model="open_editar">
+
+    <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
-            Registrar Ingreso o Salida
+            Editar Área común
         </x-slot>
 
         <x-slot name='content'>
             <div class="mb-4">
-                <x-jet-label value='Codigo Visitante' />
-                <x-jet-input wire:model='idVisitante' type='text' class="w-full" readonly />
-                <x-jet-input-error for="idVisitante" />
-            </div>
-            <div class="mb-4">
                 <x-jet-label value='Nombre' />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" readonly />
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full"
+                    placeholder="Ingrese el nombre" />
                 <x-jet-input-error for="nombre" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='Numero de Carnet' />
-                <x-jet-input wire:model='nroCarnet' type='text' class="w-full" readonly />
-                <x-jet-input-error for="nroCarnet" />
+                <x-jet-label value='Calle' />
+                <x-jet-input wire:model.defer='calle' type='text' class="w-full"
+                    placeholder="Ingrese la calle" />
+                <x-jet-input-error for="calle" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='Hora de ingreso' />
-                <x-jet-input wire:model='horaIngreso' type='time' class="w-full" />
-                <x-jet-input-error for="horaIngreso" />
+                <x-jet-label value='Manzano' />
+                <x-jet-input wire:model.defer='manzano' type='number' class="w-full"
+                    placeholder="Ingrese el manzano" />
+                <x-jet-input-error for="manzano" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='Hora de salida' />
-                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
-                <x-jet-input-error for="horaSalida" />
+                <x-jet-label value='Estado de reservación' class="mb-1" />
+                <select wire:model.defer='estadoRes'
+                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
+                    <option value="Reservación">Reservación</option>
+                    <option value="No Reservación">No Reservación</option>
+                </select>
+                <x-jet-input-error for="estadoRes" />
             </div>
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_editar',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">
+            <x-jet-danger-button wire:click='update' wire:loading.attr='disabled' class="disabled:opacity-15">
                 Actualizar
             </x-jet-danger-button>
         </x-slot>
-
     </x-jet-dialog-modal>
-
-    <x-jet-dialog-modal wire:model="open_add">
-        <x-slot name='title'>
-            Añadir invitado
-        </x-slot>
-
-        <x-slot name='content'>
-            <div class="mb-4 w-full" wire:ignore>
-                <label for="id_label_single">
-                    Selecciona un invitado <br>
-                    <select wire:model='idVisitante' class="idVisitante" style='width: 100%'>
-                        @foreach ($listVisitante as $personas)
-                            <option value="{{ $personas->id }}">{{ $personas->nombre }}</option>
-                        @endforeach
-                    </select>
-                    <x-jet-input-error for="idVisitante" />
-                </label>
-            </div>
-            <x-jet-input-error for="idVisitante" />
-            <div class="mb-4">
-                <x-jet-label value='Hora de ingreso' />
-                <x-jet-input wire:model='horaIngreso' type='time' class="w-full" />
-                <x-jet-input-error for="horaIngreso" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='Hora de salida' />
-                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
-                <x-jet-input-error for="horaSalida" />
-            </div>
-
-        </x-slot>
-
-        <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_add',false)">
-                Cancelar
-            </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
-                Añadir
-            </x-jet-danger-button>
-        </x-slot>
-    </x-jet-dialog-modal>
-
-    <script>
-        document.addEventListener('livewire:load', function() {
-            $('.idVisitante').select2({
-                placeholder: "Selecciona un invitado",
-                allowClear: true,
-                minimumInputLength: 2,
-            });
-            $('.idVisitante').on('change', function() {
-                @this.set('idVisitante', this.value);
-            })
-        })
-    </script>
 
 </div>

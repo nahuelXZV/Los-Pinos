@@ -1,5 +1,5 @@
 <div>
-    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open',true)">
+    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -8,7 +8,7 @@
         Añadir
     </x-jet-danger-button>
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_add">
         <x-slot name='title'>
             Nuevo usuario
         </x-slot>
@@ -28,7 +28,7 @@
 
             <div class="mb-4">
                 <x-jet-label value='Selecciona un rol' class="mb-2" />
-                <select wire:model='idRol'
+                <select wire:model.defer='idRol'
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     @foreach ($roles as $rol)
                         <option value="{{ $rol->id }}">{{ $rol->name }}</option>
@@ -39,18 +39,18 @@
 
             <div class="mb-4">
                 <x-jet-label value='Correo Electrónico' class="mb-2" />
-                <x-jet-input wire:model='email' type='email' class="w-full" />
+                <x-jet-input wire:model.defer='email' type='email' class="w-full" placeholder="Escriba su correo electrónico"/>
                 <x-jet-input-error for="email" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Contraseña' class="mb-2" />
-                <x-jet-input wire:model='contra' type='password' class="w-full" />
+                <x-jet-input wire:model.defer='contra' type='password' class="w-full" placeholder='Escriba su contraseña'/>
                 <x-jet-input-error for="contra" />
             </div>
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_add',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">

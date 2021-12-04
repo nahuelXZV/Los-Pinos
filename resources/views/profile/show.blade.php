@@ -4,6 +4,7 @@
     Perfil
 @endsection
 @section('action')
+    <a href="{{ route('profile.show') }}" class="hover:underline ">Perfil</a>
 
 @endsection
 

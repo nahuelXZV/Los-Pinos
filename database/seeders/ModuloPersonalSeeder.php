@@ -39,7 +39,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Soltero",
             'email' => "josealvarez@gmail.com",
-            'cargo' => "Guardia",
+            'cargo' => "Portero",
             'estado' => "Activo",
         ]);
         personal::create([
@@ -53,7 +53,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Casado",
             'email' => "sergiocopi@gmail.com",
-            'cargo' => "Portero Entrada",
+            'cargo' => "Portero",
             'estado' => "Activo",
         ]);
         personal::create([
@@ -95,7 +95,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "F",
             'estadoCivil' => "Soltero",
             'email' => "soniaanez@gmail.com",
-            'cargo' => "Limpieza",
+            'cargo' => "Gerente",
             'estado' => "Inactivo",
         ]);
         personal::create([
@@ -109,7 +109,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Casado",
             'email' => "fersuarez@gmail.com",
-            'cargo' => "Portero Almacen",
+            'cargo' => "Portero",
             'estado' => "Activo",
         ]);
         personal::create([
@@ -123,7 +123,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Soltero",
             'email' => "hugocruz@gmail.com",
-            'cargo' => "Portero Entrada",
+            'cargo' => "Portero",
             'estado' => "Activo",
         ]);
         personal::create([
@@ -151,7 +151,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Soltero",
             'email' => "carlosgomez@gmail.com",
-            'cargo' => "Jardinero",
+            'cargo' => "Guardia",
             'estado' => "Activo",
         ]);
         personal::create([
@@ -207,7 +207,7 @@ class ModuloPersonalSeeder extends Seeder
             'sexo' => "M",
             'estadoCivil' => "Soltero",
             'email' => "joseflores@gmail.com",
-            'cargo' => "Guardia",
+            'cargo' => "Administrador",
             'estado' => "Activo",
         ]);
 

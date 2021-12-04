@@ -4,9 +4,9 @@
     Reservas
 @endsection
 @section('action')
-    Lista de reservas
+    <a href="{{ route('reserva.list') }}" class="hover:underline ">Lista de reservas</a>
 @endsection
 
 @section('content')
-    @livewire('area-comun.lw-list-reserva')
+    @livewire('area-comun.reserva.lw-reserva')
 @endsection

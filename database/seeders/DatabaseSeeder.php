@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\personal;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('DROP PROCEDURE IF EXISTS newBitacora');
+        DB::statement('
+        CREATE PROCEDURE newBitacora(IN fecha date,IN hora time,IN accion varchar(255),IN idUser integer)
+        BEGIN
+        insert into bitacoras(fecha,hora,accion,idUsuario) values (fecha, hora, accion, idUser);
+        END ');
         $this->call(RoleSeeder::class);
         $this->call(ModuloPersonalSeeder::class);
         $this->call(ModuloInventarioSeeder::class);
         $this->call(ModuloSeguridadSeeder::class);
         $this->call(ModuloAreaComunSeeder::class);
+<<<<<<< HEAD
         personal::create([
             'nombre' => "Nahuel Zalazar Villca",
             'carnet' => "12499553",
@@ -89,5 +97,8 @@ class DatabaseSeeder extends Seeder
             'email' => "guardia@gmail.com",
             'password' => bcrypt('12345678')
         ])->assignRole('Guardia');
+=======
+        $this->call(UserSeeder::class);
+>>>>>>> 12effd9874cf3614b1269e38296d0fc86738a9e2
     }
 }

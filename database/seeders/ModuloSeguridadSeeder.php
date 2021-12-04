@@ -134,6 +134,8 @@ class ModuloSeguridadSeeder extends Seeder
             'estadoVivienda' => 'Vendida'
         ]);
 
+
+
         /*RESIDENTE */
         residente::create([
             'id' => 1,
@@ -235,6 +237,7 @@ class ModuloSeguridadSeeder extends Seeder
             'idVivienda' => 102
         ]);
 
+
         /*PERTENECE */
         pertenece::create([
             'idVivienda' => 100,
@@ -256,6 +259,7 @@ class ModuloSeguridadSeeder extends Seeder
             'idVivienda' => 103,
             'idResidente' => 11
         ]);
+
 
         /*VISITANTE */
         visitante::create([
@@ -319,6 +323,7 @@ class ModuloSeguridadSeeder extends Seeder
             'sexo' => 'M'
         ]);
 
+
         /*MOTORIZADO */
         motorizado::create([
             'id' => 100,
@@ -356,6 +361,7 @@ class ModuloSeguridadSeeder extends Seeder
             'idVisitante' =>  5
         ]);
 
+        
         /*SALIDA URBANIZACION */
         salidaUrb::create([
             'id' => 101,

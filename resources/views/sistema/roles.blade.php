@@ -4,7 +4,8 @@
     Roles
 @endsection
 @section('action')
-    Gestionar roles
+    <a href="{{ route('roles') }}" class="hover:underline ">Roles y Cargos</a>
+
 @endsection
 
 @section('content')

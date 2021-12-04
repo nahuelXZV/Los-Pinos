@@ -16,18 +16,18 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre Completo' class="mb-2" />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full" />
                 <x-jet-input-error for="nombre" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Numero de carnet' class="mb-2" />
-                <x-jet-input wire:model='numeroDeCarnet' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='numeroDeCarnet' type='text' class="w-full" />
                 <x-jet-input-error for="numeroDeCarnet" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Sexo' class="mb-2" />
-                <select wire:model='sexo'
+                <select wire:model.defer='sexo'
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
@@ -36,24 +36,23 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de ingreso' />
-                <x-jet-input wire:model='horaIngreso' type='time' class="w-full" />
+                <x-jet-input wire:model.defer='horaIngreso' type='time' class="w-full" />
                 <x-jet-input-error for="horaIngreso" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Hora de salida' />
-                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
+                <x-jet-input wire:model.defer='horaSalida' type='time' class="w-full" />
                 <x-jet-input-error for="horaSalida" />
             </div>
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
                 Guardar
             </x-jet-danger-button>
         </x-slot>
-
     </x-jet-dialog-modal>
 </div>

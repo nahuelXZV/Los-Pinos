@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class bitacora extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'fecha', 'hora', 'accion', 'idUsuario'];
+
 
     // relacion de muchos a uno
     public function user()
     {
-        return $this->hasMany(User::class, 'idUsuario');
+        return $this->belongsTo(User::class, 'idUsuario');
     }
 }

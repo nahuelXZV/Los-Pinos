@@ -4,7 +4,7 @@
     Inicio
 @endsection
 @section('action')
-    Información de la Urbanización
+    <a href="{{ route('inicio') }}" class="hover:underline ">Los Pinos</a>
 @endsection
 
 @section('content')

@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Seguridad\Vivienda;
 
+use App\Models\bitacora;
 use App\Models\vivienda;
+use Carbon\Carbon;
+use Carbon\Doctrine\CarbonType;
 use Livewire\Component;
 
 class LwAddVivienda extends Component
@@ -28,7 +31,7 @@ class LwAddVivienda extends Component
         'nroCasa.required' => 'El campo Numero de casa es obligatorio.',
         'nroCasa.unique' => 'El valor del campo Numero de casa ya esta en uso',
     ];
-    
+
     public function save()
     {
         $this->validate();
@@ -39,6 +42,12 @@ class LwAddVivienda extends Component
             'lote' => $this->lote,
             'estadoResidencia' => $this->estadoDeResidencia,
             'estadoVivienda' => $this->estadoDeVivienda
+        ]);
+        bitacora::create([
+            'fecha' => now()->format('Y-m-d'),
+            'hora' => now()->format('H:i'),
+            'accion' => 'Añadio una nueva vivienda con número de casa: ' . $this->nroCasa,
+            'idUsuario' => auth()->user()->id
         ]);
         $this->reset(['open', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();

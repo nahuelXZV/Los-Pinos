@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Seguridad\Vivienda;
 use App\Models\vivienda;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\bitacora;
+use Illuminate\Support\Facades\DB;
 
 class LwVivienda extends Component
 {
@@ -80,21 +82,42 @@ class LwVivienda extends Component
     }
     public function update()
     {
-        $this->validate();
+        if ($this->vivienda->nroCasa == $this->nroCasa) {
+            $this->validate([
+                'nroCasa' => 'required',
+                'calle' => 'required|max:50',
+                'manzano' => 'required',
+                'lote' => 'required',
+                'estadoDeResidencia' => 'required',
+                'estadoDeVivienda' => 'required',
+            ]);
+        } else {
+            $this->validate();
+        }
         $this->vivienda->nroCasa = $this->nroCasa;
         $this->vivienda->calle = $this->calle;
         $this->vivienda->manzano = $this->manzano;
         $this->vivienda->lote = $this->lote;
         $this->vivienda->estadoResidencia = $this->estadoDeResidencia;
         $this->vivienda->estadoVivienda = $this->estadoDeVivienda;
-        $this->vivienda->save();
+        $this->vivienda->update();
+        //BITACORA
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        //END BITACORA
         $this->reset(['open', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
     public function delete(vivienda $vivienda)
     {
+        $nroC = $vivienda->nroCasa;
         $vivienda->delete();
+        bitacora::create([
+            'fecha' => now()->format('Y-m-d'),
+            'hora' => now()->format('H:i'),
+            'accion' => 'Elimino una vivienda con número de casa: ' . $nroC,
+            'idUsuario' => auth()->user()->id
+        ]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()

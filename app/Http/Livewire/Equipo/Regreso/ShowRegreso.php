@@ -10,8 +10,6 @@ use App\Models\saco;
 use App\Models\salidaEquipo;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
-
-
 use Livewire\Component;
 
 class ShowRegreso extends Component
@@ -36,8 +34,8 @@ class ShowRegreso extends Component
     public $idRegresoEquipo = 1;
     public $codigoEquipo = 1000;
     public $codigoPersonal, $nombreEquipo;
-    public $idRegreso, $idRegresado, $estadoDevolucion, $fechaRegreso, 
-    $horaRegreso, $equi, $regreso;
+    public $idRegreso, $idRegresado, $estadoDevolucion, $fechaRegreso,
+        $horaRegreso, $equi, $regreso;
     public $stockFaltante, $stockRegresado, $stockRegresadoDañado;
     public $horaRegresoEquipo, $fechaRegresoEquipo;
 
@@ -87,7 +85,7 @@ class ShowRegreso extends Component
             $this->direction = 'asc';
         }
     }
-    
+
     //Metodo de reinicio de buscador
     public function updatingSearch()
     {
@@ -98,7 +96,7 @@ class ShowRegreso extends Component
     public function open_editReg($idRegreso)
     {
         $regreso = regresoEquipo::find($idRegreso);
-        
+
         $this->idRegreso = $regreso->id;  // Guarda el Id regristrado en la vista
 
         $this->idRegresoEquipo = $regreso->id;
@@ -157,44 +155,38 @@ class ShowRegreso extends Component
         $regresado = regreso::find($this->idRegresado);
         $equipo = equipo::find($regresado->codigoEquipo);
 
-        if(($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||  
-        ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple" ){
-            
+        if (($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||
+            ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple") {
+
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emit('alert', '¡Demasiado Stock Regresado para esta salida!');
-        
-        }else{
+        } else {
 
             $regresado->fechaRegreso = $this->fechaRegresoEquipo;
             $regresado->horaRegreso = $this->horaRegresoEquipo;
 
-            if($equipo->multiplicidad == "Multiple"){
+            if ($equipo->multiplicidad == "Multiple") {
 
-                if($this->stockRegresado != null || $this->stockRegresadoDañado != null){
+                if ($this->stockRegresado != null || $this->stockRegresadoDañado != null) {
 
                     $equipo->stock = ($equipo->stock - $regresado->stockRegresado) + $this->stockRegresado;
                     $equipo->stockFaltante = ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) - ($this->stockRegresado + $this->stockRegresadoDañado);
 
                     $regresado->stockRegresado = $this->stockRegresado;
                     $regresado->stockRegresadoDañado = $this->stockRegresadoDañado;
-
                 }
-
                 $regresado->estadoDevolucion =  "Buen Estado";
                 $equipo->estadoFuncionamiento = "Buen Estado";
-            }
-            else{
-                if($this->stockRegresado != null && $this->stockRegresado > 0)
-                {
+            } else {
+                if ($this->stockRegresado != null && $this->stockRegresado > 0) {
                     $regresado->stockRegresado = 1;
                     $regresado->stockRegresadoDañado = 0;
-                }else if($this->stockRegresadoDañado != null && $this->stockRegresadoDañado > 0)
-                {
+                } else if ($this->stockRegresadoDañado != null && $this->stockRegresadoDañado > 0) {
                     $regresado->stockRegresado = 0;
                     $regresado->stockRegresadoDañado = 1;
                 }
-                
+
                 $regresado->estadoDevolucion =  $this->estadoDevolucion;
                 $equipo->estadoFuncionamiento = $this->estadoDevolucion;
                 $equipo->stockFaltante = null;
@@ -209,7 +201,7 @@ class ShowRegreso extends Component
             $this->emit('alert', 'Actualizado Correctamente');
         }
     }
-     
+
     //Método para eliminar la tabla
     public function delete($regresoEq)
     {
@@ -231,5 +223,4 @@ class ShowRegreso extends Component
         $this->render();
         $this->emit('alert', 'Añadido Correctamente');
     }
-
 }

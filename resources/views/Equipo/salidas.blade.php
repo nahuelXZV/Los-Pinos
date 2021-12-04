@@ -9,10 +9,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
-@livewire('equipo.salida.show-salida-equipos')
-=======
-    @livewire('equipo.show-salida-equipos')
->>>>>>> 12effd9874cf3614b1269e38296d0fc86738a9e2
+    @livewire('equipo.salida.show-salida-equipos')
 
 @endsection

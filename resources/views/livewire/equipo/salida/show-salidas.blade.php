@@ -4,18 +4,18 @@
             <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">Información sobre la salida:
                 {{ $salida->id }}
             </h1>
-
-            <x-jet-danger-button wire:click='open_editSal({{ $salida->id }})'
-                class="flex-none bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
-                Editar Salida
-            </x-jet-danger-button>
-
+            @can('salidaEquipos.edit')
+                <x-jet-danger-button wire:click='open_editSal({{ $salida->id }})'
+                    class="flex-none bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
+                    Editar Salida
+                </x-jet-danger-button>
+            @endcan
         </div>
 
         <div class="px-6 py-4 w-auto">
             <div>
                 <label class="text-sm text-black font-bold">
-                    ID de la Salida:
+                    Código de la Salida:
                     <label class="font-semibold text-gray-700">
                         {{ $salida->id }}
                     </label>
@@ -60,6 +60,7 @@
         </div>
     </x-table>
 
+
     <x-table>
         <h1 class="mt-4 px-6 py-2 font-mono text-xl font-bold uppercase">Lista de Equipos Sacados
         </h1>
@@ -71,14 +72,16 @@
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
-            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                </svg>
-                Añadir
-            </x-jet-danger-button>
+            @can('salidaEquipos.show.add')
+                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Añadir
+                </x-jet-danger-button>
+            @endcan
         </div>
 
         @if ($lista->count())
@@ -88,7 +91,7 @@
                         <th scope="col"
                             class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
-                            ID
+                            Código
 
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')
@@ -168,7 +171,33 @@
                                 </svg>
                             @endif
 
-                       
+                        <th scope="col"
+                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('multiplicidad')">
+                            Tipo
+
+                            @if ($sort == 'multiplicidad')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('stockRequerido')">
@@ -195,7 +224,6 @@
                                 </svg>
                             @endif
                         </th>
-
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('estadoSalida')">
@@ -223,9 +251,13 @@
                             @endif
                         </th>
 
-                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                            Acciones
-                        </th>
+                        @if (auth()->user()->can('salidaEquipos.show.edit') ||
+    auth()->user()->can('salidaEquipos.show.delete'))
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        @endif
+
                     </tr>
                 </thead>
 
@@ -247,6 +279,18 @@
                                 <div class="text-sm text-gray-900">
                                     {{ $equipos->nombre }}
                                 </div>
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-white">
+                                @if ($equipos->multiplicidad == 'Multiple')
+                                    <span class="px-2 rounded-full inline-flex bg-green-500">
+                                        {{ $equipos->multiplicidad }}
+                                    </span>
+                                @else
+                                    <span class="px-2 rounded-full inline-flex bg-blue-500">
+                                        {{ $equipos->multiplicidad }}
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="px-6 py-4 ">
@@ -279,24 +323,31 @@
 
 
 
-                            <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                    wire:click="open_edit({{ $equipos->saco->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                </a>
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteSalida',{{ $equipos->saco->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
-                            </td>
+                            @if (auth()->user()->can('salidaEquipos.show.edit') ||
+    auth()->user()->can('salidaEquipos.show.delete'))
+                                <td class="px-6 py-4 whitespace-nowrap flex">
+                                    @can('salidaEquipos.show.edit')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
+                                            wire:click="open_edit({{ $equipos->saco->id }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                    @can('salidaEquipos.show.delete')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                            wire:click="$emit('deleteSalida',{{ $equipos->saco->id }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
@@ -317,19 +368,19 @@
 
         <x-slot name='content'>
             <div class="mb-4">
-                <x-jet-label value='ID de la Salida' />
+                <x-jet-label value='Código de la Salida' />
                 <x-jet-input wire:model='idSalidaEquipo' type='text' class="w-full" readonly />
                 <x-jet-input-error for="idSalidaEquipo" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Hora de Salida' />
-                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
+                <x-jet-input wire:model.defer='horaSalida' type='time' class="w-full" />
                 <x-jet-input-error for="horaSalida" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Fecha de salida' />
-                <x-jet-input wire:model='fechaSalida' type='date' class="w-full" />
+                <x-jet-input wire:model.defer='fechaSalida' type='date' class="w-full" />
                 <x-jet-input-error for="fechaSalida" />
             </div>
 
@@ -345,8 +396,6 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-
-
     <x-jet-dialog-modal wire:model="open_editar">
         <x-slot name='title'>
             Modificar Equipo Sacado
@@ -354,7 +403,7 @@
 
         <x-slot name='content'>
             <div class="mb-4">
-                <x-jet-label value='ID' />
+                <x-jet-label value='Código' />
                 <x-jet-input wire:model='idSalida' type='text' class="w-full" readonly />
                 <x-jet-input-error for="idSalida" />
             </div>
@@ -367,21 +416,17 @@
 
             <div class="mb-4">
                 <x-jet-label value='Stock Requerido' />
-                <label class="text-gray-500 text-xs">*Si el Stock Requerido sobrepasa el Stock Total, se sacará todo
-                    el
-                    Stock disponible</label>
-                <x-jet-input wire:model='stockRequerido' type='number' min="0" class="w-full" />
+                <x-jet-input wire:model.defer='stockRequerido' type='number' min="0" class="w-full" />
                 <x-jet-input-error for="stockRequerido" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Estado de la Salida del Equipo' />
                 <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de
-                    multiplicidad
-                    Unico</label>
+                    tipo único</label>
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='estadoSalida'>
+                    wire:model.defer='estadoSalida'>
                     <option value="Buen Estado">Buen Estado</option>
                     <option value="Mantenimiento">Mantenimiento</option>
                     <option value="Dañado">Dañado</option>
@@ -392,7 +437,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_editar',false)">
+            <x-jet-secondary-button wire:click="$set('open_editar',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='updateEquipo()' wire:loading.attr='disabled' class="disabled:opacity-15">
@@ -410,33 +455,31 @@
 
         <x-slot name='content'>
 
-            <div class="mb-4">
-                <x-jet-label value="Nombre, Estado de Funcionamiento, y Stock Total del Equipo" />
-                <select
-                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='codigoEquipo'>
-                    <option value="null" class="text-gray-500 text-base">Seleccione uno...</option>
-                    @foreach ($listaEquipo as $equipo)
-                        <option value="{{ $equipo->codigo }}">{{ $equipo->nombre }} - {{ $equipo->estadoFuncionamiento }} - {{ $equipo->stock }}</option>
-                    @endforeach
-                </select>
-                <x-jet-input-error for="codigoEquipo" />
+            <div class="mb-4 w-full" wire:ignore>
+                <label for="id_label_single">
+                    Nombre y Stock del Equipo <br>
+                    <select wire:model='codigoEquipo' class="codigoEquipo" style='width: 100%'>
+                        @foreach ($listaEquipo as $equipo)
+                            <option value="{{ $equipo->codigo }}">
+                                {{ $equipo->nombre }} - {{ $equipo->stock }}
+                            </option>
+                        @endforeach
+                    </select>
+                </label>
             </div>
-
+            <x-jet-input-error for="codigoEquipo" />
 
             <div class="mb-4 mt-2">
-                <x-jet-label value='Stock Requerido' />
-                <label class="text-gray-500 text-xs">*Si el Stock Requerido sobrepasa el Stock Total, se sacará
-                    todo el
-                    Stock disponible del equipo</label>
-                <x-jet-input wire:model='stockRequerido' type='number' min="1" class="w-full" />
+                <x-jet-label value='Cantidad Requerida' />
+                <x-jet-input wire:model.defer='stockRequerido' type='number' min="1" class="w-full"
+                    placeholder='Escriba la cantidad requerida' />
                 <x-jet-input-error for="stockRequerido" />
             </div>
 
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_add',false)">
+            <x-jet-secondary-button wire:click="$set('open_add',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
@@ -446,10 +489,20 @@
     </x-jet-dialog-modal>
 
 
-
+    <script>
+        document.addEventListener('livewire:load', function() {
+            $('.codigoEquipo').select2({
+                placeholder: "Selecciona un equipo",
+                allowClear: true,
+                minimumInputLength: 2,
+            });
+            $('.codigoEquipo').on('change', function() {
+                @this.set('codigoEquipo', this.value);
+            })
+        })
+    </script>
 
     @push('js')
-        <script src="sweetalert2.all.min.js"></script>
         <script>
             Livewire.on('deleteSalida',
                 salidaID => {

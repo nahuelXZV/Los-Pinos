@@ -22,12 +22,11 @@ class ShowRegresoEquipos extends Component
     public $direction = 'desc';
     public $cant = 10;
     public $open = false;
-    public $readyToLoad = false;
     public $identify;
 
     //Atributos de la clase
     public $hora, $fecha, $idRegreso, $idSalidaEquipo, $estadoDevolucion;
-    public $codigoPersonal = 100;
+    public $codigoPersonal;
 
     //Listener que manda el equipo al metodo delete
     protected $listeners = ['render', 'delete'];
@@ -52,6 +51,10 @@ class ShowRegresoEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
+        $personal = personal::all()->first();
+        $this->codigoPersonal = $personal->id;
+        $salida = salidaEquipo::all()->first();
+        $this->idSalidaEquipo = $salida->id;
     }
 
     //Metodo de reinicio de buscador
@@ -60,32 +63,9 @@ class ShowRegresoEquipos extends Component
         $this->resetPage();
     }
 
-    //Método para renderizar la vista
-    public function render()
-    {
-        if($this->readyToLoad){
-            $regresos = regresoEquipo::where('id', 'like', '%' . $this->search . '%')
-                        ->orderBy($this->sort, $this->direction)
-                        ->paginate($this->cant);
-            $salidas = salidaEquipo::all();
-            $personals = personal::all();
-       }else{
-           $personals = [];
-           $salidas = [];
-           $regresos= [];
-       }
-
-        return view('livewire.equipo.regreso.show-regreso-equipos', compact('regresos', 'salidas', 'personals'));
-    }
-
-    //Método para verificar la carga de la vista
-    public function loadRegresos()
-    {
-        $this->readyToLoad = true;
-    }
-
     //Método para ordenar
-    public function order($sort){
+    public function order($sort)
+    {
 
         if ($this->sort == $sort) {
             if ($this->direction == 'desc') {
@@ -116,13 +96,11 @@ class ShowRegresoEquipos extends Component
     //Método para añadir y guardar una tupla
     public function save()
     {
-
         $this->validate();
 
         $regresado = regresoEquipo::where('idSalidaEquipo', '=', $this->idSalidaEquipo)->count();
         $sacos = saco::where('idSalidaEquipo', '=', $this->idSalidaEquipo)->get();
-        if($regresado == null || $regresado ==  0)
-        {
+        if ($regresado == null || $regresado ==  0) {
             regresoEquipo::create([
                 'fecha' => $this->fecha,
                 'hora' => $this->hora,
@@ -142,14 +120,22 @@ class ShowRegresoEquipos extends Component
                 ]);
             }
             $this->emit('alert', '¡Añadido Correctamente!');
-        }
-        else{
+        } else {
             $this->emit('alert', '¡Error! El regreso de  la salida ya fue registrado.');
         }
-        $this->reset(['fecha', 'hora', 'codigoPersonal', 'idSalidaEquipo', 'open']);
         $this->identify = rand();
-        $this->emitTo('equipo.regreso.show-regreso-equipos', 'render');
+        $this->reset(['fecha', 'hora', 'codigoPersonal', 'idSalidaEquipo', 'open']);
+    }
 
-    } 
-    
+    //Método para renderizar la vista
+    public function render()
+    {
+
+        $regresos = regresoEquipo::where('id', 'like', '%' . $this->search . '%')
+            ->orderBy($this->sort, $this->direction)
+            ->paginate($this->cant);
+        $salidas = salidaEquipo::all();
+        $personals = personal::all();
+        return view('livewire.equipo.regreso.show-regreso-equipos', compact('regresos', 'salidas', 'personals'));
+    }
 }

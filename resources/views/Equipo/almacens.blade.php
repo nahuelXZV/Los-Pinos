@@ -9,10 +9,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
-@livewire('equipo.almacen.show-almacens')
-=======
-    @livewire('equipo.show-almacens')
->>>>>>> 12effd9874cf3614b1269e38296d0fc86738a9e2
+    @livewire('equipo.almacen.show-almacens')
 
 @endsection

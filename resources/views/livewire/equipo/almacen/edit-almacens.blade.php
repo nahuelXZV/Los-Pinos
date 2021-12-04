@@ -11,33 +11,29 @@
     </div>
 
     <x-jet-dialog-modal wire:model="open">
-
         <x-slot name="title">
-            Editar el almacen {{ $almacen->nombre }}
+            Editar el almacen: {{ $almacen->nombre }}
         </x-slot>
 
         <x-slot name="content">
             <div class="mb-4">
                 <x-jet-label value="Nombre" />
-                <x-jet-input type="text" class="w-full" wire:model="nombre" />
-
+                <x-jet-input type="text" class="w-full" wire:model.defer="nombre" />
             </div>
-
             <div class="mb-4">
                 <x-jet-label value="Calle" />
-                <x-jet-input type="text" class="w-full" wire:model="calle" />
+                <x-jet-input type="text" class="w-full" wire:model.defer="calle" />
 
             </div>
-
             <div class="mb-4">
                 <x-jet-label value="Manzano" />
-                <x-jet-input type="number" min="1" class="w-full" wire:model="manzano" />
+                <x-jet-input type="number" min="1" class="w-full" wire:model.defer="manzano" />
             </div>
 
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('open', false)">
+            <x-jet-secondary-button wire:click="$set('open', false)" wire:loading.attr="disabled">
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click="update()" wire:loading.attr="disabled" wire:target="update"

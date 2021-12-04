@@ -17,7 +17,7 @@ class CreateAlmacens extends Component
     //Validaciones del formulario
     protected $rules = [
         'nombre' => 'required|max:50',
-        'calle' => 'required|max:50', 
+        'calle' => 'required|max:50',
         'manzano' => 'required|max:30',
     ];
 
@@ -30,24 +30,20 @@ class CreateAlmacens extends Component
 
 
     //Método para guardar
-    public function save(){
-
+    public function save()
+    {
         $this->validate();
-
         almacen::create([
             'nombre' => $this->nombre,
             'calle' => $this->calle,
             'manzano' => $this->manzano,
         ]);
-
         $this->reset(['open', 'nombre', 'calle', 'manzano']);
-
-        $this->emitTo('equipo.almacen.show-almacens', 'render');
         $this->emit('alert', '¡El almacen se creó satisfactoriamente!');
     }
 
     //Método para renderizar la vista
-     public function render()
+    public function render()
     {
         return view('livewire.equipo.almacen.create-almacens');
     }

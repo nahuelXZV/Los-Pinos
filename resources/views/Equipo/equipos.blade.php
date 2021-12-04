@@ -9,10 +9,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
-@livewire('equipo.inventario.show-equipos')
-=======
-    @livewire('equipo.show-equipos')
->>>>>>> 12effd9874cf3614b1269e38296d0fc86738a9e2
+    @livewire('equipo.inventario.show-equipos')
 
 @endsection

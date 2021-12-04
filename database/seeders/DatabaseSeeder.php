@@ -33,6 +33,19 @@ class DatabaseSeeder extends Seeder
             'cargo' => "Administrador",
             'estado' => "Activo",
         ]);
+        personal::create([
+            'nombre' => "Diego Hurtado Vargas",
+            'carnet' => "7777326",
+            'telefono' => "71310964",
+            'direccion' => "B/23 de Octubre C/Paraguay #12",
+            'fechaNac' => "2000/12/24",
+            'nacionalidad' => "Boliviano",
+            'sexo' => "M",
+            'estadoCivil' => "Soltero",
+            'email' => "Diego@gmail.com",
+            'cargo' => "Administrador",
+            'estado' => "Activo",
+        ]);
         User::create([
             'name' => "Nahuel Zalazar Villca",
             'email' => "Nahuel@gmail.com",

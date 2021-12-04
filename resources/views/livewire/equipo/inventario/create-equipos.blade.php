@@ -1,0 +1,118 @@
+<div>
+    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open', true)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+        </svg>
+        Añadir
+    </x-jet-danger-button>
+
+    <x-jet-dialog-modal wire:model="open" class="font-bold">
+        <x-slot name="title">
+            Crear Nuevo Equipo
+        </x-slot>
+        <x-slot name="content">
+
+            <div class="mb-4">
+                <x-jet-label value="Nombre del Equipo" />
+                <x-jet-input type="text" class="w-full" wire:model="nombre" />
+                
+                <x-jet-input-error for="nombre"/>
+
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value="Modelo del Equipo" />
+                <x-jet-input wire:model='modelo' type="text" class=" w-full" />
+            </div>
+
+
+            <div class="mb-4">
+                <x-jet-label value="Marca del Equipo" />
+                <x-jet-input type="text" class="w-full" rows="6" wire:model="marca" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value="Descripción del Equipo" />
+                <textarea wire:model='descripcion'
+                class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
+                rows="4"></textarea>
+            </div>
+
+            <div class="mb-4 mt-2">
+                <x-jet-label value='Stock' />
+                <label class="text-gray-500 text-xs">*Si crea el equipo con Stock 0 o 1, será de multiplicidad Unico</label>
+                <x-jet-input wire:model='stock' type='number' min="0" class="w-full" />
+                <x-jet-input-error for="stock" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Estado de Funcionamiento del Equipo' />
+                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de
+                    multiplicidad
+                    Unico</label>
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='estadoFuncionamiento'>
+                    <option class="text-gray-500">Seleccione un estado...</option>
+                    <option value="Buen Estado">Buen Estado</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Dañado">Dañado</option>
+                </select>
+                <x-jet-input-error for="estadoFuncionamiento" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Estado de Servicio del Equipo' />
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='estadoServicio'>
+                    <option class="text-gray-500">Seleccione un estado...</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+                <x-jet-input-error for="estadoServicio" />
+            </div>
+
+           
+            <div class="mb-4 w-full" wire:ignore>
+                <x-jet-label value='Nombre del Almacen' />
+                <select wire:model='idAlmacen' class="idAlmacen" style='width: 100%'>
+                    @foreach ($almacens as $almacen)
+                        <option value="{{ $almacen->id }}">{{ $almacen->nombre }} </option>
+                    @endforeach
+                </select>
+                <x-jet-input-error for="idAlmacen" />
+            </div>
+
+
+        </x-slot>
+        <x-slot name="footer">
+
+            <x-jet-secondary-button wire:click="$set('open', false)">
+                Cancelar
+            </x-jet-secondary-button>
+
+            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save" class="disabled:opacity-25">
+                Crear Equipo
+            </x-jet-danger-button>
+
+        </x-slot>
+    </x-jet-dialog-modal>
+
+    <script>
+        document.addEventListener('livewire:load', function() {
+            $('.idAlmacen').select2({
+                placeholder: "Selecciona un almacen",
+                allowClear: true,
+                minimumInputLength: 2,
+            });
+            $('.idAlmacen').on('change', function() {
+                @this.set('idAlmacen', this.value);
+            })
+        })
+
+    </script>
+
+</div>

@@ -17,6 +17,11 @@ class CreateRegresosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('idRegresoEquipo');
             $table->unsignedBigInteger('codigoEquipo');
+            $table->unsignedSmallInteger('cantidadSacada')->nullable();
+            $table->unsignedSmallInteger('stockRegresado')->nullable();
+            $table->unsignedSmallInteger('stockRegresadoDañado')->nullable();
+            $table->date('fechaRegreso')->nullable();
+            $table->time('horaRegreso')->nullable();
             $table->string('estadoDevolucion');
 
             $table->foreign('idRegresoEquipo')->references('id')->on('regreso_equipos')->onUpdate('cascade')->onDelete('cascade');

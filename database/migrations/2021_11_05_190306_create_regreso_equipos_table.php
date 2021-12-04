@@ -17,7 +17,6 @@ class CreateRegresoEquiposTable extends Migration
             $table->id();
             $table->date('fecha');
             $table->time('hora');
-            $table->unsignedSmallInteger('stockRegresado')->nullable();
             $table->unsignedBigInteger('codigoPersonal');
             $table->unsignedBigInteger('idSalidaEquipo');
 

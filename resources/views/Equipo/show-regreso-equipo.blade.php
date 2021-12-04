@@ -8,5 +8,5 @@
 @endsection
 
 @section('content')
-    @livewire('equipo.show-regreso',['regreso' => $regreso])
+    @livewire('equipo.regreso.show-regreso',['regreso' => $regreso])
 @endsection

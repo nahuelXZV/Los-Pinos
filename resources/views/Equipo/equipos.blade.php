@@ -9,6 +9,6 @@
 
 @section('content')
 
-@livewire('equipo.show-equipos')
+@livewire('equipo.inventario.show-equipos')
 
 @endsection

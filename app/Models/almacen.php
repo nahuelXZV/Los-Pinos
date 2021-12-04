@@ -10,6 +10,7 @@ class almacen extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'nombre', 'calle', 'manzano'];
+    protected $primaryKey = "id";
 
     // relacion de uno a muchos 
     public function equipo(){

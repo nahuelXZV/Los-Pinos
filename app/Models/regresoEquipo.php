@@ -9,7 +9,7 @@ class regresoEquipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'fecha', 'hora', 'stockRegresado', 'codigoPersonal', 'idSalidaEquipo'];
+    protected $fillable = ['id', 'fecha', 'hora', 'codigoPersonal', 'idSalidaEquipo'];
     protected $primaryKey = 'id';
 
     // relacion de muchos a uno 
@@ -21,11 +21,16 @@ class regresoEquipo extends Model
     public function regreso(){
         return $this->belongsToMany(equipo::class, 'regresos', 'idRegresoEquipo', 'codigoEquipo')
                 ->as('regreso')
-                ->withPivot('id', 'codigoEquipo', 'idRegresoEquipo', 'estadoDevolucion');
+                ->withPivot('id', 'codigoEquipo', 'idRegresoEquipo', 'estadoDevolucion', 'fechaRegreso', 'horaRegreso' ,'cantidadSacada', 'stockRegresado', 'stockRegresadoDañado');
         }  
 
      // relacion de muchos a uno 
      public function salidaEquipo(){
         return $this->belongsTo(salidaEquipo::class, 'idSalidaEquipo');
-    } 
+    }
+
+    public function regresoEquipo()
+    {
+        return $this->hasMany(regreso::class, 'idRegresoEquipo');
+    }
 }

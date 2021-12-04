@@ -17,7 +17,7 @@
                     <span class="mr-2 font-bold">Paginar</span>
                 </div>
 
-                <x-jet-input type="text" placeholder="Introduzca el código o el nombre o la descripción del equipo"
+                <x-jet-input type="text" placeholder="Introduzca el código o el nombre del personal"
                     wire:model="search" class=" mx-4 mr-4 flex-1 rounded-full w-full">
                 </x-jet-input>
 
@@ -84,98 +84,8 @@
                                             d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
                                     </svg>
                                 @endif
-
                             </th>
 
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('direccion')">
-                                Dirección
-
-                                @if ($sort == 'direccion')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-                            </th>
-
-                            </th>
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('fechaNac')">
-                                Fecha de Naciimento
-
-                                @if ($sort == 'fechaNac')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-
-                            </th>
-
-                            </th>
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('nacionalidad')">
-                                Nacionalidad
-
-                                @if ($sort == 'nacionalidad')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
-
-                            </th>
-
-                            </th>
                             <th scope="col"
                                 class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                                 wire:click="order('sexo')">
@@ -203,34 +113,6 @@
                                     </svg>
                                 @endif
 
-                            </th>
-
-                            <th scope="col"
-                                class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                                wire:click="order('estadoCivil')">
-                                Estado Civil
-
-                                @if ($sort == 'estadoCivil')
-                                    @if ($direction == 'asc')
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                        </svg>
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                        </svg>
-                                    @endif
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                    </svg>
-                                @endif
                             </th>
 
 
@@ -347,18 +229,6 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $persona->direccion }}
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $persona->fechaNac }}
-                                </td>
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $persona->nacionalidad }}
-                                </td>
-
 
                                 @if ($persona->sexo == 'M')
                                     <td class="px-6 py-4 text-sm text-white font-bold">
@@ -374,10 +244,6 @@
                                     </td>
                                 @endif
 
-
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $persona->estadoCivil }}
-                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-500">
                                     {{ $persona->email }}
                                 </td>
@@ -386,9 +252,20 @@
                                     {{ $persona->cargo }}
                                 </td>
 
-                                <td class="px-6 py-4 text-sm text-gray-500">
-                                    {{ $persona->estado }}
-                                </td>
+                                
+                                @if ($persona->estado == 'Activo')
+                                    <td class="px-6 py-4 text-sm text-white font-bold">
+                                        <span class="px-2 rounded-full inline-flex bg-green-500">
+                                            {{ $persona->estado }}
+                                        </span>
+                                    </td>
+                                @else
+                                    <td class="px-6 py-4 text-sm text-white font-bold">
+                                        <span class="px-2 rounded-full inline-flex bg-red-500 ">
+                                            {{ $persona->estado }}
+                                        </span>
+                                    </td>
+                                @endif
 
 
                                 <td class=" my-10 px-6 py-4 whitespace-nowrap flex">

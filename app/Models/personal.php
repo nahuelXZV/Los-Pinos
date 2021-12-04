@@ -33,12 +33,12 @@ class personal extends Model
 
     // relacion de uno a muchos
     public function salidaEquipo(){
-        return $this->hasMany(salidaEquipo::class, 'codigoP');
+        return $this->hasMany(salidaEquipo::class, 'codigoPersonal');
     }
 
       // relacion de uno a muchos
     public function ingresoEquipo(){
-        return $this->hasMany(regresoEquipo::class, 'codigoP');
+        return $this->hasMany(regresoEquipo::class, 'codigoPersonal');
     }
 
     public function Vpersonal()

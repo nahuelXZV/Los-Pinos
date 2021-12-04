@@ -17,11 +17,11 @@
                 <span class="mr-2 font-bold">Paginar</span>
             </div>
 
-            <x-jet-input type="text" placeholder="Introduzca el código o el nombre o la descripción del equipo"
+            <x-jet-input type="text" placeholder="Introduzca el ID o el nombre del almacén"
                 wire:model="search" class=" mx-4 mr-4 flex-1 rounded-full w-full">
             </x-jet-input>
 
-            @livewire('equipo.create-almacens')
+            @livewire('equipo.almacen.create-almacens')
 
         </div>
         @if (count($almacens))
@@ -171,8 +171,8 @@
                             </td>
 
 
-                            <td class=" my-10 px-6 py-4 whitespace-nowrap flex">
-                                @livewire('equipo.edit-almacens', ['almacen' => $almacen->id],
+                            <td class=" my-3 px-6 py-4 whitespace-nowrap flex">
+                                @livewire('equipo.almacen.edit-almacens', ['almacen' => $almacen->id],
                                 key($almacen->id))
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
                                     wire:click="$emit('deleteAlmacen', {{ $almacen->id }})">
@@ -218,7 +218,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            Livewire.emitTo('equipo.show-almacens', 'delete', almacenID)
+                            Livewire.emitTo('equipo.almacen.show-almacens', 'delete', almacenID)
 
                             Swal.fire(
                                 'Deleted!',

@@ -9,5 +9,5 @@
 @endsection
 
 @section('content')
-    @livewire('equipo.show-salidas',['salida' => $salida])
+    @livewire('equipo.salida.show-salidas',['salida' => $salida])
 @endsection

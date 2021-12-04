@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Equipo;
+namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
 use Livewire\Component;
@@ -10,16 +10,19 @@ class ShowAlmacens extends Component
 {
     use WithPagination;
 
+    //Atributos de la vista
     public $search = "";
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = 10;
-    
+
+    //Atributo de la vista para verificar la carga de la página
     public $readyToLoad = false;
 
+    //Listener que manda el equipo al metodo delete de otra vista
     protected $listeners = ['render', 'delete'];
 
-
+    //Arreglo para acortar link de la página en casos especificos
     protected $queryString = [
         'cant' => ['except' => '10'], 
         'sort' => ['except' => 'codigo'], 
@@ -27,11 +30,13 @@ class ShowAlmacens extends Component
         'search' => ['except' => ''],
     ]; 
 
-
+    //Metodo de reinicio de buscador
     public function updatingSearch()
     {
         $this->resetPage();
     }
+
+    //Método para renderizar la vista
     public function render()
     {
 
@@ -45,14 +50,16 @@ class ShowAlmacens extends Component
            $almacens = [];
        }
 
-        return view('livewire.equipo.show-almacens', compact('almacens'));
+        return view('livewire.equipo.almacen.show-almacens', compact('almacens'));
     }
 
+    //Método para verificar la carga de la página
     public function loadAlmacens()
     {
         $this->readyToLoad = true;
     }
 
+    //Método para ordenar
     public function order($sort){
 
         if ($this->sort == $sort) {
@@ -67,6 +74,7 @@ class ShowAlmacens extends Component
         }
     }
 
+    //Método para borrar
     public function delete(almacen $almacen)
     {
         $almacen->delete();

@@ -30,6 +30,7 @@
             </x-jet-danger-button>
 
         </div>
+
         @if (count($salidas))
 
             <table class=" min-w-full divide-y divide-gray-200 ">
@@ -178,34 +179,6 @@
                             @endif
                         </th>
 
-                        <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('stockRequerido')">
-                            Stock Requerido
-
-                            @if ($sort == 'stockRequerido')
-                                @if ($direction == 'asc')
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                    </svg>
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                    </svg>
-                                @endif
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-                            @endif
-                        </th>
-
                         <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                             Acciones
                         </th>
@@ -239,17 +212,14 @@
                                 {{ $salida->motivo }}
                             </td>
 
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $salida->stockRequerido }}
-                            </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap flex">
+                            <td class="my-3 px-6 py-4 whitespace-nowrap flex">
                                 <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
                                     href=" {{ route('salidasEquipos.show', $salida->id) }}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                    <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                     </svg>
                                 </a>
 
@@ -278,6 +248,8 @@
                 No hay equipos en el inventario con esas características
             </div>
         @endif
+
+
     </x-table>
 
     <x-jet-dialog-modal wire:model="open">
@@ -288,41 +260,22 @@
         <x-slot name='content'>
 
             <div class="mb-4">
+                <x-jet-label value='ID' />
+                <x-jet-input wire:model='idSalida' type='text' class="w-full" readonly />
+                <x-jet-input-error for="idSalida" />
+            </div>
+
+            <div class="mb-4">
                 <x-jet-label value="Encargado del Equipo" />
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='codigoPersonal'>
-                    @foreach ($personals as $personal)
+                    wire:model='codigoP'>
+                    @foreach ($listaPersonal as $personal)
                         <option value="{{ $personal->codigo }}">{{ $personal->nombre }}</option>
                     @endforeach
                 </select>
-                <x-jet-input-error for="codigoPersonal" />
             </div>
 
-            <div class="mb-4">
-                <x-jet-label value='Nombre y Stock actual del Equipo' />
-                <label class="text-gray-500 text-xs">*Si el equipo no tiene Stock, es de multiplicidad Unico</label>
-                <select
-                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='codigoEquipo'>
-                    @foreach ($equipos as $equipo)
-                        <option value="{{ $equipo->codigo }}">{{ $equipo->nombre }} - {{ $equipo->stock }}
-                        </option>
-                    @endforeach
-                </select>
-                <x-jet-input-error for="codigoEquipo" />
-            </div>
-
-            <div class="mb-4">
-                <x-jet-label value='Stock Requerido a Sacar' />
-                <label class="text-gray-500 text-xs">*Si la multiplicidad del equipo es Unico, el Stock Requerido no se
-                    tomará en cuenta</label>
-                <p>
-                    <label class="text-gray-500 text-xs">*Si el Stock Requerido es mayor al Stock Total del Equipo, se
-                        sacará todo el Stock disponible</label>
-                    <x-jet-input wire:model='stockRequerido' type='number' min="0" class="w-full" />
-                    <x-jet-input-error for="stockRequerido" />
-            </div>
 
             <div class="mb-4">
                 <x-jet-label value='Fecha' />
@@ -352,6 +305,19 @@
         </x-slot>
     </x-jet-dialog-modal>
 
+    <script>
+        document.addEventListener('livewire:load', function() {
+            $('.codigoP').select2({
+                placeholder: "Selecciona un miembro del Personal",
+                allowClear: true,
+                minimumInputLength: 2,
+            });
+            $('.codigoP').on('change', function() {
+                @this.set('codigoP', this.value);
+            })
+        })
+    </script>
+
     @push('js')
         <script src="sweetalert2.all.min.js"></script>
         <script>
@@ -368,7 +334,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            Livewire.emitTo('equipo.show-salida-equipos', 'delete', salidaID)
+                            Livewire.emitTo('equipo.salida.show-salida-equipos', 'delete', salidaID)
 
                             Swal.fire(
                                 'Deleted!',

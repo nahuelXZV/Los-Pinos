@@ -1,27 +1,77 @@
-<div wire:init="loadRegresos">
-
-    <!-- This example requires Tailwind CSS v2.0+ -->
+<div>
     <x-table>
+        <div class="flex ">
+            <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">Información sobre la salida:
+                {{ $salida->id }}
+            </h1>
 
-        <div class=" px-4 py-6 flex items-center">
+            <x-jet-danger-button wire:click='open_editSal({{ $salida->id }})'
+                class="flex-none bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
+                Editar Salida
+            </x-jet-danger-button>
 
-            <div class="flex items-center">
-                <select wire:model="cant"
-                    class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
+        </div>
 
-                <span class="mr-2 font-bold">Paginar</span>
+        <div class="px-6 py-4 w-auto">
+            <div>
+                <label class="text-sm text-black font-bold">
+                    ID de la Salida:
+                    <label class="font-semibold text-gray-700">
+                        {{ $salida->id }}
+                    </label>
+                </label>
             </div>
 
-            <x-jet-input type="text" placeholder="Introduzca el ID del Regereso del Equipo" wire:model="search"
-                class=" mx-4 mr-4 flex-1 rounded-full w-full">
-            </x-jet-input>
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Código del Personal Encargado:
+                    <label class="font-semibold text-gray-700">
+                        {{ $salida->personal->codigo }}
+                    </label>
+                </label>
+            </div>
 
-            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open', true)">
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Nombre del Personal Encargado:
+                    <label class="font-semibold text-gray-700">
+                        {{ $salida->personal->nombre }}
+                    </label>
+                </label>
+            </div>
+
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Fecha de Salida:
+                    <label class="font-semibold text-gray-700">
+                        {{ $salida->fecha }}
+                    </label>
+                </label>
+            </div>
+
+            <div>
+                <label class="text-sm text-black font-bold">
+                    Hora de Salida:
+                    <label class="font-semibold text-gray-700">
+                        {{ $salida->hora }}
+                    </label>
+                </label>
+            </div>
+        </div>
+    </x-table>
+
+    <x-table>
+        <h1 class="mt-4 px-6 py-2 font-mono text-xl font-bold uppercase">Lista de Equipos Sacados
+        </h1>
+        <div class="px-6 py-4 flex items-center">
+            <div class="flex items-center">
+                <span class="mr-2 font-semibold">Buscar</span>
+            </div>
+
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
+                wire:model="search" />
+
+            <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -29,16 +79,14 @@
                 </svg>
                 Añadir
             </x-jet-danger-button>
-
         </div>
-        @if (count($regresos))
 
-            <table class=" min-w-full divide-y divide-gray-200 ">
-                <thead class=" rounded-3xl bg-green-500 text-white">
+        @if ($lista->count())
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
-
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
                             ID
 
@@ -67,10 +115,10 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('codigoPersonal')">
-                            Código y Nombre del encargado del Equipo
+                            wire:click="order('codigoEquipo')">
+                            Código del Equipo
 
-                            @if ($sort == 'codigoPersonal')
+                            @if ($sort == 'codigoEquipo')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -93,41 +141,12 @@
                             @endif
 
                         </th>
-
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('fecha')">
-                            Fecha
+                            wire:click="order('nombreEquipo')">
+                            Nombre del Equipo
 
-                            @if ($sort == 'fecha')
-                                @if ($direction == 'asc')
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                    </svg>
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                    </svg>
-                                @endif
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-                            @endif
-                        </th>
-
-                        <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('hora')">
-                            Hora
-
-                            @if ($sort == 'hora')
+                            @if ($sort == 'nombreEquipo')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -149,13 +168,11 @@
                                 </svg>
                             @endif
 
-                        </th>
-
+                       
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('stockRequerido')">
-                            Stock Regresado
-
+                            Cantidad Sacada
                             @if ($sort == 'stockRequerido')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
@@ -181,10 +198,9 @@
 
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('stockRequerido')">
-                            ID de Salida de Equipo
-
-                            @if ($sort == 'stockRequerido')
+                            wire:click="order('estadoSalida')">
+                            Estado de Salida
+                            @if ($sort == 'estadoSalida')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -212,50 +228,68 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class=" bg-white divide-y divide-gray-200">
-                    @foreach ($regresos as $regreso)
+
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($lista as $equipos)
                         <tr>
-
-                            <td class="px-6 py-4">
-                                <span
+                            <td class="px-6 py-4 ">
+                                <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    {{ $regreso->id }}
-                                </span>
+                                    {{ $equipos->saco->id }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $equipos->codigo }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $equipos->nombre }}
+                                </div>
                             </td>
 
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $regreso->personal->codigo }}-{{ $regreso->personal->nombre }}
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-gray-900">
+                                    {{ $equipos->saco->stockRequerido }}
+                                </div>
                             </td>
 
+                            @if ($equipos->saco->estadoSalida == 'Buen Estado')
+                                <td class="px-6 py-4 text-sm text-white font-bold">
+                                    <span class="px-2 rounded-full inline-flex bg-green-500">
+                                        {{ $equipos->saco->estadoSalida }}
+                                    </span>
+                                </td>
+                            @else
+                                @if ($equipos->saco->estadoSalida == 'Mantenimiento')
+                                    <td class="px-6 py-4 text-sm text-white font-bold">
+                                        <span class="px-2 rounded-full inline-flex bg-gray-500">
+                                            {{ $equipos->saco->estadoSalida }}
+                                        </span>
+                                    </td>
+                                @else
+                                    <td class="px-6 py-4 text-sm text-white font-bold">
+                                        <span class="px-2 rounded-full inline-flex bg-red-500">
+                                            {{ $equipos->saco->estadoSalida }}
+                                        </span>
+                                    </td>
+                                @endif
+                            @endif
 
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $regreso->fecha }}
-                            </td>
 
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $regreso->hora }}
-                            </td>
-
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $regreso->stockRegresado }}
-                            </td>
-
-                            <td class="px-6 py-4 text-sm text-gray-500">
-                                {{ $regreso->idSalidaEquipo }}
-                            </td>
 
                             <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                    href=" {{ route('regresosEquipos.show', $regreso->id) }}">
+                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
+                                    wire:click="open_edit({{ $equipos->saco->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
                                 </a>
-
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteRegreso', {{ $regreso->id }})">
+                                    wire:click="$emit('deleteSalida',{{ $equipos->saco->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -263,119 +297,162 @@
                                     </svg>
                                 </a>
                             </td>
-
                         </tr>
-                        <!-- More people... -->
                     @endforeach
                 </tbody>
             </table>
-            @if ($regresos->hasPages())
-                <div class="px-6 py-3">
-                    {{ $regresos->links() }}
-                </div>
-            @endif
         @else
-            <div class="px-6 py-4">
-                No hay equipos en el inventario con esas características
-            </div>
+            <label class="text-sm text-black font-semibold mt-4 ml-4 mb-10">
+                No hay equipos sacados
+            </label>
         @endif
+
     </x-table>
 
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_editsal">
         <x-slot name='title'>
-            Registrar Regreso del Equipo
+            Modificar Tiempo de la Salida
+        </x-slot>
+
+        <x-slot name='content'>
+            <div class="mb-4">
+                <x-jet-label value='ID de la Salida' />
+                <x-jet-input wire:model='idSalidaEquipo' type='text' class="w-full" readonly />
+                <x-jet-input-error for="idSalidaEquipo" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Hora de Salida' />
+                <x-jet-input wire:model='horaSalida' type='time' class="w-full" />
+                <x-jet-input-error for="horaSalida" />
+            </div>
+            <div class="mb-4">
+                <x-jet-label value='Fecha de salida' />
+                <x-jet-input wire:model='fechaSalida' type='date' class="w-full" />
+                <x-jet-input-error for="fechaSalida" />
+            </div>
+
+        </x-slot>
+
+        <x-slot name='footer'>
+            <x-jet-secondary-button wire:click="$set('open_editsal',false)">
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click='updateSalida()' wire:loading.attr='disabled' class="disabled:opacity-15">
+                Actualizar
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-dialog-modal>
+
+
+
+    <x-jet-dialog-modal wire:model="open_editar">
+        <x-slot name='title'>
+            Modificar Equipo Sacado
+        </x-slot>
+
+        <x-slot name='content'>
+            <div class="mb-4">
+                <x-jet-label value='ID' />
+                <x-jet-input wire:model='idSalida' type='text' class="w-full" readonly />
+                <x-jet-input-error for="idSalida" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Nombre del Equipo' />
+                <x-jet-input wire:model='nombreEquipo' type='text' class="w-full" readonly />
+                <x-jet-input-error for="codigoEquipo" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Stock Requerido' />
+                <label class="text-gray-500 text-xs">*Si el Stock Requerido sobrepasa el Stock Total, se sacará todo
+                    el
+                    Stock disponible</label>
+                <x-jet-input wire:model='stockRequerido' type='number' min="0" class="w-full" />
+                <x-jet-input-error for="stockRequerido" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Estado de la Salida del Equipo' />
+                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de
+                    multiplicidad
+                    Unico</label>
+                <select
+                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model='estadoSalida'>
+                    <option value="Buen Estado">Buen Estado</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                    <option value="Dañado">Dañado</option>
+                </select>
+                <x-jet-input-error for="estadoSalida" />
+            </div>
+
+        </x-slot>
+
+        <x-slot name='footer'>
+            <x-jet-secondary-button wire:click="$set('open_editar',false)">
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-danger-button wire:click='updateEquipo()' wire:loading.attr='disabled' class="disabled:opacity-15">
+                Actualizar
+            </x-jet-danger-button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
+
+
+    <x-jet-dialog-modal wire:model="open_add">
+        <x-slot name='title'>
+            Añadir Equipo
         </x-slot>
 
         <x-slot name='content'>
 
             <div class="mb-4">
-                <x-jet-label value="Encargado del Equipo" />
-                <select
-                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='codigoPersonal'>
-                    @foreach ($personals as $personal)
-                        <option value="{{ $personal->codigo }}">{{ $personal->nombre }}</option>
-                    @endforeach
-                </select>
-                <x-jet-input-error for="codigoPersonal" />
-            </div>
-
-            <div class="mb-4">
-                <x-jet-label value='Nombre y Stock Faltante del Equipo' />
-                <label class="text-gray-500 text-xs">*Si el equipo no tiene Stock, es de multiplicidad Unico</label>
+                <x-jet-label value="Nombre, Estado de Funcionamiento, y Stock Total del Equipo" />
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model='codigoEquipo'>
-                    @foreach ($equipos as $equipo)
-                        <option value="{{ $equipo->codigo }}">{{ $equipo->nombre }} -
-                            {{ $equipo->stockFaltante }} </option>
+                    <option value="null" class="text-gray-500 text-base">Seleccione uno...</option>
+                    @foreach ($listaEquipo as $equipo)
+                        <option value="{{ $equipo->codigo }}">{{ $equipo->nombre }} - {{ $equipo->estadoFuncionamiento }} - {{ $equipo->stock }}</option>
                     @endforeach
                 </select>
                 <x-jet-input-error for="codigoEquipo" />
             </div>
 
-            <div class="mb-4">
-                <x-jet-label value='Estado de Devolución del Equipo' />
-                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de multiplicidad
-                    Unico</label>
-                <select
-                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='estadoDevolucion'>
-                    <option value="Buen Estado">Buen Estado</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Dañado">Dañado</option>
-                </select>
-                <x-jet-input-error for="estadoDevolucion" />
+
+            <div class="mb-4 mt-2">
+                <x-jet-label value='Stock Requerido' />
+                <label class="text-gray-500 text-xs">*Si el Stock Requerido sobrepasa el Stock Total, se sacará
+                    todo el
+                    Stock disponible del equipo</label>
+                <x-jet-input wire:model='stockRequerido' type='number' min="1" class="w-full" />
+                <x-jet-input-error for="stockRequerido" />
             </div>
 
-            <div class="mb-4">
-                <x-jet-label value='Stock Regresado' />
-                <label class="text-gray-500 text-xs">*El stock regresado se aumentará al stock actual y reducirá el
-                    stock faltante.</label>
-                <x-jet-input wire:model='stockRegresado' type='number' min="0" class="w-full" />
-                <x-jet-input-error for="stockRegresado" />
-            </div>
-
-            <div class="mb-4">
-                <x-jet-label value='Fecha' />
-                <x-jet-input wire:model='fecha' type='date' class="w-full" />
-                <x-jet-input-error for="fecha" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='Hora' />
-                <x-jet-input wire:model='hora' type='time' class="w-full" placeholder='hh:mm' />
-                <x-jet-input-error for="hora" />
-            </div>
-            <div class="mb-4">
-                <x-jet-label value='ID de Salida del Equipo' />
-                <select
-                    class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='idSalidaEquipo'>
-                    @foreach ($salidas as $salida)
-                        <option value="{{ $salida->id }}">{{ $salida->id }}</option>
-                    @endforeach
-                </select>
-                <x-jet-input-error for="idSalidaEquipo" />
-            </div>
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_add',false)">
                 Cancelar
             </x-jet-secondary-button>
-            <x-jet-danger-button class="mr-2" wire:click='save' wire:loading.attr='disabled'
-                class="disabled:opacity-15">
-                Guardar
+            <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
+                Añadir
             </x-jet-danger-button>
         </x-slot>
     </x-jet-dialog-modal>
 
+
+
+
     @push('js')
         <script src="sweetalert2.all.min.js"></script>
         <script>
-            Livewire.on('deleteRegreso',
-                regresoID => {
+            Livewire.on('deleteSalida',
+                salidaID => {
                     Swal.fire({
                         title: '¿Estás seguro?',
                         text: "Los datos se borrarán permanentemente",
@@ -387,11 +464,11 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
 
-                            Livewire.emitTo('equipo.show-regreso-equipos', 'delete', regresoID)
+                            Livewire.emitTo('equipo.salida.show-salidas', 'delete', salidaID)
 
                             Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                '¡Eliminado!',
+                                'La Salida ha sido eliminada.',
                                 'success'
                             )
                         }
@@ -399,4 +476,5 @@
                 });
         </script>
     @endpush
+
 </div>

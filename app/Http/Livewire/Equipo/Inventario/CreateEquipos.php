@@ -13,8 +13,7 @@ class CreateEquipos extends Component
 
     //Atributos de la clase
     public $multiplicity, $stock, $estadoFuncionamiento, $estadoServicio,
-     $codigo, $nombre, $modelo, $marca, $descripcion;
-    public $idAlmacen = 1;
+     $codigo, $nombre, $modelo, $marca, $descripcion, $idAlmacen;
 
     //Validaciones del formulario
     protected $rules = [
@@ -61,7 +60,10 @@ class CreateEquipos extends Component
             'idAlmacen' => $this->idAlmacen, 
         ]);
 
-        $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'multiplicity', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
+        $last = equipo::latest('id')->first();
+        $this->codigo = $last->id;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el equipo: ' . $this->nombre . ' con código: ' . $this->codigo , auth()->user()->id]);
+        $this->reset(['open', 'codigo' ,'nombre', 'modelo', 'marca', 'descripcion', 'multiplicity', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
 
         $this->emitTo('equipo.inventario.show-equipos', 'render');
         $this->emit('alert', '¡El equipo se creó satisfactoriamente!');

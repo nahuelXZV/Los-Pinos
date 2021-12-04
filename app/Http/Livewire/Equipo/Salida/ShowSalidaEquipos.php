@@ -25,7 +25,7 @@ class ShowSalidaEquipos extends Component
 
     //Atributos de la clase
     public $fecha, $hora, $motivo, $estadoSalida,
-    $stockRequerido, $stockFaltante, $idSalida, $lastS, $multiplicidad;
+    $stockRequerido, $stockFaltante, $idSalida, $multiplicidad;
     public $codigoP = 100;
     public $codigoEquipo = null;
 
@@ -86,14 +86,16 @@ class ShowSalidaEquipos extends Component
     //Método para eliminar
     public function delete(salidaEquipo $salida)
     {
+        $sal = $salida;
         $salida->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
     }
 
     //Método para inicializar el modal
     public function open()
     {
-        $this->lastS = salidaEquipo::latest('id')->first();
-        $this->idSalida = $this->lastS->id;
+        $lastS = salidaEquipo::latest('id')->first();
+        $this->idSalida = $lastS->id;
         $this->open = true;
     }
 
@@ -110,6 +112,7 @@ class ShowSalidaEquipos extends Component
             'codigoPersonal' => $this->codigoP
         ]);
      
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida , auth()->user()->id]);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
         $this->identify = rand();
         $this->emitTo('equipo.salida.show-salida-equipos', 'render');

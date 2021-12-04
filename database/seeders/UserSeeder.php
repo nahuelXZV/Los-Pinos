@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         personal::create([
+            'codigo' => 113,
             'nombre' => "Nahuel Zalazar Villca",
             'carnet' => "12499553",
             'telefono' => "69341427",
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
+            'codigo' => 114,
             'nombre' => "Daniela Carrasco",
             'carnet' => "58654124",
             'telefono' => "63526985",
@@ -42,6 +44,7 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
+            'codigo' => 115,
             'nombre' => "David Suares Sandoval",
             'carnet' => "586957412",
             'telefono' => "78545652",
@@ -55,6 +58,7 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
+            'codigo' => 116,
             'nombre' => "Paul Cruz Vargas",
             'carnet' => "586841244",
             'telefono' => "75452536",
@@ -68,6 +72,7 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
+            'codigo' => 117,
             'nombre' => "Diego Hurtado Vargas",
             'carnet' => "25365478",
             'telefono' => "785452159",

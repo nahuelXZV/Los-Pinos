@@ -142,6 +142,7 @@ class ShowRegreso extends Component
 
         $this->regreso = $regreso;
 
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso: ' . $this->idRegreso  , auth()->user()->id]);
         $this->reset(['open_editreg', 'horaRegreso', 'fechaRegreso']);
         $this->identify = rand();
         $this->emitTo('equipo.regreso.show-regreso', 'render');
@@ -203,19 +204,12 @@ class ShowRegreso extends Component
             $regresado->save();
             $equipo->save();
 
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . 'en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emitTo('equipo.regreso.show-regreso', 'render');
             $this->emit('alert', 'Actualizado Correctamente');
         }
-    }
-     
-    //Método para eliminar la tabla
-    public function delete($regresoEq)
-    {
-        $regresoE = regreso::find($regresoEq);
-        $regresoE->delete();
-        $this->emit('alert', 'Eliminado Correctamente');
     }
 
     //Método para actualizar los datos

@@ -29,7 +29,7 @@ class ShowRegresoEquipos extends Component
     public $hora, $fecha, $idRegreso, $idSalidaEquipo, $estadoDevolucion;
     public $codigoPersonal = 100;
 
-    //Listener que manda el equipo al metodo delete
+    //Listener que se renderiza al método delete
     protected $listeners = ['render', 'delete'];
 
     //Validaciones del formulario
@@ -110,13 +110,14 @@ class ShowRegresoEquipos extends Component
     //Método para eliminar 
     public function delete(regresoEquipo $regreso)
     {
+        $reg = $regreso;
         $regreso->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo , auth()->user()->id]);
     }
 
     //Método para añadir y guardar una tupla
     public function save()
     {
-
         $this->validate();
 
         $regresado = regresoEquipo::where('idSalidaEquipo', '=', $this->idSalidaEquipo)->count();
@@ -141,7 +142,9 @@ class ShowRegresoEquipos extends Component
                     'estadoDevolucion' => $saco->estadoSalida
                 ]);
             }
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $regresado->id . ' de la salida: ' . $regresado->idSalidaEquipo , auth()->user()->id]);
             $this->emit('alert', '¡Añadido Correctamente!');
+            
         }
         else{
             $this->emit('alert', '¡Error! El regreso de  la salida ya fue registrado.');

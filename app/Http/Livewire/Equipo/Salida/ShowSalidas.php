@@ -134,6 +134,7 @@ class ShowSalidas extends Component
         $salio->save();
 
         $this->salida = $salio;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $salio->id, auth()->user()->id]);
         $this->reset(['open_editsal', 'idSalidaEquipo', 'horaSalida', 'fechaSalida']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -142,7 +143,6 @@ class ShowSalidas extends Component
     //Método para actualizar la tabla intermedia y el equipo
     public function updateEquipo()
     {
-
         $saco = saco::find($this->idSaco);
         $equipo = equipo::find($saco->codigoEquipo);
 
@@ -174,7 +174,8 @@ class ShowSalidas extends Component
             }
         $saco->save();
         $equipo->save();
-
+        
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $saco->idSalidaEquipo, auth()->user()->id]);
         $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'stockRequerido', 'estadoSalida']);
         $this->identify = rand();
         $this->emitTo('equipo.salida.show-salidas', 'render');
@@ -224,6 +225,8 @@ class ShowSalidas extends Component
                     'estadoSalida' => $this->estadoSalida
                 ]);
                 $equipo->save();
+
+                DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $this->salida->id, auth()->user()->id]);
                 $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'horaSalida', 'fechaSalida']);
                 $this->identify = rand();
                 $this->emitTo('equipo.salida.show-salidas', 'render');
@@ -236,7 +239,9 @@ class ShowSalidas extends Component
     public function delete($idSaco)
     {
         $sacoE = saco::find($idSaco);
+        $equipo = $sacoE;
         $sacoE->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $equipo->codigoEquipo . 'con ID de Salida: ' . $equipo->idSalidaEquipo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

@@ -77,7 +77,9 @@ class ShowAlmacens extends Component
     //Método para borrar
     public function delete(almacen $almacen)
     {
+        $a = almacen::find($almacen->id); 
         $almacen->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id , auth()->user()->id]);
     }
     
 }

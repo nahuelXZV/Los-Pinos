@@ -77,6 +77,8 @@ class ShowEquipos extends Component
     //Método para borrar
     public function delete(equipo $equipo)
     {
+        $e = almacen::find($equipo->id); 
         $equipo->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $e->nombre . ' con código: ' . $e->codigo , auth()->user()->id]);
     }
 }

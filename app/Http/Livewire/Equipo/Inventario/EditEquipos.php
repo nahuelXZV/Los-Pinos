@@ -15,8 +15,7 @@ class EditEquipos extends Component
     //Atributos de la clase
     public $equipo;
     public $codigo, $nombre, $modelo, $marca, $descripcion, $stock, 
-    $multiplicidad, $estadoServicio, $estadoFuncionamiento;
-    public $idAlmacen = 1;
+    $multiplicidad, $estadoServicio, $estadoFuncionamiento, $idAlmacen;
 
     //Listener que se renderiza al método delete
     protected $listeners = ['delete' => 'delete'];
@@ -91,6 +90,7 @@ class EditEquipos extends Component
 
         $this->equipo->save();
 
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el equipo: ' . $this->nombre . ' con código: ' . $this->codigo , auth()->user()->id]);
         $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'stock', 'multiplicidad', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
         $this->identify = rand();
         $this->emitTo('equipo.inventario.show-equipos', 'render');

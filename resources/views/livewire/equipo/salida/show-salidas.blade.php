@@ -281,7 +281,7 @@
                                 </div>
                             </td>
 
-                            <td class="px-6 py-4 text-sm text-white">
+                            <td class="px-6 py-4 text-sm text-white font-bold">
                                 @if ($equipos->multiplicidad == 'Multiple')
                                     <span class="px-2 rounded-full inline-flex bg-green-500">
                                         {{ $equipos->multiplicidad }}

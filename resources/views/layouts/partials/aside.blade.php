@@ -26,7 +26,6 @@
      <nav class="flex-1 overflow-y-scroll hover:overflow-y-auto">
          <ul class="p-2">
              <li>
-
                  @can('inicio')
                      <a href="{{ route('inicio') }}"
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('inicio')) bg-gray-700 @endif"

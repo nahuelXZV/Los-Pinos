@@ -10,6 +10,7 @@ use App\Models\saco;
 use App\Models\salidaEquipo;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ShowRegresoEquipos extends Component
 {
@@ -28,7 +29,7 @@ class ShowRegresoEquipos extends Component
     public $hora, $fecha, $idRegreso, $idSalidaEquipo, $estadoDevolucion;
     public $codigoPersonal;
 
-    //Listener que manda el equipo al metodo delete
+    //Listener que se renderiza al método delete
     protected $listeners = ['render', 'delete'];
 
     //Validaciones del formulario
@@ -51,9 +52,9 @@ class ShowRegresoEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
-        $personal = personal::all()->first();
+        $personal = personal::latest('codigo')->first();
         $this->codigoPersonal = $personal->id;
-        $salida = salidaEquipo::all()->first();
+        $salida = salidaEquipo::latest('id')->first();
         $this->idSalidaEquipo = $salida->id;
     }
 
@@ -82,15 +83,15 @@ class ShowRegresoEquipos extends Component
     //Método para inicializar el modal
     public function openModal()
     {
-        $this->lastR = regresoEquipo::latest('id')->first();
-        $this->idRegreso = $this->lastR->id + 1;
         $this->open = true;
     }
 
     //Método para eliminar 
     public function delete(regresoEquipo $regreso)
     {
+        $reg = $regreso;
         $regreso->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo , auth()->user()->id]);
     }
 
     //Método para añadir y guardar una tupla
@@ -107,6 +108,10 @@ class ShowRegresoEquipos extends Component
                 'idSalidaEquipo' => $this->idSalidaEquipo,
                 'codigoPersonal' => $this->codigoPersonal
             ]);
+            $this->lastR = regresoEquipo::latest('id')->first();
+            $this->idRegreso = $this->lastR->id;
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo , auth()->user()->id]);
+            $this->emit('alert', '¡Añadido Correctamente!');
             foreach ($sacos as $saco) {
                 regreso::create([
                     'idRegresoEquipo' => $this->idRegreso,
@@ -119,8 +124,8 @@ class ShowRegresoEquipos extends Component
                     'estadoDevolucion' => $saco->estadoSalida
                 ]);
             }
-            $this->emit('alert', '¡Añadido Correctamente!');
-        } else {
+        }
+        else{
             $this->emit('alert', '¡Error! El regreso de  la salida ya fue registrado.');
         }
         $this->identify = rand();

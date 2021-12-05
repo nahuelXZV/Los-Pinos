@@ -16,7 +16,7 @@ class ShowAlmacens extends Component
     public $direction = 'desc';
     public $cant = 10;
 
-    //Listener que manda el equipo al metodo delete de otra vista
+    //Listener que manda el almacen al metodo delete de otra vista
     protected $listeners = ['render', 'delete'];
 
     //Arreglo para acortar link de la página en casos especificos
@@ -52,7 +52,9 @@ class ShowAlmacens extends Component
     //Método para borrar
     public function delete(almacen $almacen)
     {
+        $a = almacen::find($almacen->id); 
         $almacen->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id , auth()->user()->id]);
     }
 
     //Método para renderizar la vista

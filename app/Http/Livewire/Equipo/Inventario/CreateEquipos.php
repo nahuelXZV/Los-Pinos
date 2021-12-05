@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Equipo\Inventario;
 use App\Models\almacen;
 use App\Models\equipo;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class CreateEquipos extends Component
 {
@@ -66,8 +67,15 @@ class CreateEquipos extends Component
             'estadoFuncionamiento' => $this->estadoFuncionamiento,
             'idAlmacen' => $this->idAlmacen,
         ]);
-        $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'multiplicity', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
+
+        $last = equipo::latest('codigo')->first();
+        $this->codigo = $last->codigo;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el equipo: ' . $this->nombre . ' con código: ' . $this->codigo , auth()->user()->id]);
+        $this->reset(['open', 'codigo' ,'nombre', 'modelo', 'marca', 'descripcion', 'multiplicity', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
+        $this->identify = rand();
+        $this->emitTo('equipo.inventario.show-equipos', 'render');
         $this->emit('alert', '¡El equipo se creó satisfactoriamente!');
+        
     }
 
     //Método para renderizar la vista

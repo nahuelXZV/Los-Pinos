@@ -56,7 +56,7 @@ class ShowSalidas extends Component
     public function mount($salida)
     {
         $this->identify = rand();
-        $lastEquipo = equipo::all()->first();
+        $lastEquipo = equipo::latest('codigo')->first();
         $this->codigoEquipo = $lastEquipo->codigo;
         $this->salida = $salida;
     }
@@ -123,6 +123,7 @@ class ShowSalidas extends Component
         $salio->save();
 
         $this->salida = $salio;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $salio->id, auth()->user()->id]);
         $this->reset(['open_editsal', 'idSalidaEquipo', 'horaSalida', 'fechaSalida']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -143,23 +144,17 @@ class ShowSalidas extends Component
         } else {
             if ($equipo->multiplicidad == "Multiple") {
 
-                $this->estadoSalida = "Buen Estado";
-                $equipo->estadoFuncionamiento = "Buen Estado";
-                $saco->estadoSalida = "Buen Estado";
+                $this->stockSacadoMultiple($saco, $equipo);
 
-                $equipo->stockFaltante = ($equipo->stockFaltante - $saco->stockRequerido) + $this->stockRequerido;
-                $equipo->stock = ($equipo->stock + $saco->stockRequerido) - $this->stockRequerido;
-                $saco->stockRequerido = $this->stockRequerido;
-            } else if ($equipo->multiplicidad == "Unico") {
-                $equipo->stock = 0;
-                $equipo->stockFaltante = 1;
-                $equipo->estadoFuncionamiento = $this->estadoSalida;
-                $this->stockRequerido = 1;
-                $saco->estadoSalida = $this->estadoSalida;
+            } else if ($equipo->multiplicidad == "Único") {
+
+                $this->stockSacadoUnico($saco, $equipo);
+
             }
             $saco->save();
             $equipo->save();
 
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $saco->idSalidaEquipo, auth()->user()->id]);
             $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'stockRequerido', 'estadoSalida']);
             $this->identify = rand();
             $this->emitTo('equipo.salida.show-salidas', 'render');
@@ -167,6 +162,27 @@ class ShowSalidas extends Component
         }
     }
 
+    //Actualiza la cantidad sacada cuando el equipo es Multiple 
+    public function stockSacadoMultiple($saco, $equipo)
+    {
+        $this->estadoSalida = "Buen Estado";
+        $equipo->estadoFuncionamiento = "Buen Estado";
+        $saco->estadoSalida = "Buen Estado";
+
+        $equipo->stockFaltante = ($equipo->stockFaltante - $saco->stockRequerido) + $this->stockRequerido;
+        $equipo->stock = ($equipo->stock + $saco->stockRequerido) - $this->stockRequerido;
+        $saco->stockRequerido = $this->stockRequerido;
+    }
+
+    //Actualiza la cantidad sacada cuando el equipo es Unico
+    public function stockSacadoUnico($saco,  $equipo)
+    {
+        $equipo->stock = 0;
+        $equipo->stockFaltante = 1;
+        $equipo->estadoFuncionamiento = $this->estadoSalida;
+        $this->stockRequerido = 1;
+        $saco->estadoSalida = $this->estadoSalida;
+    }
 
     //Método para añadir y guardar una nueva salida
     public function save()
@@ -175,14 +191,14 @@ class ShowSalidas extends Component
 
         $equipo = equipo::find($this->codigoEquipo);
 
-        if ($this->stockRequerido > $equipo->stock && $equipo->multiplicidad == "Multiple") {
+        if (($this->stockRequerido > $equipo->stock && $equipo->multiplicidad == "Multiple") || $equipo->stock == 0) {
             $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡Stock Insuficiente!');
         } else {
 
             $this->estadoSalida = $equipo->estadoFuncionamiento;
-            if ($equipo->multiplicidad == "Unico") {
+            if ($equipo->multiplicidad == "Único") {
                 $this->stockRequerido = 1;
                 $equipo->stockFaltante = 1;
                 $equipo->stock = 0;
@@ -206,6 +222,8 @@ class ShowSalidas extends Component
                     'estadoSalida' => $this->estadoSalida
                 ]);
                 $equipo->save();
+
+                DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $this->salida->id, auth()->user()->id]);
                 $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'horaSalida', 'fechaSalida']);
                 $this->identify = rand();
                 $this->emitTo('equipo.salida.show-salidas', 'render');
@@ -218,7 +236,9 @@ class ShowSalidas extends Component
     public function delete($idSaco)
     {
         $sacoE = saco::find($idSaco);
+        $equipo = $sacoE;
         $sacoE->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $equipo->codigoEquipo . 'con ID de Salida: ' . $equipo->idSalidaEquipo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

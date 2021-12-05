@@ -31,9 +31,4 @@ class equipo extends Model
         return $this->belongsTo(almacen::class, 'idAlmacen');
     }
 
-    public function equipo()
-    {
-        return $this->hasMany(regreso::class, 'codigoEquipo');
-    }
-
 }

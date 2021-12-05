@@ -31,8 +31,8 @@ class ShowRegreso extends Component
     protected $listeners = ['delete' => 'delete', 'mensajeEdit' => 'actualizarDatos'];
 
     //Atributos de la clase
-    public $idRegresoEquipo = 1;
-    public $codigoEquipo = 1000;
+    public $idRegresoEquipo;
+    public $codigoEquipo;
     public $codigoPersonal, $nombreEquipo;
     public $idRegreso, $idRegresado, $estadoDevolucion, $fechaRegreso,
         $horaRegreso, $equi, $regreso;
@@ -56,6 +56,10 @@ class ShowRegreso extends Component
     {
         $this->identify = rand();
         $this->regreso = $regreso;
+        $last = equipo::latest('codigo')->first();
+        $this->codigoEquipo = $last->codigo;
+        $lastR = regresoEquipo::latest('id')->first();
+        $this->idRegresoEquipo = $lastR->id;
     }
 
     //Método para renderizar la vista
@@ -140,12 +144,12 @@ class ShowRegreso extends Component
 
         $this->regreso = $regreso;
 
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso: ' . $this->idRegreso, auth()->user()->id]);
         $this->reset(['open_editreg', 'horaRegreso', 'fechaRegreso']);
         $this->identify = rand();
         $this->emitTo('equipo.regreso.show-regreso', 'render');
         $this->emit('alert', 'Actualizado Correctamente');
     }
-
 
     //Método para actualizar la tabla intermedia de regreso del equipo y el equipo
     public function updateEquipo()
@@ -155,8 +159,7 @@ class ShowRegreso extends Component
         $regresado = regreso::find($this->idRegresado);
         $equipo = equipo::find($regresado->codigoEquipo);
 
-        if (($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||
-            ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple") {
+        if ($this->verifStockRegresado($regresado, $equipo)) {
 
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
@@ -168,24 +171,13 @@ class ShowRegreso extends Component
 
             if ($equipo->multiplicidad == "Multiple") {
 
-                if ($this->stockRegresado != null || $this->stockRegresadoDañado != null) {
+                $this->stockRegresadoMultiple($regresado, $equipo);
 
-                    $equipo->stock = ($equipo->stock - $regresado->stockRegresado) + $this->stockRegresado;
-                    $equipo->stockFaltante = ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) - ($this->stockRegresado + $this->stockRegresadoDañado);
-
-                    $regresado->stockRegresado = $this->stockRegresado;
-                    $regresado->stockRegresadoDañado = $this->stockRegresadoDañado;
-                }
                 $regresado->estadoDevolucion =  "Buen Estado";
                 $equipo->estadoFuncionamiento = "Buen Estado";
             } else {
-                if ($this->stockRegresado != null && $this->stockRegresado > 0) {
-                    $regresado->stockRegresado = 1;
-                    $regresado->stockRegresadoDañado = 0;
-                } else if ($this->stockRegresadoDañado != null && $this->stockRegresadoDañado > 0) {
-                    $regresado->stockRegresado = 0;
-                    $regresado->stockRegresadoDañado = 1;
-                }
+
+                $this->stockRegresadoUnico($regresado);
 
                 $regresado->estadoDevolucion =  $this->estadoDevolucion;
                 $equipo->estadoFuncionamiento = $this->estadoDevolucion;
@@ -195,6 +187,7 @@ class ShowRegreso extends Component
             $regresado->save();
             $equipo->save();
 
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . 'en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emitTo('equipo.regreso.show-regreso', 'render');
@@ -202,12 +195,43 @@ class ShowRegreso extends Component
         }
     }
 
-    //Método para eliminar la tabla
-    public function delete($regresoEq)
+    public function verifStockRegresado($regresado, $equipo)
     {
-        $regresoE = regreso::find($regresoEq);
-        $regresoE->delete();
-        $this->emit('alert', 'Eliminado Correctamente');
+
+        if(($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||
+            ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple")
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+    }
+
+    //Actualiza la cantidad regresada cuando el equipo es Multiple 
+    public function stockRegresadoMultiple($regresado, $equipo)
+    {
+
+        if ($this->stockRegresado != null || $this->stockRegresadoDañado != null) {
+
+            $equipo->stock = ($equipo->stock - $regresado->stockRegresado) + $this->stockRegresado;
+            $equipo->stockFaltante = ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) - ($this->stockRegresado + $this->stockRegresadoDañado);
+
+            $regresado->stockRegresado = $this->stockRegresado;
+            $regresado->stockRegresadoDañado = $this->stockRegresadoDañado;
+        }
+    }
+
+    //Actualiza la cantidad regresada cuando el equipo es Único 
+    public function stockRegresadoUnico($regresado)
+    {
+        if ($this->stockRegresado != null && $this->stockRegresado > 0) {
+            $regresado->stockRegresado = 1;
+            $regresado->stockRegresadoDañado = 0;
+        } else if ($this->stockRegresadoDañado != null && $this->stockRegresadoDañado > 0) {
+            $regresado->stockRegresado = 0;
+            $regresado->stockRegresadoDañado = 1;
+        }
     }
 
     //Método para actualizar los datos

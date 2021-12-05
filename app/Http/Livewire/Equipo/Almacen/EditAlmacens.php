@@ -14,7 +14,7 @@ class EditAlmacens extends Component
 
     //Atributos de la clase
     public $almacen;
-    public $nombre, $calle, $manzano;
+    public $idA, $nombre, $calle, $manzano;
 
     //Listener que se renderiza al método delete
     protected $listeners = ['delete' => 'delete'];
@@ -58,7 +58,11 @@ class EditAlmacens extends Component
         $this->almacen->calle = $this->calle;
         $this->almacen->manzano = $this->manzano;
         $this->almacen->save();
-        $this->reset(['open', 'nombre', 'calle', 'manzano']);
+
+        $last = almacen::latest('id')->first();
+        $this->idA = $last->id;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
+        $this->reset(['open', 'idA' ,'nombre', 'calle', 'manzano']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
     }

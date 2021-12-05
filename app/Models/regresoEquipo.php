@@ -28,9 +28,4 @@ class regresoEquipo extends Model
      public function salidaEquipo(){
         return $this->belongsTo(salidaEquipo::class, 'idSalidaEquipo');
     }
-
-    public function regresoEquipo()
-    {
-        return $this->hasMany(regreso::class, 'idRegresoEquipo');
-    }
 }

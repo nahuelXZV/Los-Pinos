@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class CreateAlmacens extends Component
 {
@@ -12,7 +13,7 @@ class CreateAlmacens extends Component
     public $open = false;
 
     //Atributos de la clase
-    public $nombre, $calle, $manzano;
+    public $idA, $nombre, $calle, $manzano;
 
     //Validaciones del formulario
     protected $rules = [
@@ -38,7 +39,12 @@ class CreateAlmacens extends Component
             'calle' => $this->calle,
             'manzano' => $this->manzano,
         ]);
-        $this->reset(['open', 'nombre', 'calle', 'manzano']);
+        $last = almacen::latest('id')->first();
+        $this->idA = $last->id;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
+        $this->reset(['open', 'idA', 'nombre', 'calle', 'manzano']);
+
+        $this->emitTo('equipo.almacen.show-almacens', 'render');
         $this->emit('alert', '¡El almacen se creó satisfactoriamente!');
     }
 

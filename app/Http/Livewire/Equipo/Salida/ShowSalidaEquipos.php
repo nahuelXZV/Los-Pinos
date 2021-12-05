@@ -8,6 +8,7 @@ use App\Models\saco;
 use App\Models\salidaEquipo;
 use Livewire\WithPagination;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class ShowSalidaEquipos extends Component
 {
@@ -23,8 +24,7 @@ class ShowSalidaEquipos extends Component
     public $identify;
 
     //Atributos de la clase
-    public $fecha, $hora, $motivo, $estadoSalida,
-        $stockRequerido, $stockFaltante, $idSalida, $lastS, $multiplicidad;
+    public $fecha, $hora, $motivo, $estadoSalida, $stockRequerido, $stockFaltante, $idSalida, $lastS, $multiplicidad;
     public $codigoP;
     public $codigoEquipo = null;
 
@@ -51,7 +51,7 @@ class ShowSalidaEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
-        $personal = personal::all()->first();
+        $personal = personal::latest('codigo')->first();
         $this->codigoP = $personal->codigo;
     }
 
@@ -79,13 +79,17 @@ class ShowSalidaEquipos extends Component
     //Método para eliminar
     public function delete(salidaEquipo $salida)
     {
+        $sal = $salida;
         $salida->delete();
+        $this->emit('alert', 'Eliminado Correctamente');DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
     //Método para inicializar el modal
     public function open()
     {
+        $lastS = salidaEquipo::latest('id')->first();
+        $this->idSalida = $lastS->id;
         $this->open = true;
     }
 
@@ -99,6 +103,8 @@ class ShowSalidaEquipos extends Component
             'motivo' => $this->motivo,
             'codigoPersonal' => $this->codigoP
         ]);
+     
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida , auth()->user()->id]);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');

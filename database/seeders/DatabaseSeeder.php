@@ -28,6 +28,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ModuloSeguridadSeeder::class);
         $this->call(ModuloAreaComunSeeder::class);
         $this->call(UserSeeder::class);
-
     }
 }

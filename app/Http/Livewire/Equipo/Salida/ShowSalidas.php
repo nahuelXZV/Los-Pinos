@@ -145,11 +145,9 @@ class ShowSalidas extends Component
             if ($equipo->multiplicidad == "Multiple") {
 
                 $this->stockSacadoMultiple($saco, $equipo);
-
             } else if ($equipo->multiplicidad == "Único") {
 
                 $this->stockSacadoUnico($saco, $equipo);
-
             }
             $saco->save();
             $equipo->save();

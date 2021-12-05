@@ -91,7 +91,7 @@ class ShowRegresoEquipos extends Component
     {
         $reg = $regreso;
         $regreso->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo , auth()->user()->id]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo, auth()->user()->id]);
     }
 
     //Método para añadir y guardar una tupla
@@ -110,7 +110,7 @@ class ShowRegresoEquipos extends Component
             ]);
             $this->lastR = regresoEquipo::latest('id')->first();
             $this->idRegreso = $this->lastR->id;
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo , auth()->user()->id]);
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo, auth()->user()->id]);
             $this->emit('alert', '¡Añadido Correctamente!');
             foreach ($sacos as $saco) {
                 regreso::create([
@@ -124,8 +124,7 @@ class ShowRegresoEquipos extends Component
                     'estadoDevolucion' => $saco->estadoSalida
                 ]);
             }
-        }
-        else{
+        } else {
             $this->emit('alert', '¡Error! El regreso de  la salida ya fue registrado.');
         }
         $this->identify = rand();

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Equipo\Almacen;
 use App\Models\almacen;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class ShowAlmacens extends Component
 {
@@ -52,9 +53,9 @@ class ShowAlmacens extends Component
     //Método para borrar
     public function delete(almacen $almacen)
     {
-        $a = almacen::find($almacen->id); 
+        $a = almacen::find($almacen->id);
         $almacen->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id , auth()->user()->id]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id, auth()->user()->id]);
     }
 
     //Método para renderizar la vista

@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class EditAlmacens extends Component
 {
 

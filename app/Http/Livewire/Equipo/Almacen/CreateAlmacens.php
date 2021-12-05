@@ -41,7 +41,7 @@ class CreateAlmacens extends Component
         ]);
         $last = almacen::latest('id')->first();
         $this->idA = $last->id;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA, auth()->user()->id]);
         $this->reset(['open', 'idA', 'nombre', 'calle', 'manzano']);
 
         $this->emitTo('equipo.almacen.show-almacens', 'render');

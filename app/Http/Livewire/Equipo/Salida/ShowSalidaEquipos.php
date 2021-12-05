@@ -81,7 +81,8 @@ class ShowSalidaEquipos extends Component
     {
         $sal = $salida;
         $salida->delete();
-        $this->emit('alert', 'Eliminado Correctamente');DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente');
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
@@ -103,8 +104,8 @@ class ShowSalidaEquipos extends Component
             'motivo' => $this->motivo,
             'codigoPersonal' => $this->codigoP
         ]);
-     
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida , auth()->user()->id]);
+
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida, auth()->user()->id]);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');

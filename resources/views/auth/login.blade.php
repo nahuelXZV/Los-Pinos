@@ -84,12 +84,18 @@
                         <input type="email" name="email" id="email" :value="old('email')" required autofocus
                             placeholder="Escribe Tu Correo Electrónico"
                             class="block w-full p-4 text-lg rounded-sm bg-black">
+                        <label class="text-sm text-red-300  sm:text-red-600">
+                            @error('email')
+                                Estas credenciales no coinciden con nuestros registros.
+                            @enderror
+                        </label>
                     </div>
 
                     <label class="fuente w-full text-xl text-white pb-2 pt-4">Contraseña</label>
                     <div class="pb-2 pt-4">
                         <input class="block w-full p-4 text-lg rounded-sm bg-black" type="password" name="password"
                             id="password" required autocomplete="current-password" placeholder="Escribe Tu Contraseña">
+                        <x-jet-input-error class="text-white" for="password" />
                     </div>
 
                     <div class="text-right">

@@ -160,7 +160,6 @@ class ShowRegreso extends Component
         $equipo = equipo::find($regresado->codigoEquipo);
 
         if ($this->verifStockRegresado($regresado, $equipo)) {
-
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emit('alert', '¡Demasiado Stock Regresado para esta salida!');
@@ -197,21 +196,17 @@ class ShowRegreso extends Component
 
     public function verifStockRegresado($regresado, $equipo)
     {
-
-        if(($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||
-            ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple")
-            {
-                return true;
-            }
-            else{
-                return false;
-            }
+        if (($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||
+            ($equipo->stockFaltante + $regresado->stockRegresado + $regresado->stockRegresadoDañado) < $this->stockRegresado + $this->stockRegresadoDañado) && $equipo->multiplicidad == "Multiple") {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Actualiza la cantidad regresada cuando el equipo es Multiple 
     public function stockRegresadoMultiple($regresado, $equipo)
     {
-
         if ($this->stockRegresado != null || $this->stockRegresadoDañado != null) {
 
             $equipo->stock = ($equipo->stock - $regresado->stockRegresado) + $this->stockRegresado;

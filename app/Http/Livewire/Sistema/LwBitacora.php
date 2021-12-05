@@ -49,7 +49,6 @@ class LwBitacora extends Component
     //Metodo de renderizado
     public function render()
     {
-
         $bitacoras = bitacora::where($this->buscador, 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);

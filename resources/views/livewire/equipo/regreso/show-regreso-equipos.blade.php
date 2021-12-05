@@ -2,7 +2,6 @@
 
     <x-table>
         <div class=" px-4 py-6 flex items-center">
-
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>
                 <select wire:model='cant'

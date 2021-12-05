@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class Roles extends Component
 {
     use WithPagination;
+    
     //Atributos de la vista
     public $search = '';
     public $sort = 'id';

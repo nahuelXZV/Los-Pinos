@@ -16,46 +16,53 @@
 
             <div class="mb-4">
                 <x-jet-label value="Nombre del Equipo" />
-                <x-jet-input type="text" class="w-full" wire:model="nombre" />
-                
-                <x-jet-input-error for="nombre"/>
-
+                <x-jet-input type="text" class="w-full" wire:model.defer="nombre"
+                    placeholder='Escriba el nombre' />
+                <x-jet-input-error for="nombre" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Modelo del Equipo" />
-                <x-jet-input wire:model='modelo' type="text" class=" w-full" />
+                <x-jet-input wire:model.defer='modelo' type="text" class=" w-full"
+                    placeholder='Escriba el modelo' />
             </div>
 
 
             <div class="mb-4">
                 <x-jet-label value="Marca del Equipo" />
-                <x-jet-input type="text" class="w-full" rows="6" wire:model="marca" />
+                <x-jet-input type="text" class="w-full" rows="6" wire:model.defer="marca"
+                    placeholder='Escriba la marca' />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Descripción del Equipo" />
-                <textarea wire:model='descripcion'
-                class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
-                rows="4"></textarea>
+                <textarea wire:model.defer='descripcion'
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
+                    rows="2" placeholder="Escriba la descripción"></textarea>
             </div>
-
-            <div class="mb-4 mt-2">
+            <div class="mb-4">
+                <x-jet-label value='Tipo de equipo' class="mb-2" />
+                <label class="text-gray-500 text-xs">*Los de tipo Único solo pueden tener una unidad en stock</label>
+                <select wire:model.defer='multiplicity'
+                    class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
+                    <option value="Único">Único</option>
+                    <option value="Multiple">Multiple</option>
+                </select>
+                <x-jet-input-error for="multiplicity" />
+            </div>
+            <div class="mb-4">
                 <x-jet-label value='Stock' />
-                <label class="text-gray-500 text-xs">*Si crea el equipo con Stock 0 o 1, será de multiplicidad Unico</label>
-                <x-jet-input wire:model='stock' type='number' min="0" class="w-full" />
+                <x-jet-input wire:model.defer='stock' type='number' min="0" class="w-full"
+                    placeholder='Escriba la cantidad' />
                 <x-jet-input-error for="stock" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Estado de Funcionamiento del Equipo' />
-                <label class="text-gray-500 text-xs">*Solo podrá modificar el Estado si el equipo es de
-                    multiplicidad
-                    Unico</label>
+
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='estadoFuncionamiento'>
-                    <option class="text-gray-500">Seleccione un estado...</option>
+                    wire:model.defer='estadoFuncionamiento'>
                     <option value="Buen Estado">Buen Estado</option>
                     <option value="Mantenimiento">Mantenimiento</option>
                     <option value="Dañado">Dañado</option>
@@ -67,15 +74,14 @@
                 <x-jet-label value='Estado de Servicio del Equipo' />
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    wire:model='estadoServicio'>
-                    <option class="text-gray-500">Seleccione un estado...</option>
+                    wire:model.defer='estadoServicio'>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                 </select>
                 <x-jet-input-error for="estadoServicio" />
             </div>
 
-           
+
             <div class="mb-4 w-full" wire:ignore>
                 <x-jet-label value='Nombre del Almacen' />
                 <select wire:model='idAlmacen' class="idAlmacen" style='width: 100%'>
@@ -90,12 +96,13 @@
         </x-slot>
         <x-slot name="footer">
 
-            <x-jet-secondary-button wire:click="$set('open', false)">
+            <x-jet-secondary-button wire:click="$set('open', false)" wire:loading.attr="disabled">
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save" class="disabled:opacity-25">
-                Crear Equipo
+            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save"
+                class="disabled:opacity-25">
+                Guardar
             </x-jet-danger-button>
 
         </x-slot>
@@ -112,7 +119,6 @@
                 @this.set('idAlmacen', this.value);
             })
         })
-
     </script>
 
 </div>

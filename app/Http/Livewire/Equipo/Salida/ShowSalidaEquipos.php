@@ -8,6 +8,7 @@ use App\Models\saco;
 use App\Models\salidaEquipo;
 use Livewire\WithPagination;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class ShowSalidaEquipos extends Component
 {
@@ -20,13 +21,11 @@ class ShowSalidaEquipos extends Component
     public $direction = 'desc';
     public $cant = 10;
     public $open = false;
-    public $readyToLoad = false;
     public $identify;
 
     //Atributos de la clase
-    public $fecha, $hora, $motivo, $estadoSalida,
-    $stockRequerido, $stockFaltante, $idSalida, $multiplicidad;
-    public $codigoP = 100;
+    public $fecha, $hora, $motivo, $estadoSalida, $stockRequerido, $stockFaltante, $idSalida, $lastS, $multiplicidad;
+    public $codigoP;
     public $codigoEquipo = null;
 
     //Listener que se renderiza al método delete
@@ -62,15 +61,9 @@ class ShowSalidaEquipos extends Component
         $this->resetPage();
     }
 
-    //Método para verificar la carga de la vista
-    public function loadSalidas()
-    {
-        $this->readyToLoad = true;
-    }
-
     //Método para ordenar
-    public function order($sort){
-
+    public function order($sort)
+    {
         if ($this->sort == $sort) {
             if ($this->direction == 'desc') {
                 $this->direction = 'asc';
@@ -88,7 +81,8 @@ class ShowSalidaEquipos extends Component
     {
         $sal = $salida;
         $salida->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente');DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente');
     }
 
     //Método para inicializar el modal
@@ -102,9 +96,7 @@ class ShowSalidaEquipos extends Component
     //Método para guardar
     public function save()
     {
-        
         $this->validate();
-
         salidaEquipo::create([
             'fecha' => $this->fecha,
             'hora' => $this->hora,
@@ -115,25 +107,17 @@ class ShowSalidaEquipos extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida , auth()->user()->id]);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
         $this->identify = rand();
-        $this->emitTo('equipo.salida.show-salida-equipos', 'render');
         $this->emit('alert', 'Añadido Correctamente');
     }
 
     //Método para renderizar la vista
-        public function render()
-        {
-        if($this->readyToLoad){
-            $equipos = equipo::all();
-            $listaPersonal = personal::all();
-            $salidas = salidaEquipo::where('id', 'like', '%' . $this->search . '%')
-                            ->orderBy($this->sort, $this->direction)
-                            ->paginate($this->cant);
-        }else{
-            $listaPersonal = [];
-            $salidas = [];
-            $equipos= [];
-        }
-
-            return view('livewire.equipo.salida.show-salida-equipos', compact('salidas', 'equipos', 'listaPersonal'));
-        }
+    public function render()
+    {
+        $equipos = equipo::all();
+        $listaPersonal = personal::all();
+        $salidas = salidaEquipo::where('id', 'like', '%' . $this->search . '%')
+            ->orderBy($this->sort, $this->direction)
+            ->paginate($this->cant);
+        return view('livewire.equipo.salida.show-salida-equipos', compact('salidas', 'equipos', 'listaPersonal'));
+    }
 }

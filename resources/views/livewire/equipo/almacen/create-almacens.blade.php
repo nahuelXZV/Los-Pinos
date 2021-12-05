@@ -12,39 +12,40 @@
         <x-slot name="title">
             Crear Nuevo Almacen
         </x-slot>
-        <x-slot name="content">
 
+        <x-slot name="content">
             <div class="mb-4">
                 <x-jet-label value="Nombre" />
-                <x-jet-input type="text" class="w-full" wire:model="nombre" />
-                
-                <x-jet-input-error for="nombre"/>
+                <x-jet-input type="text" class="w-full" wire:model.defer="nombre"
+                    placeholder='Escriba el nombre del almacen' />
+                <x-jet-input-error for="nombre" />
 
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Calle" />
-                <x-jet-input type="text" class="w-full" wire:model="calle" />
-                <x-jet-input-error for="calle"/>
+                <x-jet-input type="text" class="w-full" wire:model.defer="calle"
+                    placeholder='Escriba la calle' />
+                <x-jet-input-error for="calle" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value="Manzano" />
-                <x-jet-input type="number" min="1" class="w-full" wire:model="manzano" />
-                <x-jet-input-error for="manzano"/>
+                <x-jet-input type="number" min="1" class="w-full" wire:model.defer="manzano"
+                    placeholder='Escriba el manzano' />
+                <x-jet-input-error for="manzano" />
             </div>
 
         </x-slot>
         <x-slot name="footer">
-
-            <x-jet-secondary-button wire:click="$set('open', false)">
+            <x-jet-secondary-button wire:click="$set('open', false)" wire:loading.attr="disabled">
                 Cancelar
             </x-jet-secondary-button>
 
-            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save" class="disabled:opacity-25">
-                Crear Almacen
+            <x-jet-danger-button wire:click="save" wire:loading.attr="disabled" wire:target="save"
+                class="disabled:opacity-25">
+                Guardar
             </x-jet-danger-button>
-
         </x-slot>
     </x-jet-dialog-modal>
 </div>

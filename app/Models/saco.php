@@ -12,9 +12,5 @@ class saco extends Model
     protected $fillable = ['id', 'idSalidaEquipo', 'codigoEquipo', 'stockRequerido', 'estadoSalida'];
     protected $primaryKey = 'id';
 
-    public function salidaEquipo()
-    {
-        return $this->belongsTo(salidaEquipo::class, 'idSalidaEquipo');
-    }
 
 }

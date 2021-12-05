@@ -29,10 +29,4 @@ class salidaEquipo extends Model
         return $this->hasMany(regresoEquipo::class, 'idSalidaEquipo');
     } 
 
-    
-    public function salidaEquipo()
-    {
-        return $this->hasMany(saco::class, 'idSalidaEquipo');
-    }
-
 }

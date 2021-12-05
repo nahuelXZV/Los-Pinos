@@ -62,8 +62,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2015",
             'marca' => "Limpia Todo",
             'descripcion' => "Maquina que sopla",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Activo",
             'estadoFuncionamiento' => "Mantenimiento",
             'idAlmacen' => 2,
@@ -74,8 +74,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2020",
             'marca' => "Aseo Natural",
             'descripcion' => "Maquina que aspira",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Activo",
             'estadoFuncionamiento' => "Dañado",
             'idAlmacen' => 1,
@@ -158,8 +158,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2015",
             'marca' => "Aseo Natural",
             'descripcion' => "Maquina para cortar o podar cesped",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Inactivo",
             'estadoFuncionamiento' => "Buen Estado",
             'idAlmacen' => 1,
@@ -218,8 +218,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2015",
             'marca' => "AntiVirus",
             'descripcion' => "Maquina para desinfectar en porteria a las personas",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Activo",
             'estadoFuncionamiento' => "Dañado",
             'idAlmacen' => 1,
@@ -230,8 +230,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2018",
             'marca' => "Eco Limpieza",
             'descripcion' => "Escalera para subir a lugares elevados",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Inactivo",
             'estadoFuncionamiento' => "Buen Estado",
             'idAlmacen' => 1,
@@ -254,8 +254,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2018",
             'marca' => "Caterpilar",
             'descripcion' => "Aparato para comunicacion a corta y media distancia",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Activo",
             'estadoFuncionamiento' => "Dañado",
             'idAlmacen' => 2,
@@ -266,8 +266,8 @@ class ModuloInventarioSeeder extends Seeder
             'modelo' => "2020",
             'marca' => "CarneMaster",
             'descripcion' => "Todo tipo de cubiertos, y herramienta necesarias para un churrasco",
-            'multiplicidad' => "Unico",
-            'stock' => null,
+            'multiplicidad' => "Único",
+            'stock' => 1,
             'estadoServicio' => "Activo",
             'estadoFuncionamiento' => "Buen Estado",
             'idAlmacen' => 1,
@@ -514,47 +514,47 @@ class ModuloInventarioSeeder extends Seeder
         regreso::create([
             'idRegresoEquipo' => 1,
             'codigoEquipo' => 1000,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 1,
             'codigoEquipo' => 1015,
-            'estadoDevolucion' => "Dañado", 
+            'estadoDevolucion' => "Dañado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 10,
             'codigoEquipo' => 1005,
-            'estadoDevolucion' => "Dañado", 
+            'estadoDevolucion' => "Dañado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 9,
             'codigoEquipo' => 1016,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 5,
             'codigoEquipo' => 1015,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 11,
             'codigoEquipo' => 1001,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 14,
             'codigoEquipo' => 1020,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 11,
             'codigoEquipo' => 1016,
-            'estadoDevolucion' => "Buen Estado", 
+            'estadoDevolucion' => "Buen Estado",
         ]);
         regreso::create([
             'idRegresoEquipo' => 8,
             'codigoEquipo' => 1016,
-            'estadoDevolucion' => "Dañado", 
+            'estadoDevolucion' => "Dañado",
         ]);
     }
 }

@@ -12,15 +12,4 @@ class regreso extends Model
     protected $fillable = ['id', 'idRegresoEquipo', 'codigoEquipo', 'cantidadSacada', 'stockRegresado', 'stockRegresadoDañado', 'estadoDevolucion', 'fechaRegreso', 'horaRegreso'];
     protected $primaryKey = 'id';
 
-
-    public function regresoEquipo()
-    {
-        return $this->belongsTo(regresoEquipo::class, 'idRegresoEquipo');
-    }
-
-    public function equipo()
-    {
-        return $this->belongsTo(equipo::class, 'codigoEquipo');
-    }
-
 }

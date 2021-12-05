@@ -44,7 +44,7 @@ class RoleSeeder extends Seeder
             'descripcion' => 'Eliminar equipos'
         ])->syncRoles([$admi, $gerente]);
 
-
+ 
         Permission::create([
             'name' => 'almacenes',
             'descripcion' => 'Ver almacenes'
@@ -119,17 +119,9 @@ class RoleSeeder extends Seeder
             'descripcion' => 'Ver detalles de regreso de equipos'
         ])->syncRoles([$admi, $gerente, $portero]);
         Permission::create([
-            'name' => 'regresoEquipos.show.add',
-            'descripcion' => 'Añadir equipos a regreso de equipos'
-        ])->syncRoles([$admi, $gerente, $portero]);
-        Permission::create([
             'name' => 'regresoEquipos.show.edit',
             'descripcion' => 'Editar equipos de regreso de equipos'
         ])->syncRoles([$admi, $gerente, $portero]);
-        Permission::create([
-            'name' => 'regresoEquipos.show.delete',
-            'descripcion' => 'Eliminar equipos de regreso de equipos'
-        ])->syncRoles([$admi, $gerente]);
 
         //Personal
         Permission::create([

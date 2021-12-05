@@ -33,7 +33,6 @@
                             <option value="{{ $residente->id }}">{{ $residente->nombre }}</option>
                         @endforeach
                     </select>
-
                 </label>
             </div>
             <x-jet-input-error for="idResidente" />

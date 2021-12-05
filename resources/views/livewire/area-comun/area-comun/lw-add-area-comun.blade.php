@@ -29,7 +29,7 @@
             </div>
             <div class="mb-4">
                 <x-jet-label value='Manzano' />
-                <x-jet-input wire:model.defer='manzano' type='number' class="w-full"
+                <x-jet-input wire:model.defer='manzano' type='number' min='0' class="w-full"
                     placeholder="Ingrese el manzano" />
                 <x-jet-input-error for="manzano" />
             </div>

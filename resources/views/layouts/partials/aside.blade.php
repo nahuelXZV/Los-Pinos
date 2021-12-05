@@ -27,8 +27,8 @@
          <ul class="p-2">
              <li>
                  @can('inicio')
-                     <a href="{{ route('dashboard') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                     <a href="{{ route('inicio') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('inicio')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -40,9 +40,8 @@
                          <span :class="{ 'lg:hidden': !isSidebarOpen }">Inicio</span>
                      </a>
                  @endcan
-
                  <a href="{{ route('profile.show') }}"
-                     class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                     class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('profile.show')) bg-gray-700 @endif"
                      :class="{'justify-center': !isSidebarOpen}">
                      <span>
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -72,7 +71,7 @@
 
                  @can('usuarios')
                      <a href="{{ route('usuarios') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('usuarios')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -85,7 +84,8 @@
                      </a>
                  @endcan
                  @can('roles')
-                     <a href="{{ route('roles') }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                     <a href="{{ route('roles') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('roles')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -99,7 +99,7 @@
                  @endcan
                  @can('bitacora')
                      <a href="{{ route('bitacora') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('bitacora')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -129,7 +129,8 @@
                  @endif
 
                  @can('equipos')
-                     <a href="{{ route('equipos') }}" class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                     <a href="{{ route('equipos') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('equipos')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -144,7 +145,7 @@
 
                  @can('almacenes')
                      <a href="{{ route('almacenes') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('almacenes')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -159,7 +160,7 @@
 
                  @can('salidaEquipos')
                      <a href="{{ route('salidasEquipo') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('salidasEquipo') || request()->routeIs('salidasEquipos.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
@@ -175,7 +176,7 @@
 
                  @can('regresoEquipos')
                      <a href="{{ route('regresosEquipo') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('regresosEquipo') || request()->routeIs('regresosEquipos.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
@@ -188,6 +189,68 @@
                          <span :class="{ 'lg:hidden': !isSidebarOpen }">Regreso Equipos</span>
                      </a>
                  @endcan
+
+                 
+                 <!-- MODULO AREA COMUN... -->
+                 @if (auth()->user()->can('areacomun') ||
+    auth()->user()->can('reserva.all') ||
+    auth()->user()->can('reserva.list'))
+                     <h1 class="flex items-center space-x-2" :class="{'justify-center': !isSidebarOpen}">
+                         <span :class="{ 'hidden': isSidebarOpen }">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                             </svg>
+                         </span>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">ÁREA COMÚN</span>
+                     </h1>
+                 @endif
+                 @can('areacomun')
+                     <a href="{{ route('areacomun') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('areacomun')) bg-gray-700 @endif"
+                         :class="{'justify-center': !isSidebarOpen}">
+                         <span>
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                             </svg>
+                         </span>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Areas comunes</span>
+                     </a>
+                 @endcan
+                 @can('reserva.all')
+                     <a href="{{ route('reserva') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reserva')) bg-gray-700 @endif"
+                         :class="{'justify-center': !isSidebarOpen}">
+                         <span>
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                             </svg>
+                         </span>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Reservas</span>
+                     </a>
+                 @endcan
+                 @can('reserva.list')
+                     <a href="{{ route('reserva.list') }}"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reserva.list') || request()->routeIs('reserva.show')) bg-gray-700 @endif"
+                         :class="{'justify-center': !isSidebarOpen}">
+                         <span>
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                             </svg>
+                         </span>
+                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Lista Reservas</span>
+                     </a>
+                 @endcan
+
 
 
                  <!-- MODULO PERSONAL... -->
@@ -209,7 +272,7 @@
                  @endif
                  @can('personal')
                      <a href="{{ route('personal') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('personal')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -223,7 +286,7 @@
                  @endcan
                  @can('trabajos')
                      <a href="{{ route('trabajos') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('trabajos')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -304,8 +367,8 @@
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                              </svg>
@@ -318,8 +381,8 @@
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                              </svg>
@@ -332,8 +395,8 @@
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
                                  <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                      d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
@@ -347,8 +410,8 @@
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
+                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                              </svg>
@@ -384,67 +447,6 @@
                              </svg>
                          </span>
                          <span :class="{ 'lg:hidden': !isSidebarOpen }">Salida</span>
-                     </a>
-                 @endcan
-
-
-                 <!-- MODULO AREA COMUN... -->
-                 @if (auth()->user()->can('areacomun') ||
-    auth()->user()->can('reserva.all') ||
-    auth()->user()->can('reserva.list'))
-                     <h1 class="flex items-center space-x-2" :class="{'justify-center': !isSidebarOpen}">
-                         <span :class="{ 'hidden': isSidebarOpen }">
-                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                             </svg>
-                         </span>
-                         <span :class="{ 'lg:hidden': !isSidebarOpen }">ÁREA COMÚN</span>
-                     </h1>
-                 @endif
-                 @can('areacomun')
-                     <a href="{{ route('areacomun') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
-                         :class="{'justify-center': !isSidebarOpen}">
-                         <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                             </svg>
-                         </span>
-                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Areas comunes</span>
-                     </a>
-                 @endcan
-                 @can('reserva.all')
-                     <a href="{{ route('reserva') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
-                         :class="{'justify-center': !isSidebarOpen}">
-                         <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                             </svg>
-                         </span>
-                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Reservas</span>
-                     </a>
-                 @endcan
-                 @can('reserva.list')
-                     <a href="{{ route('reserva.list') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
-                         :class="{'justify-center': !isSidebarOpen}">
-                         <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 24 24" stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                             </svg>
-                         </span>
-                         <span :class="{ 'lg:hidden': !isSidebarOpen }">Lista Reservas</span>
                      </a>
                  @endcan
 

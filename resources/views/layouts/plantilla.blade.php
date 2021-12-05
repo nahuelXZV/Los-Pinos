@@ -56,6 +56,7 @@
                     &nbsp<a> @yield('action')</a>
                 </div>
                 @yield('content')
+            
             </main>
 
             <!-- Main footer -->

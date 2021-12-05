@@ -1,11 +1,9 @@
 <div>
-
     <x-table>
         <div class=" px-4 py-6 flex items-center">
-
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>
-                <select wire:model='pagination'
+                <select wire:model='cant'
                     class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -18,7 +16,6 @@
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
-
             @can('equipos.add')
                 @livewire('equipo.inventario.create-equipos')
             @endcan
@@ -29,7 +26,6 @@
             <table class=" table table-fixed divide-y divide-gray-200 ">
                 <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
-
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('codigo')">

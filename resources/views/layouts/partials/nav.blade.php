@@ -1,4 +1,4 @@
-<header class="flex-shrink-0 border-b bg-gray-200">
+<header class="flex-shrink-0 border-b-2 bg-gray-200">
     <div class="flex items-center justify-between p-2">
         <!-- Navbar left -->
         <div class="flex items-center space-x-3">
@@ -6,7 +6,7 @@
                 Pinos</a>
             <!-- Toggle sidebar button -->
             <button @click="toggleSidbarMenu()" class="p-2 rounded-md focus:outline-none focus:ring">
-                <svg class="w-4 h-4 text-gray-600" :class="{'transform transition-transform -rotate-180': isSidebarOpen}"
+                <svg class="w-5 h-5 text-gray-600" :class="{'transform transition-transform -rotate-180': isSidebarOpen}"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13 5l7 7-7 7M5 5l7 7-7 7" />

@@ -3,7 +3,7 @@
         <div class=" px-4 py-6 flex items-center">
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>
-                <select wire:model='pagination'
+                <select wire:model='cant'
                     class="mr-2 px-6 py-3 border-gray-300 text-left text-sm rounded-full font-medium text-black-600 uppercase tracking-wider ">
                     <option value="10">10</option>
                     <option value="25">25</option>

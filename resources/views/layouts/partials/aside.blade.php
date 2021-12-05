@@ -191,7 +191,7 @@
                      </a>
                  @endcan
 
-                 
+
                  <!-- MODULO AREA COMUN... -->
                  @if (auth()->user()->can('areacomun') ||
     auth()->user()->can('reserva.all') ||
@@ -454,29 +454,24 @@
              </li>
              <!-- Sidebar Links... -->
          </ul>
+         <!-- Sidebar footer -->
+         <div class="flex-shrink-0 p-2 border-t max-h-10 text-black">
+             <form method="POST" action="{{ route('logout') }}">
+                 @csrf
+
+                 <button href="{{ route('logout') }}" onclick="event.preventDefault();
+                   this.closest('form').submit();" type="button"
+                     class="flex items-center justify-center w-full space-x-1 font-medium tracking-wider bg-gray-100 border rounded-md focus:outline-none focus:ring">
+                     <span>
+                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                         </svg>
+                     </span>
+                     <span :class="{'lg:hidden': !isSidebarOpen}"> Cerrar Sesión </span>
+                 </button>
+             </form>
+         </div>
      </nav>
-
-
-
-     <!-- Sidebar footer -->
-     <div class="flex-shrink-0 p-2 border-t max-h-14 text-black">
-         <form method="POST" action="{{ route('logout') }}">
-             @csrf
-
-             <button href="{{ route('logout') }}" onclick="event.preventDefault();
-            this.closest('form').submit();" type="button"
-                 class="flex items-center justify-center w-full px-4 py-2 space-x-1 font-medium tracking-wider uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring">
-                 <span>
-                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                     </svg>
-                 </span>
-                 <span :class="{'lg:hidden': !isSidebarOpen}"> Cerrar Sesión </span>
-             </button>
-
-         </form>
-
-     </div>
  </aside>

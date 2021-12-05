@@ -243,15 +243,8 @@ class ShowSalidas extends Component
     //Método para actualizar datos
     public function actualizarDatos($idSalidaEquipo)
     {
-        $this->salida = equipo::find($idSalidaEquipo);
+        $this->salida = salidaEquipo::find($idSalidaEquipo);
         $this->emit('alert', 'Actualizado Correctamente');
-    }
-
-    //Método para renderizar la vista después de actualizar 
-    public function NewSaco()
-    {
-        $this->render();
-        $this->emit('alert', 'Añadido Correctamente');
     }
 
     //Método para renderizar la vista

@@ -56,7 +56,7 @@ class ShowSalidas extends Component
     public function mount($salida)
     {
         $this->identify = rand();
-        $lastEquipo = equipo::all()->first();
+        $lastEquipo = equipo::latest('codigo')->first();
         $this->codigoEquipo = $lastEquipo->codigo;
         $this->salida = $salida;
     }
@@ -191,7 +191,7 @@ class ShowSalidas extends Component
 
         $equipo = equipo::find($this->codigoEquipo);
 
-        if ($this->stockRequerido > $equipo->stock && $equipo->multiplicidad == "Multiple") {
+        if (($this->stockRequerido > $equipo->stock && $equipo->multiplicidad == "Multiple") || $equipo->stock == 0) {
             $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡Stock Insuficiente!');

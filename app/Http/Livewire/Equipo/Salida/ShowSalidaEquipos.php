@@ -51,7 +51,7 @@ class ShowSalidaEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
-        $personal = personal::all()->first();
+        $personal = personal::latest('codigo')->first();
         $this->codigoP = $personal->codigo;
     }
 

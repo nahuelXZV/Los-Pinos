@@ -32,6 +32,7 @@ class ShowRegreso extends Component
 
     //Atributos de la clase
     public $idRegresoEquipo;
+    public $codigoEquipo;
     public $codigoPersonal, $nombreEquipo;
     public $idRegreso, $idRegresado, $estadoDevolucion, $fechaRegreso,
         $horaRegreso, $equi, $regreso;
@@ -55,8 +56,10 @@ class ShowRegreso extends Component
     {
         $this->identify = rand();
         $this->regreso = $regreso;
-        $last = equipo::latest('id')->first();
+        $last = equipo::latest('codigo')->first();
         $this->codigoEquipo = $last->codigo;
+        $lastR = regresoEquipo::latest('id')->first();
+        $this->idRegresoEquipo = $lastR->id;
     }
 
     //Método para renderizar la vista

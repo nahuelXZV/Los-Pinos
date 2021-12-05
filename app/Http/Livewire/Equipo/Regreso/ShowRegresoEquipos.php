@@ -52,9 +52,9 @@ class ShowRegresoEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
-        $personal = personal::all()->first();
+        $personal = personal::latest('codigo')->first();
         $this->codigoPersonal = $personal->id;
-        $salida = salidaEquipo::all()->first();
+        $salida = salidaEquipo::latest('id')->first();
         $this->idSalidaEquipo = $salida->id;
     }
 

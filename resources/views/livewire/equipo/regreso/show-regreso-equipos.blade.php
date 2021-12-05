@@ -37,7 +37,7 @@
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('id')">
-                            Código
+                            ID
 
                             @if ($sort == 'id')
                                 @if ($direction == 'asc')

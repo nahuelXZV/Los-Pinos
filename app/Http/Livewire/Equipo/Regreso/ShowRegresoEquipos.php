@@ -92,6 +92,7 @@ class ShowRegresoEquipos extends Component
         $reg = $regreso;
         $regreso->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente');
     }
 
     //Método para añadir y guardar una tupla

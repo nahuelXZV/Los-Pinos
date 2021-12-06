@@ -1,6 +1,4 @@
-
-
-Livewire.on('alert', function (message) {
+Livewire.on('alert', function(message) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -248,3 +246,21 @@ Livewire.on('deleteRol', rol => {
         }
     })
 })
+Livewire.on('deleteAlmacen',
+    almacenID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('equipo.almacen.show-almacens', 'delete', almacenID)
+
+            }
+        })
+    });

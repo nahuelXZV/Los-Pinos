@@ -56,6 +56,7 @@ class ShowAlmacens extends Component
         $a = almacen::find($almacen->id);
         $almacen->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente');
     }
 
     //Método para renderizar la vista

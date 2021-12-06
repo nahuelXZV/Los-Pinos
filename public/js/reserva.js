@@ -1,19 +1,17 @@
-
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'es',
         displayEventTime: false,
-        events: "http://los_pinos.test/reserva/all",
-        eventClick: function (info) {
+        events: "http://los-pinos.test/reserva/all",
+        eventClick: function(info) {
             var reserva = info.event;
             Livewire.emit('open_modal_edit', reserva.id);
         },
 
-        dateClick: function (info) {
+        dateClick: function(info) {
             Livewire.emit('obtener_fecha_calendario', info.dateStr);
         }
 

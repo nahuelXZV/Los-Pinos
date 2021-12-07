@@ -62,7 +62,6 @@ class ShowAlmacens extends Component
     //Método para renderizar la vista
     public function render()
     {
-
         $almacens = almacen::where('id', 'like', '%' . $this->search . '%')
             ->orWhere('nombre', 'like', '%' . $this->search . '%')
             ->orWhere('manzano', 'like', '%' . $this->search . '%')

@@ -464,14 +464,13 @@
                     <select wire:model='codigoEquipo' class="codigoEquipo" style='width: 100%'>
                         @foreach ($listaEquipo as $equipo)
                             <option value="{{ $equipo->codigo }}">
-                                {{ $equipo->nombre }} - {{ $equipo->stock }}
+                                {{ $equipo->nombre }}
                             </option>
                         @endforeach
                     </select>
                 </label>
             </div>
             <x-jet-input-error for="codigoEquipo" />
-
             <div class="mb-4 mt-2">
                 <x-jet-label value='Cantidad Requerida' />
                 <x-jet-input wire:model.defer='stockRequerido' type='number' min="1" class="w-full"

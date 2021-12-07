@@ -36,7 +36,7 @@ class ShowRegreso extends Component
     public $codigoPersonal, $nombreEquipo;
     public $idRegreso, $idRegresado, $estadoDevolucion, $fechaRegreso,
         $horaRegreso, $equi, $regreso;
-    public $stockFaltante, $stockRegresado, $stockRegresadoDañado;
+    public $stockFaltante, $stockRegresado, $stockRegresadoDañado, $cantidadSacada;
     public $horaRegresoEquipo, $fechaRegresoEquipo;
 
     //Validaciones del formulario
@@ -186,7 +186,7 @@ class ShowRegreso extends Component
             $regresado->save();
             $equipo->save();
 
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . 'en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
+            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . ' en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emitTo('equipo.regreso.show-regreso', 'render');
@@ -194,6 +194,7 @@ class ShowRegreso extends Component
         }
     }
 
+    //Verifica que el stock regresado actual no sea mayor a la cantidad sacada en la salida
     public function verifStockRegresado($regresado, $equipo)
     {
         if (($regresado->cantidadSacada < $this->stockRegresado + $this->stockRegresadoDañado  ||

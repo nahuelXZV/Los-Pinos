@@ -57,13 +57,14 @@ class EditAlmacens extends Component
         $this->almacen->nombre = $this->nombre;
         $this->almacen->calle = $this->calle;
         $this->almacen->manzano = $this->manzano;
-        $this->almacen->save();
+        $this->almacen->update();
 
         $last = almacen::latest('id')->first();
         $this->idA = $last->id;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
         $this->reset(['open', 'idA' ,'nombre', 'calle', 'manzano']);
         $this->identify = rand();
+        $this->emitTo('equipo.almacen.show-almacens', 'render');
         $this->emit('alert', 'Actualizado Correctamente');
     }
 

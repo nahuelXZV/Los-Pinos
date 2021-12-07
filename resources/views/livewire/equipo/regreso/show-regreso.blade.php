@@ -118,10 +118,10 @@
 
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('nombreEquipo')">
+                            wire:click="order('codigoEquipo')">
                             Nombre
 
-                            @if ($sort == 'nombreEquipo')
+                            @if ($sort == 'codigoEquipo')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -172,9 +172,9 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('stockRegresado')">
+                            wire:click="order('cantidadSacada')">
                             Cantidad Retirada
-                            @if ($sort == 'stockRegresado')
+                            @if ($sort == 'cantidadSacada')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -355,7 +355,7 @@
                                     {{ $equipos->nombre }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-sm text-white">
+                            <td class="px-6 py-4 text-sm text-white font-bold">
                                 @if ($equipos->multiplicidad == 'Multiple')
                                     <span class="px-2 rounded-full inline-flex bg-green-500">
                                         {{ $equipos->multiplicidad }}

@@ -322,11 +322,6 @@
 
                             Livewire.emitTo('equipo.salida.show-salida-equipos', 'delete', salidaID)
 
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
                         }
                     })
                 });

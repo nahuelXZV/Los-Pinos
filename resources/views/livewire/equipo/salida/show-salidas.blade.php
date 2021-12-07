@@ -405,13 +405,16 @@
             <div class="mb-4">
                 <x-jet-label value='Código' />
                 <x-jet-input wire:model='idSalida' type='text' class="w-full" readonly />
-                <x-jet-input-error for="idSalida" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Nombre del Equipo' />
                 <x-jet-input wire:model='nombreEquipo' type='text' class="w-full" readonly />
-                <x-jet-input-error for="codigoEquipo" />
+            </div>
+
+            <div class="mb-4">
+                <x-jet-label value='Stock Actual del Equipo' />
+                <x-jet-input wire:model='stockActual' type='text' class="w-full" readonly />
             </div>
 
             <div class="mb-4">
@@ -518,12 +521,6 @@
                         if (result.isConfirmed) {
 
                             Livewire.emitTo('equipo.salida.show-salidas', 'delete', salidaID)
-
-                            Swal.fire(
-                                '¡Eliminado!',
-                                'La Salida ha sido eliminada.',
-                                'success'
-                            )
                         }
                     })
                 });

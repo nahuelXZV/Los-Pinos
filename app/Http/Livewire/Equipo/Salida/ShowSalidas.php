@@ -29,9 +29,10 @@ class ShowSalidas extends Component
     public $idSalidaEquipo;
     public $codigoEquipo;
     public $nombreEquipo;
-    public $estadoSalida;
+    public $estadoSalida = "Buen Estado";
     public $fechaSalida;
     public $horaSalida;
+    public $stockActual;
     public $stockRequerido;
     public $stockFaltante;
     public $salida;
@@ -43,20 +44,20 @@ class ShowSalidas extends Component
     //Validaciones del formulario
     protected $rules = [
         'codigoEquipo' => 'required',
-        'stockRequerido' => 'required'
+        'stockRequerido' => 'required',
     ];
 
     //Mensajes de validaciones
     protected $messages = [
         'codigoEquipo.required' => 'El campo equipo es obligatorio.',
-        'stockRequerido.required' => 'El campo stock es obligatorio'
+        'stockRequerido.required' => 'El campo stock es obligatorio',
     ];
 
     //Inicializador
     public function mount($salida)
     {
         $this->identify = rand();
-        $lastEquipo = equipo::latest('codigo')->first();
+        $lastEquipo = equipo::all()->first();
         $this->codigoEquipo = $lastEquipo->codigo;
         $this->salida = $salida;
     }
@@ -106,6 +107,7 @@ class ShowSalidas extends Component
         $this->idSalida = $saco->id;
 
         $this->nombreEquipo = $equipo->nombre;
+        $this->stockActual = $equipo->stock;
         $this->stockRequerido = $saco->stockRequerido;
         $this->estadoSalida = $saco->estadoSalida;
 
@@ -134,6 +136,20 @@ class ShowSalidas extends Component
     {
         $saco = saco::find($this->idSaco);
         $equipo = equipo::find($saco->codigoEquipo);
+
+        if($this->stockRequerido <= 0){
+            $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
+            $this->identify = rand();
+            $this->emit('alert', '¡El Stock Requerido no puede ser negativo o 0!');
+            return;
+        }
+
+        if($equipo->multiplicidad == "Multiple" && $this->estadoSalida != "Buen Estado"){
+            $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
+            $this->identify = rand();
+            $this->emit('alert', '¡No puede cambiar el estado de Salida a equipos múltiples!');
+            return;
+        }
 
         $this->idSalida = $saco->id;
 
@@ -189,7 +205,13 @@ class ShowSalidas extends Component
 
         $equipo = equipo::find($this->codigoEquipo);
 
-        if (($this->stockRequerido > $equipo->stock && $equipo->multiplicidad == "Multiple") || $equipo->stock == 0) {
+        if($this->stockRequerido <= 0){
+            $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
+            $this->identify = rand();
+            $this->emit('alert', '¡El Stock Requerido no puede ser negativo o 0!');
+            return;
+        }
+        if (($this->stockRequerido > $equipo->stock) || $equipo->stock == 0) {
             $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡Stock Insuficiente!');
@@ -220,11 +242,13 @@ class ShowSalidas extends Component
                     'estadoSalida' => $this->estadoSalida
                 ]);
                 $equipo->save();
-
-                DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $this->salida->id, auth()->user()->id]);
+                $sacado = saco::latest('id')->first();
+                $this->idSalidaEquipo = $sacado->idSalidaEquipo;
+                DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . ' de la salida : ' . $this->idSalidaEquipo, auth()->user()->id]);
                 $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'horaSalida', 'fechaSalida']);
                 $this->identify = rand();
-                $this->emitTo('equipo.salida.show-salidas', 'render');
+                $lastEquipo = equipo::all()->first();
+                $this->codigoEquipo = $lastEquipo->codigo;
                 $this->emit('alert', 'Añadido Correctamente');
             }
         }
@@ -234,9 +258,12 @@ class ShowSalidas extends Component
     public function delete($idSaco)
     {
         $sacoE = saco::find($idSaco);
-        $equipo = $sacoE;
+        $sacado = $sacoE;
+        $equipo = equipo::find($sacado->codigoEquipo);
+        $equipo->stock = $equipo->stock + $sacado->stockRequerido;
+        $equipo->save();
         $sacoE->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $equipo->codigoEquipo . 'con ID de Salida: ' . $equipo->idSalidaEquipo, auth()->user()->id]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $sacado->codigoEquipo . 'con ID de Salida: ' . $sacado->idSalidaEquipo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

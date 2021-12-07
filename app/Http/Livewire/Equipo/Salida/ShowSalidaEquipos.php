@@ -51,7 +51,7 @@ class ShowSalidaEquipos extends Component
     public function mount()
     {
         $this->identify = rand();
-        $personal = personal::latest('codigo')->first();
+        $personal = personal::all()->first();
         $this->codigoP = $personal->codigo;
     }
 
@@ -81,9 +81,9 @@ class ShowSalidaEquipos extends Component
     {
         $sal = $salida;
         $salida->delete();
-        $this->emit('alert', 'Eliminado Correctamente');
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
+       
     }
 
     //Método para inicializar el modal
@@ -105,8 +105,12 @@ class ShowSalidaEquipos extends Component
             'codigoPersonal' => $this->codigoP
         ]);
 
+        $lastS = salidaEquipo::latest('id')->first();
+        $this->idSalida = $lastS->id;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida, auth()->user()->id]);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
+        $personal = personal::all()->first();
+        $this->codigoP = $personal->codigo;
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente');
     }

@@ -345,11 +345,6 @@
 
                             Livewire.emitTo('equipo.regreso.show-regreso-equipos', 'delete', regresoID)
 
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
                         }
                     })
                 });

@@ -108,6 +108,7 @@ class LwAreaComun extends Component
         $area->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una área común con código: ' . $codigo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
+        $this->reset();
     }
 
     //Actualizar Vista luego de añadir

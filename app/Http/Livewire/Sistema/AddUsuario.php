@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Sistema;
 use App\Models\personal;
 use App\Models\User;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 
@@ -42,10 +41,7 @@ class AddUsuario extends Component
     public function mount()
     {
         $this->identify = rand();
-        $Personal = personal::all()->first();
-        $this->codigoPersonal = $Personal->codigo;
-        $rol = Role::all()->first();
-        $this->idRol = $rol->id;
+        $this->resetSelect();
     }
 
     //Metodo de guardar
@@ -61,8 +57,19 @@ class AddUsuario extends Component
             'codigoPersonal' => $this->codigoPersonal
         ])->assignRole($rol->name);
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un usuario para el empleado con código: ' . $this->codigoPersonal, auth()->user()->id]);
-        $this->reset(['open_add', 'contra', 'codigoPersonal', 'idRol', 'email']);
+        $this->reset(['open_add', 'contra', 'email']);
+        $this->resetSelect();
+        $this->identify = rand();
         $this->emit('actualizar');
+    }
+
+    //Metodo de reseteo de select
+    public function resetSelect()
+    {
+        $Personal = personal::all()->first();
+        $this->codigoPersonal = $Personal->codigo;
+        $rol = Role::all()->first();
+        $this->idRol = $rol->id;
     }
 
     //Renderizado

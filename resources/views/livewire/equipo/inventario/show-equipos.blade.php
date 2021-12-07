@@ -87,7 +87,7 @@
                             wire:click="order('descripcion')">
                             Descripción
 
-                            @if ($sort == 'desscripcion')
+                            @if ($sort == 'descripcion')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -289,7 +289,7 @@
                             </td>
 
                             <td class="px-6 py-4 text-sm text-white font-bold ">
-                                @if ($equipo->multiplicidad == 'Multiple')
+                                @if ($equipo->multiplicidad == 'Único')
                                     <span class="px-2 rounded-full inline-flex bg-green-500">
                                         {{ $equipo->multiplicidad }}
                                     </span>
@@ -441,7 +441,7 @@
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model.defer='multiplicidad'>
                     <option value="Único">Único</option>
-                    <option value="Multiple">Multiple</option>
+                    <option value="Múltiple">Múltiple</option>
                 </select>
                 <x-jet-input-error for="multiplicidad" />
             </div>
@@ -512,7 +512,7 @@
         })
     </script>
 
-
+ 
     @push('js')
         <script>
             Livewire.on('deleteEquipo',
@@ -529,12 +529,6 @@
                         if (result.isConfirmed) {
 
                             Livewire.emitTo('equipo.inventario.show-equipos', 'delete', equipoCodigo)
-
-                            Swal.fire(
-                                'Eliminado!',
-                                'El equipo ha sido eliminado.',
-                                'success'
-                            )
                         }
                     })
                 });

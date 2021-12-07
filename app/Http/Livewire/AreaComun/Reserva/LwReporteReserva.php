@@ -58,6 +58,7 @@ class LwReporteReserva extends Component
         $this->identify = rand();
         $this->emit('actualizar');
     }
+    
     //Metodo de añadir
     public function save()
     {
@@ -70,6 +71,7 @@ class LwReporteReserva extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo reporte a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $this->reset(['idR', 'descripcion', 'editRep', 'open_add']);
         $this->identify = rand();
+        //$this->reset();
         $this->emit('guardar');
     }
 
@@ -85,7 +87,7 @@ class LwReporteReserva extends Component
     //Metodo de renderizado
     public function render()
     {
-        $reportes = reporteAc::where('codigoRes', '=', $this->reserva->id)->get();
+        $reportes = reserva::find($this->reserva->id)->reporteAC()->get();
         return view('livewire.area-comun.reserva.lw-reporte-reserva', compact('reportes'));
     }
 }

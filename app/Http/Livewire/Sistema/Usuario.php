@@ -41,8 +41,7 @@ class Usuario extends Component
     public function mount()
     {
         $this->identify = rand();
-        $rol = Role::all()->first();
-        $this->idRol = $rol->id;
+        $this->resetSelect();
     }
 
     //Metodo de ordenado
@@ -100,6 +99,7 @@ class Usuario extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un usuario con código: ' . $persona->codigo, auth()->user()->id]);
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el cargo del empleado: ' . $persona->nombre, auth()->user()->id]);
         $this->reset(['open_edit', 'idRol', 'rolAct']);
+        $this->resetSelect();
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
@@ -111,6 +111,13 @@ class Usuario extends Component
         $persona->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el usuario de: ' . $nombre, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
+    }
+
+    //Metodo de reseteo de select
+    public function resetSelect()
+    {
+        $rol = Role::all()->first();
+        $this->idRol = $rol->id;
     }
 
     //Metodo de rederizado

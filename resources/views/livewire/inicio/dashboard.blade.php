@@ -138,81 +138,85 @@
 
         <!-- Recent Activities -->
         @can('reserva.list')
-            <div class="relative flex flex-col min-w-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
-                <div class="rounded-t mb-0 px-0 border-0">
-                    <div class="flex flex-wrap items-center px-4 py-2">
-                        <div class="relative w-full max-w-full flex-grow flex-1">
-                            <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">
-                                Reservas del dia</h3>
+            <div class="flex flex-row w-full">
+                <div class=" w-full break-words bg-gray-50 shadow-lg rounded">
+                    <div class="rounded-t mb-0 px-0 border-0">
+                        <div class="flex flex-wrap items-center px-4 py-2">
+                            <div class="relative w-full max-w-full flex-grow flex-1">
+                                <h3 class="font-semibold text-base text-gray-900 dark:text-gray-50">
+                                    Reservas del dia</h3>
+                            </div>
+                            <div class="relative w-full max-w-full flex-grow flex-1 text-right">
+                                <a class="bg-green-500 dark:bg-gray-100 text-white active:bg-green-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                    type="button" href="{{ route('reserva.list') }}">Ver todas</a>
+                            </div>
                         </div>
-                        <div class="relative w-full max-w-full flex-grow flex-1 text-right">
-                            <a class="bg-green-500 dark:bg-gray-100 text-white active:bg-green-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                type="button" href="{{ route('reserva.list') }}">Ver todas</a>
-                        </div>
-                    </div>
-                    @if ($Reservas->count())
-                        <div class="block w-full">
-                            <ul class="my-1">
-                                @foreach ($Reservas as $reserva)
-                                    <li class="flex px-4">
-                                        <div
-                                            class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-                                            <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            class="flex-grow flex items-center border-b border-gray-100 dark:border-gray-400 text-sm text-gray-600 dark:text-gray-100 py-2">
-                                            <div class="flex-grow flex justify-between items-center">
-                                                <div class="self-center">
-                                                    <label class="text-sm text-black font-semibold">
-                                                        {{ $reserva->title }}</label>
-                                                    <label class="text-sm text-gray">
-                                                        Reservo @if ($reserva->VareaComun->codigo == 107) el @else la @endif</label>
-                                                    <label class="text-sm text-black font-semibold">
-                                                        {{ $reserva->VareaComun->nombre }}</label>
-                                                    <label class="text-sm text-gray">
-                                                        para las </label>
-                                                    <label class="text-sm text-black font-semibold">
-                                                        {{ $reserva->horaIni }}</label>
-                                                    <label class="text-sm text-gray">
-                                                        hasta las </label>
-                                                    <label class="text-sm text-black font-semibold">
-                                                        {{ $reserva->horaFin }}</label>
-                                                </div>
+                        @if ($Reservas->count())
+                            <div class="block w-full">
+                                <ul class="my-1">
+                                    @foreach ($Reservas as $reserva)
+                                        <li class="flex px-4">
+                                            <div
+                                                class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+                                                <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                            <div
+                                                class="flex-grow flex items-center border-b border-gray-100 dark:border-gray-400 text-sm text-gray-600 dark:text-gray-100 py-2">
+                                                <div class="flex-grow flex justify-between items-center">
+                                                    <div class="self-center">
+                                                        <label class="text-sm text-black font-semibold">
+                                                            {{ $reserva->title }}</label>
+                                                        <label class="text-sm text-gray">
+                                                            Reservo @if ($reserva->VareaComun->codigo == 107) el @else la @endif</label>
+                                                        <label class="text-sm text-black font-semibold">
+                                                            {{ $reserva->VareaComun->nombre }}</label>
+                                                        <label class="text-sm text-gray">
+                                                            para las </label>
+                                                        <label class="text-sm text-black font-semibold">
+                                                            {{ $reserva->horaIni }}</label>
+                                                        <label class="text-sm text-gray">
+                                                            hasta las </label>
+                                                        <label class="text-sm text-black font-semibold">
+                                                            {{ $reserva->horaFin }}</label>
+                                                    </div>
 
-                                                <div class="flex-shrink-0 ml-2">
-                                                    <a class="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                                                        href="{{ route('reserva.show', $reserva->id) }}"
-                                                        style="outline: none;">
-                                                        Ver
-                                                        <span>
-                                                            <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                fill="currentColor"
-                                                                class="transform transition-transform duration-500 ease-in-out">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                                    clip-rule="evenodd"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </a>
+                                                    <div class="flex-shrink-0 ml-2">
+                                                        <a class="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
+                                                            href="{{ route('reserva.show', $reserva->id) }}"
+                                                            style="outline: none;">
+                                                            Ver
+                                                            <span>
+                                                                <svg width="20" height="20" viewBox="0 0 20 20"
+                                                                    fill="currentColor"
+                                                                    class="transform transition-transform duration-500 ease-in-out">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                                        clip-rule="evenodd"></path>
+                                                                </svg>
+                                                            </span>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @else
-                        <div class="block w-full mb-4">
-                            <label class="text-sm text-black font-semibold ml-4">
-                                No hay reservas para el dia de hoy</label>
-                        </div>
-                    @endif
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @else
+                            <div class="block w-full mb-4">
+                                <label class="text-sm text-black font-semibold ml-4">
+                                    No hay reservas para el dia de hoy</label>
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
+
+
         @endcan
         <!-- ./Recent Activities -->
 

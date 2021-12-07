@@ -26,35 +26,8 @@
                     <tr>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('id')">
-                            Código trabajor
-
-                            @if ($sort == 'id')
-                                @if ($direction == 'asc')
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                    </svg>
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                    </svg>
-                                @endif
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-                            @endif
-                        </th>
-                        <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('name')">
-                            Nombre
+                            Código y Nombre
 
                             @if ($sort == 'name')
                                 @if ($direction == 'asc')
@@ -108,7 +81,7 @@
 
                         </th>
                         <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
+                            class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
                             Cargo
                         </th>
                         @if (auth()->user()->can('usuarios.delete') ||
@@ -125,19 +98,8 @@
                     @foreach ($usuarios as $personas)
                         <tr>
                             <td class="px-6 py-4 ">
-                                <div
-                                    class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    @if ($personas->Vpersonal)
-                                        {{ $personas->Vpersonal->codigo }}
-                                    @else
-                                        Sin Codigo
-                                    @endif
-
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $personas->name }}
+                                    {{ $personas->Vpersonal->codigo }} - {{ $personas->name }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">

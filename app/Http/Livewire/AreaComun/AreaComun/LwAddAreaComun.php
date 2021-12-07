@@ -53,6 +53,8 @@ class LwAddAreaComun extends Component
             'manzano' => $this->manzano,
             'estadoRes' => $this->estadoRes
         ]);
+        $last = areaComun::latest('codigo')->first();
+        $this->codigo = $last->codigo;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una área común con código: ' . $this->codigo, auth()->user()->id]);
         $this->reset(['open_add', 'codigo', 'nombre', 'calle', 'manzano', 'estadoRes']);
         $this->identify = rand();

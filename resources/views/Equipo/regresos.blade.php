@@ -9,6 +9,6 @@
 
 @section('content')
 
-@livewire('equipo.regreso.show-regreso-equipos')
+    @livewire('equipo.regreso.show-regreso-equipos')
 
 @endsection

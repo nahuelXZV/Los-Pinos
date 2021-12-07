@@ -61,9 +61,7 @@ class ShowEquipos extends Component
     //Iniciador
     public function mount()
     {
-        $this->almacen = almacen::all()->first();
-        $this->idAlmacen = $this->almacen->id;
-        $this->identify = rand();
+        $this->resetSelect();
     }
     //Método para renderizar la vista
     public function render()
@@ -71,6 +69,8 @@ class ShowEquipos extends Component
         $equipos = equipo::where('codigo', 'like', '%' . $this->search . '%')
             ->orWhere('nombre', 'like', '%' . $this->search . '%')
             ->orWhere('descripcion', 'like', '%' . $this->search . '%')
+            ->orWhere('estadoServicio', 'like', '%' . $this->search . '%')
+            ->orWhere('estadoFuncionamiento', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
         $almacens = almacen::all();
@@ -114,8 +114,11 @@ class ShowEquipos extends Component
     {
         $this->validate();
         if ($this->multiplicidad == "Único" && $this->stock > 1) {
-            $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'multiplicidad', 'stock', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
             $this->emit('alert', 'Tipo de equipo y stock incorrecto!');
+            return;
+        }
+        if ($this->multiplicidad == 'Múltiple' && $this->estadoFuncionamiento != 'Buen Estado') {
+            $this->emit('alert', 'Tipo de equipo y estado de funcionamiento incorrecto!');
             return;
         }
         $this->equipo->nombre = $this->nombre;
@@ -130,17 +133,25 @@ class ShowEquipos extends Component
         $this->equipo->update();
 
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el equipo: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
-        $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'stock', 'multiplicidad', 'estadoServicio', 'estadoFuncionamiento', 'idAlmacen']);
+        $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'stock', 'multiplicidad', 'estadoServicio', 'estadoFuncionamiento']);
         $this->identify = rand();
-        $this->emit('alert', 'Actualizado Correctamente');
+        $this->emit('alert', 'Actualizado Correctamente!');
     }
 
+    //Metodo de reseteo de select
+    public function resetSelect()
+    {
+        $this->almacen = almacen::all()->first();
+        $this->idAlmacen = $this->almacen->id;
+    }
 
     //Método para borrar
     public function delete(equipo $equipo)
     {
         $e = equipo::find($equipo->codigo);
         $equipo->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $e->nombre . ' con código: ' . $e->codigo, auth()->user()->id]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el equipo: ' . $e->nombre . ' con código: ' . $e->codigo, auth()->user()->id]);
+        $this->emit('alert', 'Eliminado Correctamente!');
+        $this->reset();
     }
 }

@@ -46,7 +46,7 @@
                 <select wire:model.defer='multiplicity'
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="Único">Único</option>
-                    <option value="Multiple">Multiple</option>
+                    <option value="Múltiple">Múltiple</option>
                 </select>
                 <x-jet-input-error for="multiplicity" />
             </div>

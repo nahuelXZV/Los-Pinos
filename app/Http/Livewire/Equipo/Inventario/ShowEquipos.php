@@ -73,6 +73,7 @@ class ShowEquipos extends Component
             ->orWhere('estadoFuncionamiento', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
+            
         $almacens = almacen::all();
         return view('livewire.equipo.inventario.show-equipos', compact('equipos', 'almacens'));
     }

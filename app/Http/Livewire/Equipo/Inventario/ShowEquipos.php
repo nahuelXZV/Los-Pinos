@@ -21,10 +21,10 @@ class ShowEquipos extends Component
     public $open = false;
     public $identify;
 
-     //Atributos de la clase
-     public $equipo;
-     public $codigo, $nombre, $modelo, $marca, $descripcion, $stock, 
-     $multiplicidad, $estadoServicio, $estadoFuncionamiento, $idAlmacen, $almacen;
+    //Atributos de la clase
+    public $equipo;
+    public $codigo, $nombre, $modelo, $marca, $descripcion, $stock,
+        $multiplicidad, $estadoServicio, $estadoFuncionamiento, $idAlmacen, $almacen;
 
     //Listener que manda el equipo al metodo delete de otra vista
     protected $listeners = ['render', 'delete'];
@@ -37,21 +37,21 @@ class ShowEquipos extends Component
         'search' => ['except' => ''],
     ];
 
-        //Validaciones del formulario
-        protected $rules = [
-            'nombre' => 'required',
-            'multiplicidad' => 'required',
-            'estadoServicio' => 'required',
-            'estadoFuncionamiento' => 'required',
-            'idAlmacen' => 'required'
-        ];
-    
-        //Mensajes de Validaciones
-        protected $messages = [
-            'nombre.required' => 'El campo nombre es obligatorio.',
-            'estadoFuncionamiento.required' => 'El campo Estado de Funcionamiento es obligatorio.',
-            'idAlmacen.required' => 'El campo código del Almacen es obligatorio.',
-        ];
+    //Validaciones del formulario
+    protected $rules = [
+        'nombre' => 'required',
+        'multiplicidad' => 'required',
+        'estadoServicio' => 'required',
+        'estadoFuncionamiento' => 'required',
+        'idAlmacen' => 'required'
+    ];
+
+    //Mensajes de Validaciones
+    protected $messages = [
+        'nombre.required' => 'El campo nombre es obligatorio.',
+        'estadoFuncionamiento.required' => 'El campo Estado de Funcionamiento es obligatorio.',
+        'idAlmacen.required' => 'El campo código del Almacen es obligatorio.',
+    ];
 
     //Metodo de reinicio de buscador
     public function updatingSearch()
@@ -108,7 +108,7 @@ class ShowEquipos extends Component
         $this->estadoFuncionamiento = $this->equipo->estadoFuncionamiento;
         $this->idAlmacen = $this->equipo->idAlmacen;
         $this->open = true;
-    }    
+    }
 
     //Método para actualizar
     public function update()
@@ -149,7 +149,7 @@ class ShowEquipos extends Component
     //Método para borrar
     public function delete(equipo $equipo)
     {
-        $e = equipo::find($equipo->codigo); 
+        $e = equipo::find($equipo->codigo);
         $equipo->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el equipo: ' . $e->nombre . ' con código: ' . $e->codigo, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');

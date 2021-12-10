@@ -4,13 +4,15 @@ namespace App\Http\Livewire\Personal;
 
 use App\Models\personal;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+
 
 class CreatePersonal extends Component
 {
     public $open = false;
 
-    public $codigo, $nombre, $carnet, $telefono, $direccion, $fechaNac, 
-    $nacionalidad, $sexo, $estadoCivil, $email, $cargo, $estado;
+    public $last, $codigo, $nombre, $carnet, $telefono, $direccion, $fechaNac, 
+    $nacionalidad, $sexo = 'M', $estadoCivil = 'Soltero', $email, $cargo = 'Ninguno', $estado = 'Activo';
 
     protected $rules = [
         'nombre' => 'required|max:50',
@@ -26,6 +28,19 @@ class CreatePersonal extends Component
         'estado' => 'required|max:20',
 
     ];
+
+    protected $messages = [
+        'nombre.required' => 'El campo nombre es obligatorio.',
+        'carnet.required' => 'El campo carnet es obligatorio.',
+        'telefono.max' => 'El campo teléfono requiere máximo 10 caracteres.',
+        'direccion.max' => 'El campo dirección requiere máximo 70 caracteres.',
+        'fechaNac.required' => 'El campo fecha de nacimiento  es obligatorio.',
+        'nacionalidad.required' => 'El campo nacionalidad es obligatorio.',
+        'nacionalidad.max' => 'El campo nacionalidad requiere máximo 20 caracteres.',
+        'email.required' => 'El campo email es obligatorio.',
+        'email.max' => 'El campo email requiere máximo 50 caracteres.',
+    ];
+
 
 
     public function updated($propertyName)
@@ -51,9 +66,12 @@ class CreatePersonal extends Component
             'estado' => $this->estado       
         ]);
 
+        $last = personal::latest('codigo')->first();
+        $this->codigo = $last->codigo;
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió al miembro del personal: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
         $this->emitTo('personal.show-personal', 'render');
-        $this->reset(['open', 'nombre', 'carnet', 'telefono', 'fechaNac', 'nacionalidad','sexo','estadoCivil','email','cargo','estado']);
-
+        $this->reset(['open', 'nombre', 'carnet', 'telefono', 'direccion', 'fechaNac', 'nacionalidad','sexo','estadoCivil','email','cargo','estado']);
+        $this->emit('alert', 'Añadido Correctamente!');
     }
 
     public function render()

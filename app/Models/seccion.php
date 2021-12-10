@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class seccion extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'calle', 'manzano'];
 
     // relacion de uno a muchos
     public function trabajo(){

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class trabajo extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'actividad', 'idSeccion'];
 
     // relacion de uno a muchos
     public function realizo(){

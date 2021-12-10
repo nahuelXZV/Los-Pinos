@@ -16,20 +16,22 @@ class personal extends Model
     // relacion de uno a muchos
     public function reporteT()
     {
-        return $this->hasMany(reporteT::class);
+        return $this->hasMany(reporteT::class, 'codigoPersonal');
     }
 
     // relacion de uno a muchos
     public function reporteA()
     {
-        return $this->hasMany(reporteA::class);
+        return $this->hasMany(reporteA::class, 'codigoPersonal');
     }
 
-    // relacion de muchos a muchos
-    public function horario()
-    {
-        return $this->belongsToMany(horario::class);
-    }
+    // relacion de muchos a muchos 
+    public function horario_personals(){
+        return $this->belongsToMany(horario::class, 'horario_personals', 'idHorario', 'codigoPersonal')
+                ->as('horario_personals')
+                ->withPivot('id', 'idHorario', 'codigoPersonal');
+    }  
+
 
     // relacion de uno a muchos
     public function salidaEquipo(){

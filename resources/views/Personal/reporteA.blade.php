@@ -9,6 +9,6 @@
 
 @section('content')
 
-@livewire('personal.personal.show-personal')
+@livewire('personal.reporte-asistencia.show-reporte')
 
 @endsection

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Personal;
+namespace App\Http\Livewire\Personal\Personal;
 
 use Livewire\Component;
 use App\Models\personal;
@@ -76,7 +76,7 @@ class ShowPersonal extends Component
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
 
-        return view('livewire.personal.show-personal', compact('personals'));
+        return view('livewire.personal.personal.show-personal', compact('personals'));
     }
 
     public function order($sort)

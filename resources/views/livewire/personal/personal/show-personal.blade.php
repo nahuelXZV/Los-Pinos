@@ -21,7 +21,7 @@
                     class=" mx-4 mr-4 flex-1 rounded-full w-full">
                 </x-jet-input>
 
-                @livewire('personal.create-personal')
+                @livewire('personal.personal.create-personal')
 
             </div>
             @if (count($personals))
@@ -425,27 +425,4 @@
         </x-jet-dialog-modal>
 
     </div>
-
-    @push('js')
-        <script>
-            Livewire.on('deletePersonal',
-                personalCodigo => {
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "Los datos se borrarán permanentemente",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: '!Sí, eliminar!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-
-                            Livewire.emitTo('personal.show-personal', 'delete', personalCodigo)
-                        }
-                    })
-                });
-        </script>
-    @endpush
-
 </div>

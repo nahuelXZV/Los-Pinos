@@ -9,4 +9,7 @@ class horarioPersonal extends Model
 {
     use HasFactory;
     protected $fillable = ['id', 'idHorario', 'codigoPersonal'];
+    
+
+    
 }

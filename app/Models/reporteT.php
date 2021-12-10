@@ -12,11 +12,11 @@ class reporteT extends Model
 
     // relacion de muchos a uno
     public function personal(){
-        return $this->belongsTo(personal::class);
+        return $this->belongsTo(personal::class, 'codigoPersonal');
     }
 
     // relacion de uno a muchos
     public function realizo(){
-        return $this->hasMany(realizo::class);
+        return $this->hasMany(realizo::class, 'idReporteT');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Personal;
+namespace App\Http\Livewire\Personal\Personal;
 
 use App\Models\personal;
 use Livewire\Component;
@@ -69,13 +69,13 @@ class CreatePersonal extends Component
         $last = personal::latest('codigo')->first();
         $this->codigo = $last->codigo;
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió al miembro del personal: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
-        $this->emitTo('personal.show-personal', 'render');
+        $this->emitTo('personal.personal.show-personal', 'render');
         $this->reset(['open', 'nombre', 'carnet', 'telefono', 'direccion', 'fechaNac', 'nacionalidad','sexo','estadoCivil','email','cargo','estado']);
         $this->emit('alert', 'Añadido Correctamente!');
     }
 
     public function render()
     {
-        return view('livewire.personal.create-personal');
+        return view('livewire.personal.personal.create-personal');
     }
 }

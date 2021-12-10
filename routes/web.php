@@ -33,10 +33,10 @@ Route::get('/regreso-equipos/show/{id}', [EquipoController::class, 'show_regreso
 Route::get('/personal', [PersonalController::class, 'index'])->name('personal')->middleware('auth');
 Route::get('/trabajos', [PersonalController::class, 'index'])->name('trabajos')->middleware('auth');
 Route::get('/seccion', [PersonalController::class, 'index'])->name('seccion')->middleware('auth');
-Route::get('/reporteAsistencia', [PersonalController::class, 'repoorte'])->name('reporte.asistencia')->middleware('auth');
-Route::get('/reporteAsistencia/{id}', [PersonalController::class, 'repoorte'])->name('reporte.asistencia.show')->middleware('auth');
+Route::get('/reporteAsistencia', [PersonalController::class, 'reportes'])->name('reporte.asistencia')->middleware('auth');
+Route::get('/reporteAsistencia/{id}', [PersonalController::class, 'reporte'])->name('reporte.asistencia.show')->middleware('auth');
 Route::get('/reporteTrabajo', [PersonalController::class, 'trabajo_realizado'])->name('reporte.trabajo')->middleware('auth');
-Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'repoorte'])->name('reporte.trabajo.show')->middleware('auth');
+Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name('reporte.trabajo.show')->middleware('auth');
 
 
 /*MODULO AREAS COMUNES */

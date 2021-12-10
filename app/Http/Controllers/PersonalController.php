@@ -11,4 +11,9 @@ class PersonalController extends Controller
         return view('Personal.personal');
     }
 
+    public function reportes()
+    {
+        return view('Personal.reporteA');
+    }
+
 }

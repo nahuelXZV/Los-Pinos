@@ -12,6 +12,6 @@ class seccion extends Model
 
     // relacion de uno a muchos
     public function trabajo(){
-        return $this->hasMany(trabajo::class);
+        return $this->hasMany(trabajo::class, 'idSeccion');
     }
 }

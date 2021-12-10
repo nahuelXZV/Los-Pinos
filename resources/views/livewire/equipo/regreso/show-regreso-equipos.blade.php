@@ -327,27 +327,4 @@
             })
         })
     </script>
-
-    @push('js')
-        <script>
-            Livewire.on('deleteRegreso',
-                regresoID => {
-                    Swal.fire({
-                        title: '¿Estás seguro?',
-                        text: "Los datos se borrarán permanentemente",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: '¡Sí, eliminar!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-
-                            Livewire.emitTo('equipo.regreso.show-regreso-equipos', 'delete', regresoID)
-
-                        }
-                    })
-                });
-        </script>
-    @endpush
 </div>

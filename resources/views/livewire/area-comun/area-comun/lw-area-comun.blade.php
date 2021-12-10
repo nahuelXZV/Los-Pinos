@@ -1,4 +1,4 @@
-<div>
+<div> 
     <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
@@ -12,7 +12,7 @@
                 </select>
                 <span class="mr-2 font-bold">Buscar</span>
             </div>
-
+ 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
@@ -292,7 +292,7 @@
             <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='update' wire:loading.attr='disabled' class="disabled:opacity-15">
+            <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">
                 Actualizar
             </x-jet-danger-button>
         </x-slot>

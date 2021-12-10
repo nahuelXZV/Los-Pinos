@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class horario extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'dia', 'horaInicio', 'horaFinal'];
+
 
     // relacion de muchos a muchos
     public function personal(){

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class horarioPersonal extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'idHorario', 'codigoPersonal'];
 }

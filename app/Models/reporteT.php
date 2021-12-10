@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class reporteT extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'fecha', 'codPersonal'];
 
     // relacion de muchos a uno
     public function personal(){

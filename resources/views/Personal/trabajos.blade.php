@@ -1,14 +1,13 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Personal
+    Trabajos
 @endsection
 @section('action')
-    Personal
+   Trabajos
 @endsection
 
 @section('content')
 
-@livewire('personal.personal.show-personal')
 
 @endsection

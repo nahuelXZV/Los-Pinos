@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class horario extends Model
 {
     use HasFactory;
+    protected $fillable = ['id', 'dia', 'horaInicio', 'horaFinal'];
 
-    // relacion de muchos a muchos
-    public function personal(){
-        return $this->belongsToMany(personal::class);
-    }
+     // relacion de muchos a muchos 
+     public function horario_personals(){
+        return $this->belongsToMany(personal::class, 'horario_personals', 'idHorario', 'codigoPersonal')
+                ->as('horario_personals')
+                ->withPivot('id', 'idHorario', 'codigoPersonal');
+    }  
 
     // relacion de uno a uno
     public function user(){

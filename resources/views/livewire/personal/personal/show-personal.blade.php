@@ -1,4 +1,4 @@
-<div wire:init="loadPersonal">
+<div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- This example requires Tailwind CSS v2.0+ -->
         <x-table>
@@ -17,14 +17,14 @@
                     <span class="mr-2 font-bold">Paginar</span>
                 </div>
 
-                <x-jet-input type="text" placeholder="Introduzca el código o el nombre del personal"
-                    wire:model="search" class=" mx-4 mr-4 flex-1 rounded-full w-full">
+                <x-jet-input type="text" placeholder="Introduzca el código o el nombre del personal" wire:model="search"
+                    class=" mx-4 mr-4 flex-1 rounded-full w-full">
                 </x-jet-input>
 
-                @livewire('personal.create-personal')
+                @livewire('personal.personal.create-personal')
 
             </div>
-            @if (count($personal))
+            @if (count($personals))
 
                 <table class=" min-w-full divide-y divide-gray-200 ">
                     <thead class=" rounded-3xl bg-green-500 text-white">
@@ -206,7 +206,7 @@
                         </tr>
                     </thead>
                     <tbody class=" bg-white divide-y divide-gray-200">
-                        @foreach ($personal as $persona)
+                        @foreach ($personals as $persona)
                             <tr>
 
                                 <td class="px-6 py-4">
@@ -252,7 +252,7 @@
                                     {{ $persona->cargo }}
                                 </td>
 
-                                
+
                                 @if ($persona->estado == 'Activo')
                                     <td class="px-6 py-4 text-sm text-white font-bold">
                                         <span class="px-2 rounded-full inline-flex bg-green-500">
@@ -268,9 +268,10 @@
                                 @endif
 
 
-                                <td class=" my-10 px-6 py-4 whitespace-nowrap flex">
+                                <td class=" my-3 px-6 py-4 whitespace-nowrap flex">
                                     <a
-                                        class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4">
+                                        class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                        wire:click='openModal({{ $persona->codigo }})'>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -278,7 +279,8 @@
                                         </svg>
                                     </a>
                                     <a
-                                        class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 ">
+                                        class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                        wire:click="$emit('deletePersonal', {{ $persona->codigo }})">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -292,9 +294,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                @if ($personal->hasPages())
+                @if ($personals->hasPages())
                     <div class="px-6 py-3">
-                        {{ $personal->links() }}
+                        {{ $personals->links() }}
                     </div>
                 @endif
             @else
@@ -303,6 +305,124 @@
                 </div>
             @endif
         </x-table>
-    </div>
 
+        <x-jet-dialog-modal wire:model="open">
+
+            <x-slot name="title">
+                Editar al miembro del personal
+            </x-slot>
+
+            <x-slot name="content">
+
+                <div class="mb-4">
+                    <x-jet-label value="Nombre" />
+                    <x-jet-input type="text" class="w-full" wire:model="nombre" 
+                    placeholder="Escriba el nombre del Personal"/>
+
+                    <x-jet-input-error for="nombre" />
+
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Carnet de Identidad" />
+                    <x-jet-input type="text" class="w-full" wire:model="carnet" 
+                    placeholder="Escriba el número de carnet"/>
+                    <x-jet-input-error for="carnet" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Número de Teléfono" />
+                    <x-jet-input type="text" class="w-full" wire:model="telefono" 
+                    placeholder="Escriba el número de teléfono"/>
+                </div>
+
+
+                <div class="mb-4">
+                    <x-jet-label value="Dirección de domicilio" />
+                    <textarea wire:model.defer='direccion'
+                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-"
+                        rows="2" placeholder="Escriba la dirección del domicilio"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Fecha de Nacimiento" />
+                    <x-jet-input type="date" class="w-full" wire:model="fechaNac" 
+                    placeholder="Inserte la fecha de Nacimiento"/>
+                    <x-jet-input-error for="fechaNac" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Nacionalidad" />
+                    <x-jet-input type="text" class="w-full" wire:model="nacionalidad" 
+                    placeholder="Escriba la nacionalidad"/>
+                    <x-jet-input-error for="nacionalidad" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Sexo" />
+                    <select
+                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                        wire:model="sexo">
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Estado Civil" />
+                    <select
+                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                        wire:model="estadoCivil">
+                        <option value="Soltero">Soltero</option>
+                        <option value="Casado">Casado</option>
+                    </select>
+                </div>
+
+
+                <div class="mb-4">
+                    <x-jet-label value="Correo Electrónico" />
+                    <x-jet-input type="email" class="w-full" wire:model="email" 
+                    placeholder="Escriba el correro electrónico"/>
+                    <x-jet-input-error for="email" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Cargo" />
+                    <select
+                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                        wire:model="cargo">
+                        <option value="Ninguno">Ninguno</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Gerente">Gerente</option>
+                        <option value="Guardia">Guardia</option>
+                        <option value="Portero">Portero</option>
+                        <option value="Jardinero">Jardinero</option>
+                        <option value="Limpieza">Limpieza</option>
+                    </select>
+                    <x-jet-input-error for="cargo" />
+                </div>
+
+                <div class="mb-4">
+                    <x-jet-label value="Estado" />
+                    <select
+                        class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                        wire:model="estado">
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-jet-secondary-button wire:click="$set('open', false)" wire:loading.attr="disabled">
+                    Cancelar
+                </x-jet-secondary-button>
+                <x-jet-danger-button wire:click="update()" wire:loading.attr="disabled" wire:target="update"
+                    class="disabled:opacity-25">
+                    Actualizar
+                </x-jet-danger-button>
+            </x-slot>
+        </x-jet-dialog-modal>
+
+    </div>
 </div>

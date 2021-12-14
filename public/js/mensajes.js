@@ -317,3 +317,20 @@ Livewire.on('deleteReporteA',
             }
         })
     });
+
+    Livewire.on('deleteHorario', horario => {
+        Swal.fire({
+            title: 'Esta seguro?',
+            text: "Los datos se borraran permanentemente!",
+            icon: 'Advertencia',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.emitTo('horario.lw-horario', 'delete', horario);
+            }
+        })
+    });

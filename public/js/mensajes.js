@@ -318,7 +318,11 @@ Livewire.on('deleteReporteA',
         })
     });
 
+<<<<<<< HEAD
     Livewire.on('deleteHorario', horario => {
+=======
+    Livewire.on('deleteSeccion', seccion => {
+>>>>>>> 263926bd3db7138f6253b3018695e5e84e8fc8a5
         Swal.fire({
             title: 'Esta seguro?',
             text: "Los datos se borraran permanentemente!",
@@ -330,7 +334,14 @@ Livewire.on('deleteReporteA',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
+<<<<<<< HEAD
                 Livewire.emitTo('horario.lw-horario', 'delete', horario);
             }
         })
     });
+=======
+                Livewire.emitTo('personal.seccion.lw-seccion', 'delete', seccion);
+            }
+        })
+    })
+>>>>>>> 263926bd3db7138f6253b3018695e5e84e8fc8a5

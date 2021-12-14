@@ -9,6 +9,6 @@
 
 @section('content')
 
-
+@livewire('horario.lw-horario')
 
 @endsection

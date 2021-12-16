@@ -8,6 +8,5 @@
 @endsection
 
 @section('content')
-
-
+    @livewire('personal.trabajo.lw-trabajos')
 @endsection

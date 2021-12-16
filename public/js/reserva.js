@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         locale: 'es',
         displayEventTime: false,
-        events: "http://los_pinos.test/reserva/all",
+        events: "http://lospinos.test/reserva/all",
         eventClick: function(info) {
             var reserva = info.event;
             Livewire.emit('open_modal_edit', reserva.id);

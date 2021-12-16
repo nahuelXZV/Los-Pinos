@@ -9,6 +9,6 @@
 
 @section('content')
 
-
+@livewire('personal.seccion.lw-seccion')
 
 @endsection

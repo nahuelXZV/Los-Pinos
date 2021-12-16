@@ -43,7 +43,7 @@ class EquipoController extends Controller
     public function show_regresos($id)
     {
         $regreso = regresoEquipo::find($id);
-        return view('equipo.show-regreso-equipo', compact('regreso'));
+        return view('equipo.show-regreso', compact('regreso'));
     }
 
     public function show_salidas($id)

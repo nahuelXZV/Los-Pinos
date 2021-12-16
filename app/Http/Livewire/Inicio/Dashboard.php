@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inicio;
 
+use App\Models\equipo;
 use App\Models\reserva;
 use App\Models\residente;
 use Livewire\Component;
@@ -21,6 +22,7 @@ class Dashboard extends Component
         $CReservas = DB::table('reservas')->where('fecha', '>=', Carbon::now()->toDateString())->count();
         $Reservas = reserva::where('fecha', '=', Carbon::now()->toDateString())
             ->orderBy('horaIni', 'asc')->get();
-        return view('livewire.inicio.dashboard', compact('CResidente', 'CVisitantes', 'Cpersonal', 'CMotorizados', 'CViviendas', 'CAreasComunes', 'CReservas', 'Reservas'));
+        $equipos = equipo::all();
+        return view('livewire.inicio.dashboard', compact('CResidente', 'CVisitantes', 'Cpersonal', 'CMotorizados', 'CViviendas', 'CAreasComunes', 'CReservas', 'Reservas', 'equipos'));
     }
 }

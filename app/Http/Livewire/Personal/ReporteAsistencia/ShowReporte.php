@@ -17,11 +17,14 @@ class ShowReporte extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = 10;
-    public $open_add = false;
+    public $open = false;
     public $open_edit = false;
     public $identify;
 
     public $idR, $fecha, $codigoPersonal;
+
+    //Listener que se renderiza al método delete
+    protected $listeners = ['delete'];
 
     //Validaciones del formulario
     protected $rules = [
@@ -65,7 +68,7 @@ class ShowReporte extends Component
 
     public function open_add()
     {
-        $this->open_add = true;
+        $this->open = true;
     }
 
     public function save()
@@ -83,7 +86,7 @@ class ShowReporte extends Component
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el reporte de asistencia : ' . $this->idR . ' del personal: ' . $this->codigoPersonal, auth()->user()->id]);
         $this->emit('alert', '¡Añadido Correctamente!');
         $this->identify = rand();
-        $this->reset(['fecha', 'codigoPersonal']);
+        $this->reset(['open', 'fecha', 'codigoPersonal']);
 
         $personal = personal::all()->first();
         $this->codigoPersonal = $personal->codigo;
@@ -92,9 +95,9 @@ class ShowReporte extends Component
 
 
     //Método para eliminar 
-    public function delete(reporteA $reporte)
+    public function delete($idReporte)
     {
-        $r = $reporte;
+        $r = $reporte = reporteA::find($idReporte);
         $reporte->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el reporte de asistencia ' . $r->id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');

@@ -14,7 +14,7 @@
                 <span class="mr-2 font-bold">Buscar</span>
             </div>
 
-            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el código del personal"
                 wire:model="search" />
             <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="open_add()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
@@ -34,7 +34,7 @@
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('idR')">
-                            ID
+                            Código
 
                             @if ($sort == 'idR')
                                 @if ($direction == 'asc')
@@ -142,7 +142,8 @@
                             </td>
 
                             <td class="my-3 px-6 py-4 whitespace-nowrap flex">
-                                    <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4">
+                                    <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                    href=" {{ route('reporteAsistencia.show', $reporte->id) }}">
                                         <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -185,7 +186,7 @@
             <x-slot name='content'>
                 <div class="mb-4 w-full" wire:ignore>
                     <label for="id_label_single">
-                        Encargado del Equipo <br>
+                        Nombre del miembro del personal <br>
                         <select wire:model='codigoPersonal' class="codigoPersonal" style='width: 100%'>
                             @foreach ($personals as $personal)
                                 <option value="{{ $personal->codigo }}">{{ $personal->nombre }}</option>
@@ -204,7 +205,7 @@
             </x-slot>
 
             <x-slot name='footer'>
-                <x-jet-secondary-button wire:click="$set('open_add',false)" wire:loading.attr='disabled'>
+                <x-jet-secondary-button wire:click="$set('open',false)" wire:loading.attr='disabled'>
                     Cancelar
                 </x-jet-secondary-button>
                 <x-jet-danger-button class="mr-2" wire:click='save' wire:loading.attr='disabled'

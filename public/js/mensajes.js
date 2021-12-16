@@ -317,3 +317,61 @@ Livewire.on('deleteReporteA',
             }
         })
     });
+Livewire.on('deletePermiso',
+    permisoID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('personal.reporte-asistencia.show-permisos', 'delete', permisoID)
+
+            }
+        })
+    });
+
+Livewire.on('deleteIngresoP',
+    ingresoPID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('personal.reporte-asistencia.show-permisos', 'deleteI',
+                    ingresoPID)
+
+            }
+        })
+    });
+
+Livewire.on('deleteSalidaP',
+    salidaPID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('personal.reporte-asistencia.show-permisos', 'deleteS',
+                    salidaPID)
+
+            }
+        })
+    });

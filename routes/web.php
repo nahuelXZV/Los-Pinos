@@ -35,7 +35,7 @@ Route::get('/trabajos', [PersonalController::class, 'trabajos'])->name('trabajos
 Route::get('/seccion', [PersonalController::class, 'seccion'])->name('seccion')->middleware('auth');
 Route::get('/horario', [PersonalController::class, 'horario'])->name('horario')->middleware('auth');
 Route::get('/reporteAsistencia', [PersonalController::class, 'reportes'])->name('reporte.asistencia')->middleware('auth');
-Route::get('/reporteAsistencia/{id}', [PersonalController::class, 'repoorte'])->name('reporte.asistencia.show')->middleware('auth');
+Route::get('/reporteAsistencia/show/{id}', [PersonalController::class, 'permisos'])->name('reporteAsistencia.show')->middleware('auth');
 Route::get('/reporteTrabajo', [PersonalController::class, 'trabajo_realizado'])->name('reporte.trabajo')->middleware('auth');
 Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name('reporte.trabajo.show')->middleware('auth');
 

@@ -81,6 +81,8 @@
         @livewireScripts()
         @stack('js')
         <script src="{{ asset('js/mensajes.js') }}" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+        <script src="{{asset('js/prueba.js')}}"></script>
     </div>
 </body>
 

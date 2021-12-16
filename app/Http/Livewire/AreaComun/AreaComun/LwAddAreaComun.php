@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\AreaComun\AreaComun;
-
+ 
 use Livewire\Component;
 use App\Models\areaComun;
 use Illuminate\Support\Facades\DB;

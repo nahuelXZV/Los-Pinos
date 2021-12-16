@@ -222,21 +222,21 @@
     </x-table>
 
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
-            Añadir Residente
+            Añadir visitante
         </x-slot>
 
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre Completo' class="mb-2" />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full" />
                 <x-jet-input-error for="nombre" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Numero de carnet' class="mb-2" />
-                <x-jet-input wire:model='numeroDeCarnet' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='numeroDeCarnet' type='text' class="w-full" />
                 <x-jet-input-error for="numeroDeCarnet" />
             </div>
 
@@ -253,7 +253,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">

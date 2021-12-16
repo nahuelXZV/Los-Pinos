@@ -1,5 +1,5 @@
 <div> 
-    <x-table>
+    <x-table> 
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>

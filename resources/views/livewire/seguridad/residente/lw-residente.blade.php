@@ -14,6 +14,7 @@
             </div>
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
+
             @can('residentes.add')
                 @livewire('seguridad.residente.lw-add-residente')
             @endcan
@@ -320,11 +321,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-
-
-
             </table>
-
         @else
             <div class="px-6 py-4">
                 No hay registros
@@ -338,33 +335,33 @@
         @endif
     </x-table>
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
-            Añadir Residente
+            Editar Residente
         </x-slot>
 
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre Completo' class="mb-2" />
-                <x-jet-input wire:model='nombre' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full" />
                 <x-jet-input-error for="nombre" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Numero de carnet' class="mb-2" />
-                <x-jet-input wire:model='numeroDeCarnet' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='numeroDeCarnet' type='text' class="w-full" />
                 <x-jet-input-error for="numeroDeCarnet" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Telefono' class="mb-2" />
-                <x-jet-input wire:model='telefono' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='telefono' type='text' class="w-full" />
                 <x-jet-input-error for="telefono" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Sexo' class="mb-2" />
-                <select wire:model='sexo'
+                <select wire:model.defer='sexo'
                     class="w-full mr-2 px-6 py-3 border-gray-300 rounded-lg text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
@@ -374,7 +371,7 @@
 
             <div class="mb-4">
                 <x-jet-label value='Tipo de residente' class="mb-2" />
-                <select wire:model='tipoResidente'
+                <select wire:model.defer='tipoResidente'
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider"
                     defer='Propietario'>
                     <option value="Propietario">Propietario</option>
@@ -399,7 +396,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">

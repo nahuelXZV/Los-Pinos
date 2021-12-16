@@ -4,10 +4,10 @@ namespace App\Http\Livewire\Seguridad\Visitante;
 
 use App\Models\visitante;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class LwAddVisitante extends Component
 {
-    public $open = false;
+    public $open_add = false;
     public $idR;
     public $nombre;
     public $numeroDeCarnet;
@@ -19,7 +19,7 @@ class LwAddVisitante extends Component
         'sexo' => 'required',
     ];
     protected $messages = [
-        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
+        'numeroDeCarnet.required' => 'El campo número de carnet es obligatorio.',
     ];
     public function mount()
     {
@@ -34,7 +34,8 @@ class LwAddVisitante extends Component
             'nroCarnet' => $this->numeroDeCarnet,
             'sexo' => $this->sexo,
         ]);
-        $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        $this->reset(['open_add', 'nombre', 'numeroDeCarnet', 'sexo']);
         $this->identify = rand();
         $this->emit('actualizar');
     }

@@ -6,17 +6,20 @@ use App\Models\residente;
 use App\Models\vivienda;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class LwResidente extends Component
 {
+
     use WithPagination;
     public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
     public $pagination = 10;
-    protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
-    public $open = false;
+    public $open_edit = false;
     public $identify;
+    protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
+
 
     public $nombre;
     public $numeroDeCarnet;
@@ -32,10 +35,12 @@ class LwResidente extends Component
         'telefono' => 'required',
         'tipoResidente' => 'required',
     ];
+
     protected $messages = [
         'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
         'tipoResidente.required' => 'El campo Tipo de residente es obligatorio.',
     ];
+
     public function mount()
     {
         $this->identify = rand();
@@ -55,6 +60,7 @@ class LwResidente extends Component
             $this->direction = 'asc';
         }
     }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -75,7 +81,7 @@ class LwResidente extends Component
         $this->telefono = $this->persona->telefono;
         $this->tipoResidente = $this->persona->tipoResidente;
         $this->idVivienda = $this->persona->idVivienda;
-        $this->open = true;
+        $this->open_edit = true;
     }
 
     public function update()
@@ -88,14 +94,17 @@ class LwResidente extends Component
         $this->persona->tipoResidente = $this->tipoResidente;
         $this->persona->idVivienda = $this->idVivienda;
         $this->persona->save();
-        $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo', 'telefono', 'tipoResidente', 'idVivienda']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó los datos del residente: ' . $this->nombre, auth()->user()->id]);
+        $this->reset(['open_edit', 'nombre', 'numeroDeCarnet', 'sexo', 'telefono', 'tipoResidente', 'idVivienda']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
 
     public function delete(residente $persona)
     {
+        $nombre = $persona->nombre;
         $persona->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó los datos del residente: ' . $nombre, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

@@ -16,7 +16,7 @@ class CreateIngresoPersonalsTable extends Migration
         Schema::create('ingreso_personals', function (Blueprint $table) {
             $table->id();
             $table->time('hora');
-            $table->unsignedBigInteger('retraso');
+            $table->unsignedBigInteger('retraso')->nullable();
             $table->unsignedBigInteger('idReporteA');
 
             $table->foreign('idReporteA')->references('id')->on('reporte_a_s')->onDelete('cascade');

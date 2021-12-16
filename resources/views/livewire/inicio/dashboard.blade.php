@@ -5,7 +5,7 @@
 
             @can('residentes')
                 <a href="{{ route('residentes') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba1 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -23,7 +23,7 @@
 
             @can('visitantes')
                 <a href="{{ route('visitantes') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba2 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -41,7 +41,7 @@
 
             @can('personal')
                 <a href="#"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba3 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -59,7 +59,7 @@
 
             @can('motorizados')
                 <a href="{{ route('motorizados') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba4 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -78,7 +78,7 @@
 
             @can('viviendas')
                 <a href="{{ route('viviendas') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba5 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -96,7 +96,7 @@
 
             @can('areacomun')
                 <a href="{{ route('areacomun') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba6 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -116,7 +116,7 @@
 
             @can('reserva.list')
                 <a href="{{ route('reserva.list') }}"
-                    class="bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
+                    class="prueba7 bg-green-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-500 dark:border-gray-600 text-white font-medium group">
                     <div
                         class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
                         <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -215,10 +215,46 @@
                     </div>
                 </div>
             </div>
-
-
         @endcan
         <!-- ./Recent Activities -->
+
+
+        <x-table>
+            <div class="text-lg font-bold mx-5 my-5">Inventario Disponible</div>
+            @if (count($equipos))
+
+            <div class="container mb-2 flex mx-auto w-full items-center justify-center">
+                <div class="grid grid-rows-6 grid-flow-col p-4">
+
+                    @foreach ($equipos as $equipo)
+
+                        <div class="prueba border-gray-400">
+                            <div
+                                class="select-none items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-green-600">
+                                <div class="flex-1 pl-1 mr-16">
+                                    <div class="font-medium">
+                                        {{ $equipo->nombre }}
+                                    </div>
+                                </div>
+                                <div
+                                    class="w-1/4 text-wrap text-center flex flex-col text-white text-bold rounded-full bg-green-500 justify-center items-center mr-10 p-2">
+                                    {{ $equipo->stock }}
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+                    </div>
+            </div>
+        @else
+
+            <div class=" px-6 py-4 flex items-center">
+                No hay permisos en el reporte de asistencia.
+            </div>
+
+        @endif
+
+        </x-table>
 
         <!-- Empleados Table -->
         <!-- ./Empleados Table -->

@@ -7,7 +7,7 @@ use App\Models\vivienda;
 use Carbon\Carbon;
 use Carbon\Doctrine\CarbonType;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class LwAddVivienda extends Component
 {
     public $nroCasa;
@@ -17,19 +17,23 @@ class LwAddVivienda extends Component
     public $estadoDeResidencia = 'Ocupado';
     public $estadoDeVivienda = 'Vendida';
     public $vivienda;
-    public $open = false;
+    public $open_add = false;
 
     protected $rules = [
-        'nroCasa' => 'required|unique:viviendas',
+        'nroCasa' => 'required|int|min:0|unique:viviendas',
         'calle' => 'required|max:50',
-        'manzano' => 'required',
-        'lote' => 'required',
+        'manzano' => 'required|int|min:0',
+        'lote' => 'required|int|min:0',
         'estadoDeResidencia' => 'required',
         'estadoDeVivienda' => 'required',
     ];
+
     protected $messages = [
-        'nroCasa.required' => 'El campo Numero de casa es obligatorio.',
-        'nroCasa.unique' => 'El valor del campo Numero de casa ya esta en uso',
+        'nroCasa.required' => 'El campo número de casa es obligatorio.',
+        'nroCasa.unique' => 'El valor del campo número de casa ya esta en uso',
+        'nroCasa.min' => 'El valor del campo número de casa debe ser mayor a 0',
+        'manzano.min' => 'El valor del campo manzano debe ser mayor a 0',
+        'lote.min' => 'El valor del campo lote debe ser mayor a 0',
     ];
 
     public function save()
@@ -43,13 +47,8 @@ class LwAddVivienda extends Component
             'estadoResidencia' => $this->estadoDeResidencia,
             'estadoVivienda' => $this->estadoDeVivienda
         ]);
-        bitacora::create([
-            'fecha' => now()->format('Y-m-d'),
-            'hora' => now()->format('H:i'),
-            'accion' => 'Añadio una nueva vivienda con número de casa: ' . $this->nroCasa,
-            'idUsuario' => auth()->user()->id
-        ]);
-        $this->reset(['open', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        $this->reset(['open_add', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();
         $this->emit('actualizar');
     }

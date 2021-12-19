@@ -4,7 +4,9 @@
     Ingresos
 @endsection
 @section('action')
-    Informacion Ingreso
+    <a href="{{ route('ingresos') }}" class="hover:underline ">Ingresos de la Urbanización </a> &nbsp/&nbsp
+    <a href="{{ route('ingresos.show', $ingreso->id) }}" class="hover:underline ">Detalles de ingreso</a>
+
 @endsection
 
 @section('content')

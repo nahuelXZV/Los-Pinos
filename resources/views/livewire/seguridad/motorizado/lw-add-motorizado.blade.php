@@ -16,7 +16,7 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Placa del motorizado' class="mb-2" />
-                <x-jet-input wire:model='placa' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='placa' type='text' class="w-full"  placeholder="Escriba la placa"/>
                 <x-jet-input-error for="placa" />
             </div>
 
@@ -24,9 +24,9 @@
                 <x-jet-label value='Descripcion del motorizado' class="mb-2" />
                 <textarea
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full"
-                    rows="2" wire:model='descripcion'></textarea>
+                    rows="2" wire:model.defer='descripcion' placeholder="Escriba una descripcion del motorizado"></textarea>
             </div>
-            
+            <x-jet-label value='Selecciona un propietario' class="mb-2 text-lg font-bold" />
             <div class="mb-4 w-full" wire:ignore>
                 <label for="id_label_single">
                     Selecciona un Residente <br>

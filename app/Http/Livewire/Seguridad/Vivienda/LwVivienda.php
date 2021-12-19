@@ -6,6 +6,8 @@ use App\Models\vivienda;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\bitacora;
+use App\Models\residente;
+use App\Models\visitante;
 use Illuminate\Support\Facades\DB;
 
 class LwVivienda extends Component
@@ -16,7 +18,7 @@ class LwVivienda extends Component
     public $direction = 'desc';
     public $pagination = 10;
     protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
-    public $open = false;
+    public $open_edit = false;
     public $identify;
 
     public $nroCasa;
@@ -28,17 +30,20 @@ class LwVivienda extends Component
     public $vivienda;
 
     protected $rules = [
-        'nroCasa' => 'required|unique:viviendas',
+        'nroCasa' => 'required|int|min:0|unique:viviendas',
         'calle' => 'required|max:50',
-        'manzano' => 'required',
-        'lote' => 'required',
+        'manzano' => 'required|int|min:0',
+        'lote' => 'required|int|min:0',
         'estadoDeResidencia' => 'required',
         'estadoDeVivienda' => 'required',
     ];
 
     protected $messages = [
-        'nroCasa.required' => 'El campo Numero de casa es obligatorio.',
-        'nroCasa.unique' => 'El valor del campo Numero de casa ya esta en uso',
+        'nroCasa.required' => 'El campo número de casa es obligatorio.',
+        'nroCasa.unique' => 'El valor del campo número de casa ya esta en uso',
+        'nroCasa.min' => 'El valor del campo número de casa debe ser mayor a 0',
+        'manzano.min' => 'El valor del campo manzano debe ser mayor a 0',
+        'lote.min' => 'El valor del campo lote debe ser mayor a 0',
     ];
     public function mount()
     {
@@ -78,7 +83,7 @@ class LwVivienda extends Component
         $this->lote = $this->vivienda->lote;
         $this->estadoDeResidencia = $this->vivienda->estadoResidencia;
         $this->estadoDeVivienda = $this->vivienda->estadoVivienda;
-        $this->open = true;
+        $this->open_edit = true;
     }
     public function update()
     {
@@ -104,7 +109,7 @@ class LwVivienda extends Component
         //BITACORA
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
         //END BITACORA
-        $this->reset(['open', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
+        $this->reset(['open_edit', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
@@ -112,12 +117,7 @@ class LwVivienda extends Component
     {
         $nroC = $vivienda->nroCasa;
         $vivienda->delete();
-        bitacora::create([
-            'fecha' => now()->format('Y-m-d'),
-            'hora' => now()->format('H:i'),
-            'accion' => 'Elimino una vivienda con número de casa: ' . $nroC,
-            'idUsuario' => auth()->user()->id
-        ]);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una vivienda con número de casa: ' . $nroC, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()

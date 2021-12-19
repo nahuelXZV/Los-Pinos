@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Horario;
+namespace App\Http\Livewire\Personal\Horario;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -70,19 +70,15 @@ class LwHorario extends Component
         $this->resetPage();
     }
 
-    public function cerrarmodal(){
-        $this->open_edit=false;
-    }
     //Abrir modal de editar
     public function open_modal_edit(horario $horario)
     {
-        $this->reset(['open_edit', 'id', 'dia', 'horaInicio', 'horaFinal']);
         $this->horario = $horario;
         $this->id = $this->horario->id;
-        $this->dia= $this->horario->dia;
+        $this->dia = $this->horario->dia;
         $this->horaInicio = $this->horario->horaInicio;
         $this->horaFinal = $this->horario->horaFinal;
-        $this->open_edit=true;
+        $this->open_edit = true;
     }
 
     //Metodo de actualizar
@@ -102,8 +98,8 @@ class LwHorario extends Component
     //Metodo de eliminar
     public function delete($horario)
     {
-        $hora=horario::find($horario);
-        $id=$horario;
+        $hora = horario::find($horario);
+        $id = $horario;
         $hora->delete();
         DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un horario con código: ' . $id, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente');
@@ -126,6 +122,6 @@ class LwHorario extends Component
             ->orWhere('horaFinal', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);
-        return view('livewire.horario.lw-horario', compact('horarios'));
+        return view('livewire.personal.horario.lw-horario', compact('horarios'));
     }
 }

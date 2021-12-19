@@ -4,7 +4,7 @@
     Trabajos
 @endsection
 @section('action')
-   Trabajos
+<a href="{{ route('trabajos') }}" class="hover:underline ">Trabajos </a>
 @endsection
 
 @section('content')

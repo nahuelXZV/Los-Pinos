@@ -4,7 +4,7 @@
     Motorizados
 @endsection
 @section('action')
-    Motorizados
+    <a href="{{ route('motorizados') }}" class="hover:underline ">Motorizados </a>
 @endsection
 
 @section('content')

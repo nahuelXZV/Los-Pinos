@@ -176,6 +176,23 @@ class RoleSeeder extends Seeder
         ])->syncRoles([$admi, $gerente]);
 
         Permission::create([
+            'name' => 'horario',
+            'descripcion' => 'Ver horario'
+        ])->syncRoles([$admi, $gerente, $portero, $guardia]);
+        Permission::create([
+            'name' => 'horario.add',
+            'descripcion' => 'Añadir horario'
+        ])->syncRoles([$admi, $gerente]);
+        Permission::create([
+            'name' => 'horario.edit',
+            'descripcion' => 'Editar horario'
+        ])->syncRoles([$admi, $gerente]);
+        Permission::create([
+            'name' => 'horario.delete',
+            'descripcion' => 'Eliminar horario'
+        ])->syncRoles([$admi, $gerente]);
+
+        Permission::create([
             'name' => 'reporteAsistencia',
             'descripcion' => 'Ver reportes asistencia'
         ])->syncRoles([$admi, $gerente]);

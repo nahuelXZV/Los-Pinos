@@ -4,7 +4,7 @@
     Seccion
 @endsection
 @section('action')
-    Seccion
+<a href="{{ route('seccion') }}" class="hover:underline ">Sección </a>
 @endsection
 
 @section('content')

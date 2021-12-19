@@ -4,11 +4,11 @@
     Horario
 @endsection
 @section('action')
-    Horario
+    <a href="{{ route('horario') }}" class="hover:underline ">Horario </a>
 @endsection
 
 @section('content')
 
-@livewire('horario.lw-horario')
+    @livewire('personal.horario.lw-horario')
 
 @endsection

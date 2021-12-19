@@ -317,7 +317,7 @@ Livewire.on('deleteReporteA',
             }
         })
     });
-<<<<<<< HEAD
+
 Livewire.on('deletePermiso',
     permisoID => {
         Swal.fire({
@@ -376,7 +376,6 @@ Livewire.on('deleteSalidaP',
             }
         })
     });
-=======
 
 
 
@@ -409,7 +408,7 @@ Livewire.on('deleteHorario', horario => {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            Livewire.emitTo('horario.lw-horario', 'delete', horario);
+            Livewire.emitTo('personal.horario.lw-horario', 'delete', horario);
 
         }
     })

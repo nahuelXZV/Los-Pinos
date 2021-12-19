@@ -1,4 +1,4 @@
-<div> 
+<div>
     <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
@@ -12,13 +12,13 @@
                 </select>
                 <span class="mr-2 font-bold">Buscar</span>
             </div>
- 
+
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el dia o la hora que busca"
                 wire:model="search" />
 
-            
-                @livewire('horario.lw-add-horario')
-
+            @can('horario.add')
+                @livewire('personal.horario.lw-add-horario')
+            @endcan
         </div>
         @if ($horarios->count())
             <table class="min-w-full divide-y divide-gray-200">
@@ -135,11 +135,15 @@
                                 </svg>
                             @endif
                         </th>
-                        
+
+                        @if (auth()->user()->can('horario.edit') ||
+    auth()->user()->can('horario.delete'))
                             <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                                 Acciones
                             </th>
-                        
+                        @endif
+
+
                     </tr>
                 </thead>
 
@@ -167,9 +171,12 @@
                                     {{ $horario->horaFinal }}
                                 </div>
                             </td>
-                            
+
+                            @if (auth()->user()->can('horario.edit') ||
+    auth()->user()->can('horario.delete'))
                                 <td class="px-6 py-4 whitespace-nowrap flex">
-                                    
+
+                                    @can('horario.edit')
                                         <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
                                             wire:click="open_modal_edit({{ $horario }}) ">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -178,8 +185,9 @@
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </a>
-                                   
-                                    
+                                    @endcan
+
+                                    @can('horario.delete')
                                         <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
                                             wire:click="$emit('deleteHorario',{{ $horario->id }})">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -188,9 +196,10 @@
                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </a>
-                                    
+                                    @endcan
                                 </td>
-                            
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -219,18 +228,17 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Dia' />
-                <x-jet-input wire:model.defer='dia' type='text' class="w-full"
-                    placeholder="Ingrese el dia" />
+                <x-jet-input wire:model.defer='dia' type='text' class="w-full" placeholder="Ingrese el dia" />
                 <x-jet-input-error for="dia" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='HoraInicio' />
+                <x-jet-label value='Hora de inicio' />
                 <x-jet-input wire:model.defer='horaInicio' type='time' class="w-full"
                     placeholder="Ingrese la hora de inicio" />
                 <x-jet-input-error for="horaInicio" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='HoraFinal' />
+                <x-jet-label value='Hora de final' />
                 <x-jet-input wire:model.defer='horaFinal' type='time' class="w-full"
                     placeholder="Ingrese la hora final" />
                 <x-jet-input-error for="horaFinal" />
@@ -238,7 +246,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click='cerrarmodal()' wire:loading.attr='disabled'>
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">

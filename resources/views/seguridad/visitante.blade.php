@@ -4,7 +4,7 @@
     Visitantes
 @endsection
 @section('action')
-    Visitantes
+<a href="{{route('visitantes')}}" class="hover:underline ">Visitante </a> 
 @endsection
 
 @section('content')

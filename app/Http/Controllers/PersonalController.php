@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class PersonalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:personal')->only('personal');
+        $this->middleware('can:trabajos')->only('trabajos');
+        $this->middleware('can:seccion')->only('seccion');
+        $this->middleware('can:horario')->only('horario');
+        $this->middleware('can:reporteAsistencia')->only('reportes');
+        $this->middleware('can:reporteAsistencia.show')->only('reportes');
+        $this->middleware('can:reporteTrabajo')->only('reportes');
+        $this->middleware('can:reporteTrabajo.show')->only('reportes');
+    }
+
     public function personal()
     {
         return view('Personal.personal');

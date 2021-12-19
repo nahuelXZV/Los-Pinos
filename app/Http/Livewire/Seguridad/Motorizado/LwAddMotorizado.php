@@ -6,7 +6,7 @@ use App\Models\motorizado;
 use App\Models\residente;
 use App\Models\visitante;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class LwAddMotorizado extends Component
 {
     public $open = false;
@@ -35,6 +35,7 @@ class LwAddMotorizado extends Component
                 'idVisitante' => $this->idVisitante
             ]);
         };
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un motorizado con placa: ' . $this->placa, auth()->user()->id]);
         $this->reset(['open', 'descripcion', 'placa', 'idVisitante', 'idResidente']);
         $this->emit('actualizar');
     }

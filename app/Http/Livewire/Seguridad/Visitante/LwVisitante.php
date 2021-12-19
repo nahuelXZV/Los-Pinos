@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Seguridad\Visitante;
 use App\Models\visitante;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class LwVisitante extends Component
 {
@@ -14,7 +15,7 @@ class LwVisitante extends Component
     public $direction = 'desc';
     public $pagination = 10;
     protected $listeners = ['delete' => 'delete', 'actualizar' => 'actualizar'];
-    public $open = false;
+    public $open_edit = false;
     public $identify;
 
     public $nombre;
@@ -28,7 +29,7 @@ class LwVisitante extends Component
         'sexo' => 'required',
     ];
     protected $messages = [
-        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
+        'numeroDeCarnet.required' => 'El campo número de carnet es obligatorio.',
     ];
     public function mount()
     {
@@ -66,7 +67,7 @@ class LwVisitante extends Component
         $this->nombre = $this->persona->nombre;
         $this->numeroDeCarnet = $this->persona->nroCarnet;
         $this->sexo = $this->persona->sexo;
-        $this->open = true;
+        $this->open_edit = true;
     }
 
     public function update()
@@ -76,14 +77,17 @@ class LwVisitante extends Component
         $this->persona->nroCarnet = $this->numeroDeCarnet;
         $this->persona->sexo = $this->sexo;
         $this->persona->save();
-        $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifcó un visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        $this->reset(['open_edit', 'nombre', 'numeroDeCarnet', 'sexo']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
 
     public function delete(visitante $persona)
     {
+       $nombre = $persona->nombre;
         $persona->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un visitante llamado: ' . $nombre, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

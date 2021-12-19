@@ -375,3 +375,127 @@ Livewire.on('deleteSalidaP',
             }
         })
     });
+
+Livewire.on('deleteTrabajo', trabajo => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('personal.trabajo.lw-trabajos', 'delete', trabajo);
+
+        }
+    })
+});
+Livewire.on('deleteHorario', horario => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('horario.lw-horario', 'delete', horario);
+
+        }
+    })
+});
+Livewire.on('deleteSeccion', seccion => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('personal.seccion.lw-seccion', 'delete', seccion);
+
+        }
+    })
+});
+
+
+
+Livewire.on('deleteResidente', residente => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('seguridad.residente.lw-residente', 'delete', residente)
+
+        }
+    })
+});
+Livewire.on('deleteVisitante', visitante => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('seguridad.visitante.lw-visitante', 'delete', visitante)
+
+        }
+    })
+});
+
+Livewire.on('deleteVivienda', vivienda => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('seguridad.vivienda.lw-vivienda', 'delete', vivienda)
+
+        }
+    })
+});
+Livewire.on('deleteMotorizado', motorizado => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('seguridad.motorizado.lw-motorizado', 'delete', motorizado)
+
+        }
+    })
+});

@@ -5,10 +5,10 @@ namespace App\Http\Livewire\Seguridad\Residente;
 use App\Models\residente;
 use App\Models\vivienda;
 use Livewire\Component;
-
+use Illuminate\Support\Facades\DB;
 class LwAddResidente extends Component
 {
-    public $open = false;
+    public $open_add = false;
     public $idR;
     public $nombre;
     public $numeroDeCarnet;
@@ -25,8 +25,8 @@ class LwAddResidente extends Component
         'tipoResidente' => 'required',
     ];
     protected $messages = [
-        'numeroDeCarnet.required' => 'El campo Numero de carnet es obligatorio.',
-        'tipoResidente.required' => 'El campo Tipo de residente es obligatorio.',
+        'numeroDeCarnet.required' => 'El campo número de carnet es obligatorio.',
+        'tipoResidente.required' => 'El campo tipo de residente es obligatorio.',
     ];
     public function mount()
     {
@@ -46,7 +46,8 @@ class LwAddResidente extends Component
             'tipoResidente' => $this->tipoResidente,
             'idVivienda' => $this->idVivienda
         ]);
-        $this->reset(['open', 'nombre', 'numeroDeCarnet', 'sexo', 'telefono', 'tipoResidente', 'idVivienda']);
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo residente llamado: ' . $this->nombre, auth()->user()->id]);
+        $this->reset(['open_add', 'nombre', 'numeroDeCarnet', 'sexo', 'telefono', 'tipoResidente', 'idVivienda']);
         $this->identify = rand();
         $this->emit('actualizar');
     }

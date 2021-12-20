@@ -317,6 +317,7 @@ Livewire.on('deleteReporteA',
             }
         })
     });
+
 Livewire.on('deletePermiso',
     permisoID => {
         Swal.fire({
@@ -405,7 +406,7 @@ Livewire.on('deleteHorario', horario => {
     }).then((result) => {
         if (result.isConfirmed) {
 
-            Livewire.emitTo('horario.lw-horario', 'delete', horario);
+            Livewire.emitTo('personal.horario.lw-horario', 'delete', horario);
 
         }
     })
@@ -495,6 +496,24 @@ Livewire.on('deleteMotorizado', motorizado => {
         if (result.isConfirmed) {
 
             Livewire.emitTo('seguridad.motorizado.lw-motorizado', 'delete', motorizado)
+
+        }
+    })
+});
+
+Livewire.on('deleteHorarioPersonal', horarioPersonal => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Los datos se borrarán permanentemente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            Livewire.emitTo('personal.personal.show-datos', 'delete', horarioPersonal);
 
         }
     })

@@ -4,7 +4,7 @@
     Viviendas
 @endsection
 @section('action')
-    Viviendas
+    <a href="{{ route('viviendas') }}" class="hover:underline ">Viviendas </a>
 @endsection
 
 @section('content')

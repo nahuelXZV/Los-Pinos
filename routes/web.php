@@ -31,6 +31,7 @@ Route::get('/regreso-equipos/show/{id}', [EquipoController::class, 'show_regreso
 
 /* MODULO PERSONAL */
 Route::get('/personal', [PersonalController::class, 'personal'])->name('personal')->middleware('auth');
+Route::get('/personal/show/{id}', [PersonalController::class, 'datos'])->name('personal.show')->middleware('auth');
 Route::get('/trabajos', [PersonalController::class, 'trabajos'])->name('trabajos')->middleware('auth');
 Route::get('/seccion', [PersonalController::class, 'seccion'])->name('seccion')->middleware('auth');
 Route::get('/horario', [PersonalController::class, 'horario'])->name('horario')->middleware('auth');

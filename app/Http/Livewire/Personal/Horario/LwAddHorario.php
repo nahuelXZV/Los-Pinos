@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Horario;
+namespace App\Http\Livewire\Personal\Horario;
 
 use Livewire\Component;
 use App\Models\horario;
@@ -64,6 +64,6 @@ class LwAddHorario extends Component
 
     public function render()
     {
-        return view('livewire.horario.lw-add-horario');
+        return view('livewire.personal.horario.lw-add-horario');
     }
 }

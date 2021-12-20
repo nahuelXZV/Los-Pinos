@@ -4,7 +4,7 @@
     Ingresos
 @endsection
 @section('action')
-    Ingresos de la Urbanización
+    <a href="{{ route('ingresos') }}" class="hover:underline ">Ingresos de la Urbanización </a>
 @endsection
 
 @section('content')

@@ -328,7 +328,7 @@
             </div>
         @endif
     </x-table>
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>
             Editar Vivienda
         </x-slot>
@@ -336,23 +336,23 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Numero de casa' class="mb-2" />
-                <x-jet-input wire:model='nroCasa' type='number' class="w-full" />
+                <x-jet-input wire:model.defer='nroCasa' type='number' class="w-full" />
                 <x-jet-input-error for="nroCasa" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Calle' class="mb-2" />
-                <x-jet-input wire:model='calle' type='text' class="w-full" />
+                <x-jet-input wire:model.defer='calle' type='text' class="w-full" />
                 <x-jet-input-error for="calle" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Manzano' class="mb-2" />
-                <x-jet-input wire:model='manzano' type='number' class="w-full" />
+                <x-jet-input wire:model.defer='manzano' type='number' class="w-full" />
                 <x-jet-input-error for="manzano" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Lote' class="mb-2" />
-                <x-jet-input wire:model='lote' type='number' class="w-full" />
+                <x-jet-input wire:model.defer='lote' type='number' class="w-full" />
                 <x-jet-input-error for="lote" />
             </div>
             <div class="mb-4">
@@ -377,7 +377,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)">
+            <x-jet-secondary-button wire:click="$set('open_edit',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='update()' wire:loading.attr='disabled' class="disabled:opacity-15">

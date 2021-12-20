@@ -17,12 +17,12 @@
           
             <div class="mb-4">
                 <x-jet-label value='Calle' class="mb-2" />
-                <x-jet-input wire:model='calle' type='text' class="w-full" />
+                <x-jet-input wire:model='calle' type='text' class="w-full" placeholder='Escriba la calle'/>
                 <x-jet-input-error for="calle" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Manzano' class="mb-2" />
-                <x-jet-input wire:model='manzano' type='number' class="w-full" />
+                <x-jet-input wire:model='manzano' type='number' class="w-full" placeholder='Escriba el manzano'/>
                 <x-jet-input-error for="manzano" />
             </div>
            

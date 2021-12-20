@@ -52,8 +52,6 @@ class ShowPermisos extends Component
     //Método para ordenar
     public function order($sort)
     {
-        if ($this->verif == false && $this->sort == 'retraso') {
-        }
         if ($this->sort == $sort) {
 
             if ($this->direction == 'desc') {

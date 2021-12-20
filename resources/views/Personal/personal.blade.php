@@ -4,7 +4,7 @@
     Personal
 @endsection
 @section('action')
-    Personal
+<a href="{{ route('personal') }}" class="hover:underline ">Personal </a>
 @endsection
 
 @section('content')

@@ -22,13 +22,13 @@
                 <x-jet-input-error for="dia" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='horaInicio' />
+                <x-jet-label value='Hora de inicio' />
                 <x-jet-input wire:model.defer='horaInicio' type='time' class="w-full"
                     placeholder="Ingrese la hora de inicio" />
                 <x-jet-input-error for="horaInicio" />
             </div>
             <div class="mb-4">
-                <x-jet-label value='horaFinal' />
+                <x-jet-label value='Hora de final' />
                 <x-jet-input wire:model.defer='horaFinal' type='time' min='0' class="w-full"
                     placeholder="Ingrese la hora final" />
                 <x-jet-input-error for="horaFinal" />

@@ -7,7 +7,7 @@ use App\Models\residente;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\visitante;
-
+use Illuminate\Support\Facades\DB;
 class LwMotorizado extends Component
 {
     use WithPagination;
@@ -33,6 +33,8 @@ class LwMotorizado extends Component
     {
         $this->identify = rand();
         $this->motorizado = new motorizado();
+
+
     }
 
     public function order($sort)
@@ -82,6 +84,7 @@ class LwMotorizado extends Component
         $this->motorizado->idVisitante = $this->idVisitante;
         $this->motorizado->idResidente = $this->idResidente;
         $this->motorizado->save();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un motorizado con placa: ' . $this->placa, auth()->user()->id]);
         $this->reset(['open', 'descripcion', 'placa', 'idVisitante', 'idResidente']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -89,7 +92,9 @@ class LwMotorizado extends Component
 
     public function delete(motorizado $motorizado)
     {
+        $placa = $motorizado->placa;
         $motorizado->delete();
+        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un motorizado con placa: ' . $placa, auth()->user()->id]);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()

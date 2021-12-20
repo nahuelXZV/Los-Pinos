@@ -328,13 +328,11 @@
                      <a href="{{ route('reporte.asistencia') }}"
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
                          :class="{'justify-center': !isSidebarOpen}">
-                         <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                             </svg>
-                         </span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                         </svg>
                          <span :class="{ 'lg:hidden': !isSidebarOpen }">Reportes de asistencia</span>
                      </a>
                  @endcan
@@ -343,13 +341,11 @@
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700" <a
                          class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
                          :class="{'justify-center': !isSidebarOpen}">
-                         <span>
-                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                     d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                             </svg>
-                         </span>
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                 d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                         </svg>
                          <span :class="{ 'lg:hidden': !isSidebarOpen }">Reporte de trabajo</span>
                      </a>
                  @endcan

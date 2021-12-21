@@ -26,9 +26,9 @@ class personal extends Model
     }
 
     // relacion de muchos a muchos 
-    public function horario_personals(){
-        return $this->belongsToMany(horario::class, 'horario_personals', 'idHorario', 'codigoPersonal')
-                ->as('horario_personals')
+    public function horarioPersonal(){
+        return $this->belongsToMany(horario::class, 'horario_personals', 'codigoPersonal', 'idHorario')
+                ->as('horarioPersonal')
                 ->withPivot('id', 'idHorario', 'codigoPersonal');
     }  
 

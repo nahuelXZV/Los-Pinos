@@ -121,7 +121,7 @@
                 <span class="mr-2 font-semibold">Buscar</span>
             </div>
 
-            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el código de Horario"
+            <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el horario de Inicio o Final"
                 wire:model="search" />
 
             <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="openAdd()">
@@ -134,16 +134,16 @@
             </x-jet-danger-button>
         </div>
 
-        @if ($horarios->count())
+        @if ($personals->count())
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
                         <th scope="col"
                             class="w-32 cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('id')">
+                            wire:click="order('idHorario')">
                             Código
 
-                            @if ($sort == 'id')
+                            @if ($sort == 'idHorario')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -168,10 +168,64 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer text-center px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('idHorario')">
-                            Código de Horario
+                            wire:click="order('dia')">
+                            Día
 
-                            @if ($sort == 'idHorario')
+                            @if ($sort == 'dia')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+                        <th scope="col"
+                            class="cursor-pointer text-center px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('horaInicio')">
+                            Hora Inicio
+
+                            @if ($sort == 'horaInicio')
+                                @if ($direction == 'asc')
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                                    </svg>
+                                @endif
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            @endif
+                        </th>
+                        <th scope="col"
+                            class="cursor-pointer text-center px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
+                            wire:click="order('horaFinal')">
+                            Hora Final
+
+                            @if ($sort == 'horaFinal')
                                 @if ($direction == 'asc')
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -200,17 +254,27 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($horarios as $hora)
+                    @foreach ($personals as $horarios)
                         <tr>
                             <td class="px-6 py-4 ">
                                 <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    {{ $hora->id }}
+                                    {{ $horarios->id }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-center text-gray-900">
-                                    {{ $hora->idHorario }}
+                                    {{ $horarios->dia }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-center text-gray-900">
+                                    {{ $horarios->horaInicio }}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 ">
+                                <div class="text-sm text-center text-gray-900">
+                                    {{ $horarios->horaFinal}}
                                 </div>
                             </td>
 
@@ -218,7 +282,7 @@
                             <td class="px-6 py-4 whitespace-nowrap flex">
                                 <a
                                     class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                    wire:click='openEdit({{ $hora->id }})'>
+                                    wire:click='openEdit({{ $horarios->horarioPersonal->id }})'>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -227,7 +291,7 @@
                                 </a>
                                 <a
                                     class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteHorarioPersonal', {{ $hora->id }})">
+                                    wire:click="$emit('deleteHorarioPersonal', {{ $horarios->horarioPersonal->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -260,7 +324,7 @@
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model="horario">
-                    @foreach ($horas as $horario)
+                    @foreach ($lista as $horario)
                         <option value="{{ $horario->id }}">{{$horario->dia}} - {{ $horario->horaInicio }} - {{ $horario->horaFinal }}
                         </option>
                     @endforeach
@@ -294,7 +358,7 @@
                 <select
                     class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     wire:model="horario">
-                    @foreach ($horas as $horario)
+                    @foreach ($lista as $horario)
                         <option value="{{ $horario->id }}">{{$horario->dia}} - {{ $horario->horaInicio }} - {{ $horario->horaFinal }}
                         </option>
                     @endforeach

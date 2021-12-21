@@ -14,7 +14,7 @@ class ShowDatos extends Component
     public $open_edit = false;
     public $identify;
     public $search = '';
-    public $sort = 'id';
+    public $sort = 'idHorario';
     public $direction = 'asc';
 
     public $last, $codigo, $nombre, $carnet, $telefono, $direccion, $fechaNac, 
@@ -177,10 +177,12 @@ class ShowDatos extends Component
 
     public function render()
     {
-        $horarios = horarioPersonal::where('codigoPersonal', '=', $this->personal->codigo)
-            ->where('idHorario', 'like', '%' . $this->search . '%')
+        $personals = personal::find($this->personal->codigo)->horarioPersonal()
+            ->where('horaInicio', 'like', '%' . $this->search . '%')
+            ->orWhere('horaFinal', 'like', '%' . $this->search . '%')
+            ->orWhere('dia', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)->get();
-        $horas = horario::all();
-        return view('livewire.personal.personal.show-datos', compact('horarios', 'horas'));
+        $lista = horario::all();
+        return view('livewire.personal.personal.show-datos', compact('personals', 'lista'));
     }
 }

@@ -11,9 +11,9 @@ class horario extends Model
     protected $fillable = ['id', 'dia', 'horaInicio', 'horaFinal'];
 
      // relacion de muchos a muchos 
-     public function horario_personals(){
+     public function horarioPersonal(){
         return $this->belongsToMany(personal::class, 'horario_personals', 'idHorario', 'codigoPersonal')
-                ->as('horario_personals')
+                ->as('horarioPersonal')
                 ->withPivot('id', 'idHorario', 'codigoPersonal');
     }  
 

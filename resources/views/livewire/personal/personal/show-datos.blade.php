@@ -115,6 +115,8 @@
     </x-table>
 
     <x-table>
+        <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">
+            Horarios de Trabajo de {{ $personal->nombre }}</h1>
 
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
@@ -133,7 +135,6 @@
                 Añadir
             </x-jet-danger-button>
         </div>
-
         @if ($personals->count())
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="rounded-3xl bg-green-500 text-white">

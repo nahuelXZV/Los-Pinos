@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Models\bitacora;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
+
 class LogSuccessfulLogout
 {
     /**
@@ -26,6 +28,8 @@ class LogSuccessfulLogout
      */
     public function handle(Logout $event)
     {
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'El usuario: ' . $event->user->name . ' cerró sesión', $event->user->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'El usuario: ' . $event->user->name . ' cerró sesión', $event->user->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('El usuario: ' . $event->user->name . ' cerró sesión');
     }
 }

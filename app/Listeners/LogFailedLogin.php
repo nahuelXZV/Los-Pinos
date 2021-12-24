@@ -26,6 +26,5 @@ class LogFailedLogin
      */
     public function handle(Failed $event)
     {
-        echo "Error";
     }
 }

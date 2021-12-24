@@ -35,7 +35,7 @@ class ReservaController extends Controller
     {
         return view('AreaComun.list');
     }
-
+ 
     public function show($id)
     {
         $reserva = reserva::find($id);

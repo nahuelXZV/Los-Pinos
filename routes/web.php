@@ -20,14 +20,14 @@ use App\Http\Controllers\sistemaController;
 */
 
 Route::get('/', [inicioController::class, 'dashboard'])->name('inicio')->middleware('auth');
-
+ 
 /* MODULO EQUIPOS */
 Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos')->middleware('auth');;
 Route::get('/almacenes', [EquipoController::class, 'almacens'])->name('almacenes')->middleware('auth');;
-Route::get('/salida-equipos', [EquipoController::class, 'salidas'])->name('salidasEquipo')->middleware('auth');;
-Route::get('/salida-equipos/show/{id}', [EquipoController::class, 'show_salidas'])->name('salidasEquipos.show')->middleware('auth');;
-Route::get('/regreso-equipos', [EquipoController::class, 'regresos'])->name('regresosEquipo')->middleware('auth');;
-Route::get('/regreso-equipos/show/{id}', [EquipoController::class, 'show_regresos'])->name('regresosEquipos.show')->middleware('auth');;
+Route::get('/salidaEquipos', [EquipoController::class, 'salidas'])->name('salidasEquipo')->middleware('auth');;
+Route::get('/salidaEquipos/show/{id}', [EquipoController::class, 'show_salidas'])->name('salidasEquipos.show')->middleware('auth');;
+Route::get('/regresoEquipos', [EquipoController::class, 'regresos'])->name('regresosEquipo')->middleware('auth');;
+Route::get('/regresoEquipos/show/{id}', [EquipoController::class, 'show_regresos'])->name('regresosEquipos.show')->middleware('auth');;
 
 /* MODULO PERSONAL */
 Route::get('/personal', [PersonalController::class, 'personal'])->name('personal')->middleware('auth');

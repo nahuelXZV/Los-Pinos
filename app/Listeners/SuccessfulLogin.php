@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\bitacora;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,6 +28,8 @@ class SuccessfulLogin
      */
     public function handle(Login $event)
     {
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'El usuario: ' . $event->user->name . ' inició sesión', $event->user->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'El usuario: ' . $event->user->name . ' inició sesión', $event->user->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('El usuario: ' . $event->user->name . ' inició sesión');
     }
 }

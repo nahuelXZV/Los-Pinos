@@ -316,7 +316,7 @@
 
                  @can('seccion')
                      <a href="{{ route('seccion') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('seccion')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -330,7 +330,7 @@
                  @endcan
                  @can('reporteAsistencia')
                      <a href="{{ route('reporte.asistencia') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reporte.asistencia') || request()->routeIs('reporteAsistencia.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -342,8 +342,7 @@
                  @endcan
                  @can('reporteTrabajo')
                      <a href="{{ route('reporte.trabajo') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700" <a
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-100"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reporte.trabajo') || request()->routeIs('reporte.trabajo.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
@@ -376,7 +375,7 @@
                  @endif
                  @can('residentes')
                      <a href="{{ route('residentes') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('residentes')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -390,7 +389,7 @@
                  @endcan
                  @can('visitantes')
                      <a href="{{ route('visitantes') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('visitantes')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -404,7 +403,7 @@
                  @endcan
                  @can('motorizados')
                      <a href="{{ route('motorizados') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('motorizados')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -419,7 +418,7 @@
                  @endcan
                  @can('viviendas')
                      <a href="{{ route('viviendas') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('viviendas')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -433,13 +432,14 @@
                  @endcan
                  @can('ingresos')
                      <a href="{{ route('ingresos') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700  @if (request()->routeIs('ingresos') || request()->routeIs('ingresos.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
+
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                  fill="currentColor">
                                  <path fill-rule="evenodd"
-                                     d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                                     d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
                                      clip-rule="evenodd" />
                              </svg>
                          </span>
@@ -448,13 +448,13 @@
                  @endcan
                  @can('salidas')
                      <a href="{{ route('salidas') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700"
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('salidas') || request()->routeIs('salidas.show')) bg-gray-700 @endif"
                          :class="{'justify-center': !isSidebarOpen}">
                          <span>
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                  fill="currentColor">
                                  <path fill-rule="evenodd"
-                                     d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                     d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
                                      clip-rule="evenodd" />
                              </svg>
                          </span>

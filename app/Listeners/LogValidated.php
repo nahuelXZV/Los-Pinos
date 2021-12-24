@@ -26,6 +26,6 @@ class LogValidated
      */
     public function handle(Validated $event)
     {
-        echo "Error";
+     
     }
 }

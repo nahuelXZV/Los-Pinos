@@ -26,6 +26,6 @@ class LogVerified
      */
     public function handle(Verified $event)
     {
-        echo "Error";
+      
     }
 }

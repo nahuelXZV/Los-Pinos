@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Livewire\AreaComun\AreaComun;
- 
+
 use Livewire\Component;
 use App\Models\areaComun;
+use App\Models\bitacora;
 use Illuminate\Support\Facades\DB;
 
 class LwAddAreaComun extends Component
@@ -55,7 +56,9 @@ class LwAddAreaComun extends Component
         ]);
         $last = areaComun::latest('codigo')->first();
         $this->codigo = $last->codigo;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una área común con código: ' . $this->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una área común con código: ' . $this->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió una área común con código: ' . $this->codigo);
         $this->reset(['open_add', 'codigo', 'nombre', 'calle', 'manzano', 'estadoRes']);
         $this->identify = rand();
         $this->emit('actualizar');

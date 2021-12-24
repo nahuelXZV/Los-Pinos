@@ -5,6 +5,7 @@ namespace App\Http\Livewire\AreaComun\AreaComun;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\areaComun;
+use App\Models\bitacora;
 use Illuminate\Support\Facades\DB;
 
 class LwAreaComun extends Component
@@ -95,7 +96,9 @@ class LwAreaComun extends Component
         $this->area->manzano = $this->manzano;
         $this->area->estadoRes = $this->estadoRes;
         $this->area->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una área común con código: ' . $this->area->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una área común con código: ' . $this->area->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear("Modificó una área común con código: " . $this->area->codigo);
         $this->reset(['open_edit', 'codigo', 'nombre', 'calle', 'manzano', 'estadoRes', 'area']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -106,7 +109,9 @@ class LwAreaComun extends Component
     {
         $codigo = $area->codigo;
         $area->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una área común con código: ' . $codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una área común con código: ' . $codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó una área común con código: ' . $codigo);
         $this->emit('alert', 'Eliminado Correctamente');
         $this->reset();
     }

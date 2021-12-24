@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\AreaComun\Reserva;
 
-
+use App\Models\bitacora;
 use App\Models\invitado;
 use App\Models\reserva;
 use App\Models\visitante;
@@ -106,7 +106,9 @@ class LwShowReserva extends Component
         $this->reserva->start = $this->fecha;
         $this->reserva->end = $this->fecha;
         $this->reserva->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una reserva con código: ' . $this->idR, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó una reserva con código: ' . $this->idR, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó una reserva con código: ' . $this->idR);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'open_edit']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');

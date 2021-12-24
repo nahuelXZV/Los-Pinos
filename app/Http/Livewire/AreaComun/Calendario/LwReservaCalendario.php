@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\reserva;
 use Illuminate\Support\Carbon;
 use App\Models\areaComun;
+use App\Models\bitacora;
 use App\Models\residente;
 use Database\Seeders\ModuloAreaComunSeeder;
 use Illuminate\Support\Facades\DB;
@@ -97,7 +98,9 @@ class LwReservaCalendario extends Component
             'codigoAC' => $this->codigoAC
         ]);
         $last = reserva::latest('id')->first();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $last->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $last->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un nueva reserva con código: ' . $last->id);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin',  'codigoAC', 'idResidente', 'open_add']);
         $this->identify = rand();
         return redirect()->route('reserva');
@@ -128,7 +131,9 @@ class LwReservaCalendario extends Component
             'codigoAC' => $this->codigoAC
         ]);
         $last = reserva::latest('id')->first();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $last->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nueva reserva con código: ' . $last->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un nueva reserva con código: ' . $last->id);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'codigoAC', 'idResidente', 'open_add']);
         $this->identify = rand();
         return redirect()->route('reserva.show', $last->id);
@@ -175,7 +180,9 @@ class LwReservaCalendario extends Component
         $this->reserva->start = $this->fecha;
         $this->reserva->end = $this->fecha;
         $this->reserva->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la reserva con código: ' . $this->idR, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la reserva con código: ' . $this->idR, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó la reserva con código: ' . $this->idR);
         $this->reset(['idR', 'fecha', 'horaIni', 'horaFin', 'codigoAC', 'idResidente', 'open_edit']);
         $this->identify = rand();
         return redirect()->route('reserva');
@@ -186,7 +193,9 @@ class LwReservaCalendario extends Component
     {
         $reserva = reserva::find($idReserva);
         $reserva->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la reserva con código: ' . $idReserva, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la reserva con código: ' . $idReserva, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó la reserva con código: ' . $idReserva);
         return redirect()->route('reserva');
     }
 

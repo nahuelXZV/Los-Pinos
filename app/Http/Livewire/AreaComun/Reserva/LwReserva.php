@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Livewire\Component;
 use App\Models\residente;
 use App\Models\areaComun;
+use App\Models\bitacora;
 use Illuminate\Support\Facades\DB;
 
 class LwReserva extends Component
@@ -65,7 +66,9 @@ class LwReserva extends Component
     {
         $codigoRes = $reserva->id;
         $reserva->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una reserva con código: ' . $codigoRes, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una reserva con código: ' . $codigoRes, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó una reserva con código: ' . $codigoRes);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\AreaComun\Reserva;
 
+use App\Models\bitacora;
 use App\Models\reporteAc;
 use App\Models\reserva;
 use Livewire\Component;
@@ -53,12 +54,14 @@ class LwReporteReserva extends Component
         $this->validate();
         $this->editRep->reporte = $this->descripcion;
         $this->editRep->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el reporte con codigo ' . $this->editRep->id . '  a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el reporte con codigo ' . $this->editRep->id . '  a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el reporte con codigo ' . $this->editRep->id . '  a la reserva con código: ' . $this->reserva->id);
         $this->reset(['idR', 'descripcion', 'editRep', 'open_edit']);
         $this->identify = rand();
         $this->emit('actualizar');
     }
-    
+
     //Metodo de añadir
     public function save()
     {
@@ -68,7 +71,9 @@ class LwReporteReserva extends Component
             'codigoRes' => $this->reserva->id,
             'codigoAC' => $this->reserva->codigoAC
         ]);
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo reporte a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo reporte a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un nuevo reporte a la reserva con código: ' . $this->reserva->id);
         $this->reset(['idR', 'descripcion', 'editRep', 'open_add']);
         $this->identify = rand();
         //$this->reset();
@@ -80,7 +85,9 @@ class LwReporteReserva extends Component
     {
         $codigoR = $reported->id;
         $reported->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el reporte con codigo ' . $codigoR . ' a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el reporte con codigo ' . $codigoR . ' a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el reporte con codigo ' . $codigoR . ' a la reserva con código: ' . $this->reserva->id);
         $this->emit('eliminar');
     }
 

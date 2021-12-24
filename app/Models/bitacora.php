@@ -16,4 +16,14 @@ class bitacora extends Model
     {
         return $this->belongsTo(User::class, 'idUsuario');
     }
+
+    public function crear(string $accion)
+    {
+        bitacora::create([
+            'fecha' => now()->format('Y-m-d'),
+            'hora' => now()->format('H:i'),
+            'accion' => $accion,
+            'idUsuario' => auth()->user()->id
+        ]);
+    }
 }

@@ -1,5 +1,5 @@
 <div>
-    <x-table> 
+    <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>
@@ -16,9 +16,9 @@
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
 
-            @livewire('seguridad.ingreso.lw-add-ingreso')
+            @livewire('seguridad.salida.lw-add-salida')
         </div>
-        @if ($ingresos->count())
+        @if ($salidas->count())
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="rounded-3xl bg-green-500 text-white">
                     <tr>
@@ -108,61 +108,6 @@
                         </th>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('motivo')">
-                            Motivo
-
-                            @if ($sort == 'motivo')
-                                @if ($direction == 'asc')
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                    </svg>
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                    </svg>
-                                @endif
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-                            @endif
-
-                        </th>
-                        <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
-                            wire:click="order('idVivienda')">
-                            Vivienda
-
-                            @if ($sort == 'idVivienda')
-                                @if ($direction == 'asc')
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                                    </svg>
-                                @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7l4-4m0 0l4 4m-4-4v18" />
-                                    </svg>
-                                @endif
-                            @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                                </svg>
-                            @endif
-                        </th>
-                        <th scope="col"
-                            class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
                             wire:click="order('idMotorizado')">
                             Placa Motorizado
 
@@ -194,68 +139,29 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($ingresos as $ingreso)
+                    @foreach ($salidas as $salida)
                         <tr>
                             <td class="px-6 py-4 ">
                                 <div
                                     class="px-2 inline-flex text-lx leading-10 font-semibold rounded-full bg-green-100 text-green-800">
-                                    {{ $ingreso->id }}
+                                    {{ $salida->id }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $ingreso->fecha }}
+                                    {{ $salida->fecha }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    {{ $ingreso->hora }}
+                                    {{ $salida->hora }}
                                 </div>
-                            </td>
-
-                            <td class="px-6 py-4 text-sm text-white font-bold">
-                                @switch($ingreso->motivo )
-                                    @case('Residente')
-                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-green-500">
-                                            {{ $ingreso->motivo }}
-                                        </span>
-                                    @break
-                                    @case('Visita')
-                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-yellow-500">
-                                            {{ $ingreso->motivo }}
-                                        </span>
-                                    @break
-                                    @case('Trabajo')
-                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-blue-500">
-                                            {{ $ingreso->motivo }}
-                                        </span>
-                                    @break
-                                    @case('Mantenimiento')
-                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-indigo-500">
-                                            {{ $ingreso->motivo }}
-                                        </span>
-                                    @break
-                                    @default
-                                        <span class="text-center px-2 py-0.5 rounded-full inline-flex bg-red-500">
-                                            {{ $ingreso->motivo }}
-                                        </span>
-                                @endswitch
                             </td>
 
                             <td class="px-6 py-4 ">
                                 <div class="text-sm text-gray-900">
-                                    @if ($ingreso->vivienda)
-                                        {{ $ingreso->vivienda->nroCasa }}
-                                    @else
-                                        <label class="text-sm text-black font-bold">
-                                            Sin vivienda</label>
-                                    @endif
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 ">
-                                <div class="text-sm text-gray-900">
-                                    @if ($ingreso->motorizado)
-                                        {{ $ingreso->motorizado->placa }}
+                                    @if ($salida->motorizado)
+                                        {{ $salida->motorizado->placa }}
                                     @else
                                         <label class="text-sm text-black font-bold">
                                             Sin motorizado</label>
@@ -264,7 +170,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
                                 <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                    href="{{ route('ingresos.show', $ingreso->id) }}"">
+                                    href="{{ route('salidas.show', $salida->id) }}"">
                                     <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -272,7 +178,7 @@
                                     </svg>
                                 </a>
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteIngreso',{{ $ingreso }})">
+                                    wire:click="$emit('deleteSalida',{{ $salida }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -292,10 +198,14 @@
             </div>
         @endif
 
-        @if ($ingresos->hasPages())
+        @if ($salidas->hasPages())
             <div class="px-6 py-3">
-                {{ $ingresos->links() }}
+                {{ $salidas->links() }}
             </div>
         @endif
     </x-table>
+
+
+
+
 </div>

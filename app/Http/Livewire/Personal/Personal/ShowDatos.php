@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\Personal;
 
+use App\Models\bitacora;
 use App\Models\horario;
 use App\Models\horarioPersonal;
 use App\Models\personal;
@@ -17,8 +18,8 @@ class ShowDatos extends Component
     public $sort = 'idHorario';
     public $direction = 'asc';
 
-    public $last, $codigo, $nombre, $carnet, $telefono, $direccion, $fechaNac, 
-    $nacionalidad, $sexo, $estadoCivil, $email, $cargo, $estado;
+    public $last, $codigo, $nombre, $carnet, $telefono, $direccion, $fechaNac,
+        $nacionalidad, $sexo, $estadoCivil, $email, $cargo, $estado;
 
     public $horario, $horarioPersonal,  $idHorario, $horaInicio, $horaFinal, $dia;
 
@@ -111,33 +112,37 @@ class ShowDatos extends Component
             'horario' => 'required'
         ]);
         $horarios = horarioPersonal::where('idHorario', '=', $this->horario)->count();
-        if($horarios != null || $horarios > 0){
+        if ($horarios != null || $horarios > 0) {
             $this->emit('alert', '¡Este horario ya fue asignado al personal!');
             $this->reset(['open_add', 'horario']);
-        }else{
+        } else {
             horarioPersonal::create([
                 'idHorario' => $this->horario,
                 'codigoPersonal' => $this->personal->codigo
             ]);
-    
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo, auth()->user()->id]);
+
+            //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo, auth()->user()->id]);
+            $bitacora = new bitacora();
+            $bitacora->crear('Añadió el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo);
             $this->emit('alert', '¡Añadido Correctamente!');
             $this->identify = rand();
             $this->reset(['open_add', 'horario']);
         }
     }
-    
+
     public function updateHorario()
     {
         $horarios = horarioPersonal::where('idHorario', '=', $this->horario)->count();
-        if($horarios != null || $horarios > 0){
+        if ($horarios != null || $horarios > 0) {
             $this->emit('alert', '¡Este horario ya fue asignado al personal!');
             $this->reset(['open_edit', 'horario']);
-        }else{
+        } else {
             $this->horarioPersonal->idHorario = $this->horario;
             $this->horarioPersonal->update();
-    
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Actualizó el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo, auth()->user()->id]);
+
+            //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Actualizó el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo, auth()->user()->id]);
+            $bitacora = new bitacora();
+            $bitacora->crear('Actualizó el horario : ' . $this->horario . ' al personal ' . $this->personal->codigo);
             $this->emit('alert', '¡Actualizado Correctamente!');
             $this->identify = rand();
             $this->reset(['open_edit', 'horario']);
@@ -159,10 +164,12 @@ class ShowDatos extends Component
         $this->personal->email = $this->email;
         $this->personal->cargo = $this->cargo;
         $this->personal->estado = $this->estado;
-        
+
         $this->personal->update();
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó al miembro del personal: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó al miembro del personal: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó al miembro del personal: ' . $this->nombre . ' con código: ' . $this->codigo);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
     }
@@ -171,7 +178,9 @@ class ShowDatos extends Component
     {
         $h = $horario = horarioPersonal::find($idHorarioPersonal);
         $horario->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el horario: ' . $h->id . ' del personal: ' . $this->personal->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el horario: ' . $h->id . ' del personal: ' . $this->personal->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el horario: ' . $h->id . ' del personal: ' . $this->personal->codigo);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Seguridad\Visitante;
 
+use App\Models\bitacora;
 use App\Models\visitante;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+
 class LwAddVisitante extends Component
 {
     public $open_add = false;
@@ -34,7 +36,9 @@ class LwAddVisitante extends Component
             'nroCarnet' => $this->numeroDeCarnet,
             'sexo' => $this->sexo,
         ]);
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un nuevo visitante llamado: ' . $this->nombre);
         $this->reset(['open_add', 'nombre', 'numeroDeCarnet', 'sexo']);
         $this->identify = rand();
         $this->emit('actualizar');

@@ -214,6 +214,55 @@ Livewire.on('deleteIngresoR', ingresoR => {
         }
     })
 })
+
+Livewire.on('deleteSalida', salida => {
+    Swal.fire({
+        title: 'Esta seguro?',
+        text: "Los datos se borraran permanentemente!",
+        icon: 'Advertencia',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo('seguridad.salida.lw-salida', 'delete', salida);
+        }
+    })
+})
+Livewire.on('deleteSalidaV', salidaV => {
+    Swal.fire({
+        title: 'Esta seguro?',
+        text: "Los datos se borraran permanentemente!",
+        icon: 'Advertencia',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo('seguridad.salida.lw-lista-persona', 'deleteV', salidaV);
+        }
+    })
+})
+Livewire.on('deleteSalidaR', salidaR => {
+    Swal.fire({
+        title: 'Esta seguro?',
+        text: "Los datos se borraran permanentemente!",
+        icon: 'Advertencia',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Livewire.emitTo('seguridad.salida.lw-lista-persona', 'deleteR', salidaR);
+        }
+    })
+})
 Livewire.on('deleteUsuario', usuario => {
     Swal.fire({
         title: 'Esta seguro?',

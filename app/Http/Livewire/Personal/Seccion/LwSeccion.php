@@ -41,36 +41,36 @@ class LwSeccion extends Component
         'manzano.min' => 'El campo manzano debe ser mayor que 0.',
     ];
 
-     //Iniciador
-     public function mount()
-     {
-         $this->identify = rand();
-     }
+    //Iniciador
+    public function mount()
+    {
+        $this->identify = rand();
+    }
 
-      //Metodo de ordenado
-      public function order($sort)
-      {
-          if ($this->sort == $sort) {
-  
-              if ($this->direction == 'desc') {
-                  $this->direction = 'asc';
-              } else {
-                  $this->direction = 'desc';
-              }
-          } else {
-              $this->sort = $sort;
-              $this->direction = 'asc';
-          }
-      }
-     //Metodo de reinicio de buscador
+    //Metodo de ordenado
+    public function order($sort)
+    {
+        if ($this->sort == $sort) {
 
-     public function updatingSearch()
-     {
-         $this->resetPage();
-     }
+            if ($this->direction == 'desc') {
+                $this->direction = 'asc';
+            } else {
+                $this->direction = 'desc';
+            }
+        } else {
+            $this->sort = $sort;
+            $this->direction = 'asc';
+        }
+    }
+    //Metodo de reinicio de buscador
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
 
-     public function actualizar()
+    public function actualizar()
     {
         $this->emit('alert', 'Añadido Correctamente!');
         $this->render();
@@ -84,7 +84,7 @@ class LwSeccion extends Component
         $this->manzano = $this->seccion->manzano;
         $this->open = true;
     }
-    
+
     public function update()
     {
         if ($this->seccion->calle == $this->calle) {
@@ -100,7 +100,9 @@ class LwSeccion extends Component
         $this->seccion->update();
         //BITACORA
         $seccion = seccion::latest('id')->first();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una seccion con codigo: ' . $seccion->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una seccion con codigo: ' . $seccion->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó una sección con código: ' . $seccion->id);
         //END BITACORA
         $this->reset(['open', 'calle', 'manzano']);
         $this->identify = rand();
@@ -112,12 +114,8 @@ class LwSeccion extends Component
         $idS = $seccion->id;
         $seccion->delete();
         $seccion = seccion::latest('id')->first();
-        bitacora::create([
-            'fecha' => now()->format('Y-m-d'),
-            'hora' => now()->format('H:i'),
-            'accion' => 'Elimino una seccion con Codigo: ' . $idS,
-            'idUsuario' => auth()->user()->id
-        ]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó una sección con código: ' . $idS);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

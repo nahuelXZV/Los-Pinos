@@ -1,12 +1,12 @@
 @extends('layouts.plantilla')
 
 @section('title')
-   Salidas
+    Salidas
 @endsection
 @section('action')
-   Salidas de la Urbanización
+    <a href="{{ route('salidas') }}" class="hover:underline ">Salidas de la Urbanización </a>
 @endsection
 
 @section('content')
-
+    @livewire('seguridad.salida.lw-salida')
 @endsection

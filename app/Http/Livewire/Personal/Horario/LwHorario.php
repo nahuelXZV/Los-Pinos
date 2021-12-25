@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\Horario;
 
+use App\Models\bitacora;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\horario;
@@ -89,7 +90,9 @@ class LwHorario extends Component
         $this->horario->horaInicio = $this->horaInicio;
         $this->horario->horaFinal = $this->horaFinal;
         $this->horario->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un horario con código: ' . $this->horario->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un horario con código: ' . $this->horario->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó un horario con código: ' . $this->horario->id);
         $this->reset(['open_edit', 'id', 'dia', 'horaInicio', 'horaFinal']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -101,7 +104,9 @@ class LwHorario extends Component
         $hora = horario::find($horario);
         $id = $horario;
         $hora->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un horario con código: ' . $id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un horario con código: ' . $id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó un horario con código: ' . $id);
         $this->emit('alert', 'Eliminado Correctamente');
         $this->reset();
     }

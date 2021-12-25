@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Equipo\Regreso;
 
+use App\Models\bitacora;
 use App\Models\equipo;
 use App\Models\personal;
 use App\Models\regreso;
@@ -91,7 +92,10 @@ class ShowRegresoEquipos extends Component
     {
         $reg = $regreso;
         $regreso->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el regreso ' . $reg->id . ' de la salida: ' . $reg->idSalidaEquipo);
+
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
@@ -111,7 +115,9 @@ class ShowRegresoEquipos extends Component
             ]);
             $this->lastR = regresoEquipo::latest('id')->first();
             $this->idRegreso = $this->lastR->id;
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo, auth()->user()->id]);
+            //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo, auth()->user()->id]);
+            $bitacora = new bitacora();
+            $bitacora->crear('Añadió el regreso: ' . $this->idRegreso . ' de la salida: ' . $this->idSalidaEquipo);
             $this->emit('alert', '¡Añadido Correctamente!');
             foreach ($sacos as $saco) {
                 regreso::create([

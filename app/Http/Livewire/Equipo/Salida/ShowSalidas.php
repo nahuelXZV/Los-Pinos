@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Equipo\Salida;
 
+use App\Models\bitacora;
 use App\Models\equipo;
 use App\Models\salidaEquipo;
 use App\Models\saco;
@@ -125,7 +126,9 @@ class ShowSalidas extends Component
         $salio->save();
 
         $this->salida = $salio;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $salio->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $salio->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó la salida: ' . $salio->id);
         $this->reset(['open_editsal', 'idSalidaEquipo', 'horaSalida', 'fechaSalida']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -137,14 +140,14 @@ class ShowSalidas extends Component
         $saco = saco::find($this->idSaco);
         $equipo = equipo::find($saco->codigoEquipo);
 
-        if($this->stockRequerido <= 0){
+        if ($this->stockRequerido <= 0) {
             $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡El Stock Requerido no puede ser negativo o 0!');
             return;
         }
 
-        if($equipo->multiplicidad == "Multiple" && $this->estadoSalida != "Buen Estado"){
+        if ($equipo->multiplicidad == "Multiple" && $this->estadoSalida != "Buen Estado") {
             $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡No puede cambiar el estado de Salida a equipos múltiples!');
@@ -168,7 +171,9 @@ class ShowSalidas extends Component
             $saco->save();
             $equipo->save();
 
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $saco->idSalidaEquipo, auth()->user()->id]);
+            //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $saco->idSalidaEquipo, auth()->user()->id]);
+            $bitacora = new bitacora();
+            $bitacora->crear('Modificó la salida del equipo: ' . $equipo->codigo . 'de la salida : ' . $saco->idSalidaEquipo);
             $this->reset(['open_editar', 'codigoEquipo', 'idSalidaEquipo', 'stockRequerido', 'estadoSalida']);
             $this->identify = rand();
             $this->emitTo('equipo.salida.show-salidas', 'render');
@@ -205,7 +210,7 @@ class ShowSalidas extends Component
 
         $equipo = equipo::find($this->codigoEquipo);
 
-        if($this->stockRequerido <= 0){
+        if ($this->stockRequerido <= 0) {
             $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'stockRequerido']);
             $this->identify = rand();
             $this->emit('alert', '¡El Stock Requerido no puede ser negativo o 0!');
@@ -244,7 +249,9 @@ class ShowSalidas extends Component
                 $equipo->save();
                 $sacado = saco::latest('id')->first();
                 $this->idSalidaEquipo = $sacado->idSalidaEquipo;
-                DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . ' de la salida : ' . $this->idSalidaEquipo, auth()->user()->id]);
+                // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida del equipo: ' . $equipo->codigo . ' de la salida : ' . $this->idSalidaEquipo, auth()->user()->id]);
+                $bitacora = new bitacora();
+                $bitacora->crear('Añadió la salida del equipo: ' . $equipo->codigo . ' de la salida : ' . $this->idSalidaEquipo);
                 $this->reset(['open_add', 'codigoEquipo', 'idSalidaEquipo', 'estadoSalida', 'horaSalida', 'fechaSalida']);
                 $this->identify = rand();
                 $lastEquipo = equipo::all()->first();
@@ -263,7 +270,9 @@ class ShowSalidas extends Component
         $equipo->stock = $equipo->stock + $sacado->stockRequerido;
         $equipo->save();
         $sacoE->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $sacado->codigoEquipo . 'con ID de Salida: ' . $sacado->idSalidaEquipo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida del equipo' . $sacado->codigoEquipo . 'con ID de Salida: ' . $sacado->idSalidaEquipo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó la salida del equipo' . $sacado->codigoEquipo . 'con ID de Salida: ' . $sacado->idSalidaEquipo);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

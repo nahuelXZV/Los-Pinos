@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\equipo;
-use App\Models\personal;
-use App\Models\almacen;
 use App\Models\regresoEquipo;
 use App\Models\salidaEquipo;
 

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
+use App\Models\bitacora;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -19,14 +20,6 @@ class ShowAlmacens extends Component
 
     //Listener que manda el almacen al metodo delete de otra vista
     protected $listeners = ['render', 'delete'];
-
-    //Arreglo para acortar link de la página en casos especificos
-    protected $queryString = [
-        'cant' => ['except' => '10'],
-        'sort' => ['except' => 'codigo'],
-        'direction' => ['except' => 'desc'],
-        'search' => ['except' => ''],
-    ];
 
     //Metodo de reinicio de buscador
     public function updatingSearch()
@@ -55,7 +48,9 @@ class ShowAlmacens extends Component
     {
         $a = almacen::find($almacen->id);
         $almacen->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el almacén: ' . $a->nombre . ' con ID: ' . $a->id);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 

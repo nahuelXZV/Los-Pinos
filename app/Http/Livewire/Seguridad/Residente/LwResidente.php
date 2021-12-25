@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Seguridad\Residente;
 
+use App\Models\bitacora;
 use App\Models\residente;
 use App\Models\vivienda;
 use Livewire\Component;
@@ -94,7 +95,9 @@ class LwResidente extends Component
         $this->persona->tipoResidente = $this->tipoResidente;
         $this->persona->idVivienda = $this->idVivienda;
         $this->persona->save();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó los datos del residente: ' . $this->nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó los datos del residente: ' . $this->nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó los datos del residente: ' . $this->nombre);
         $this->reset(['open_edit', 'nombre', 'numeroDeCarnet', 'sexo', 'telefono', 'tipoResidente', 'idVivienda']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -104,7 +107,9 @@ class LwResidente extends Component
     {
         $nombre = $persona->nombre;
         $persona->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó los datos del residente: ' . $nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó los datos del residente: ' . $nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó los datos del residente: ' . $nombre);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

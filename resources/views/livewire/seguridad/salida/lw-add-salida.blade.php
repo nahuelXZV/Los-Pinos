@@ -1,5 +1,5 @@
 <div>
-    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open',true)">
+    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="$set('open_add',true)">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -8,49 +8,23 @@
         Añadir
     </x-jet-danger-button>
 
-    <x-jet-dialog-modal wire:model="open">
+    <x-jet-dialog-modal wire:model="open_add">
         <x-slot name='title'>
-            Añadir Ingreso
+            Añadir Salida
         </x-slot>
 
         <x-slot name='content'>
 
             <div class="mb-4">
                 <x-jet-label value='Fecha' class="mb-2" />
-                <x-jet-input wire:model.defer='fecha' type='date' class="w-full"
-                    placeholder='Escriba la fecha' />
+                <x-jet-input wire:model.defer='fecha' type='date' class="w-full" placeholder='Escriba la fecha' />
                 <x-jet-input-error for="fecha" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Hora' class="mb-2" />
-                <x-jet-input wire:model.defer='hora' type='time' class="w-full" placeholder='Escriba la hora' />
+                <x-jet-input wire:model.defer='hora' type='time' class="w-full" placeholder="Escriba la hora"/>
                 <x-jet-input-error for="hora" />
-            </div>
-
-            <div class="mb-4">
-                <x-jet-label value='Motivo' class="mb-2" />
-                <select wire:model='motivo'
-                    class="w-full mr-2 px-6 py-3 border-gray-300 rounded-lg text-left text-xs font-medium text-black-500 uppercase tracking-wider">
-                    <option value="Visita" selected="selected">Visita</option>
-                    <option value="Trabajo">Trabajo</option>
-                    <option value="Residente">Residente</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Otro">Otro</option>
-                </select>
-                <x-jet-input-error for="motivo" />
-            </div>
-
-            <div class="mb-4 w-full" wire:ignore>
-                <label for="id_label_single">
-                    Selecciona una vivienda <br>
-                    <select wire:model='idVivienda' class="idVivienda" style='width: 100%'>
-                        @foreach ($viviendas as $vivienda)
-                            <option value="{{ $vivienda->id }}">{{ $vivienda->nroCasa }}</option>
-                        @endforeach
-                    </select>
-                    <x-jet-input-error for="idVivienda" />
-                </label>
             </div>
 
             <div class="mb-4 w-full" wire:ignore>
@@ -67,7 +41,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open',false)" wire:loading.attr='disabled'>
+            <x-jet-secondary-button wire:click="$set('open_add',false)" wire:loading.attr='disabled'>
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='save()' wire:loading.attr='disabled' class="disabled:opacity-15">
@@ -79,16 +53,6 @@
 
     <script>
         document.addEventListener('livewire:load', function() {
-            $('.idVivienda').select2({
-                placeholder: "Selecciona una vivienda",
-                minimumInputLength: 2,
-                allowClear: true
-            });
-            $('.idVivienda').on('change', function() {
-                @this.set('idVivienda', this.value);
-            })
-        })
-        document.addEventListener('livewire:load', function() {
             $('.idMotorizado').select2({
                 placeholder: "Selecciona un motorizado",
                 minimumInputLength: 2,
@@ -99,5 +63,4 @@
             })
         })
     </script>
-
 </div>

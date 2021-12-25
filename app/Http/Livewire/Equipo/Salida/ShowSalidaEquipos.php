@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Equipo\Salida;
 
+use App\Models\bitacora;
 use App\Models\equipo;
 use App\Models\personal;
 use App\Models\saco;
@@ -81,9 +82,11 @@ class ShowSalidaEquipos extends Component
     {
         $sal = $salida;
         $salida->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida ' . $sal->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó la salida ' . $sal->id);
+
         $this->emit('alert', 'Eliminado Correctamente');
-       
     }
 
     //Método para inicializar el modal
@@ -107,7 +110,9 @@ class ShowSalidaEquipos extends Component
 
         $lastS = salidaEquipo::latest('id')->first();
         $this->idSalida = $lastS->id;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida: ' . $this->idSalida, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió la salida: ' . $this->idSalida);
         $this->reset(['fecha', 'hora', 'motivo', 'codigoP', 'stockRequerido', 'open']);
         $personal = personal::all()->first();
         $this->codigoP = $personal->codigo;

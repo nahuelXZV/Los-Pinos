@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
+use App\Models\bitacora;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+
 class EditAlmacens extends Component
 {
 
@@ -40,7 +42,7 @@ class EditAlmacens extends Component
         $this->identify = rand();
     }
 
-    
+
     //Método para inicializar el modal
     public function open()
     {
@@ -61,8 +63,10 @@ class EditAlmacens extends Component
 
         $last = almacen::latest('id')->first();
         $this->idA = $last->id;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
-        $this->reset(['open', 'idA' ,'nombre', 'calle', 'manzano']);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el almacén: ' . $this->nombre . ' con ID: ' . $this->idA , auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el almacén: ' . $this->nombre . ' con ID: ' . $this->idA);
+        $this->reset(['open', 'idA', 'nombre', 'calle', 'manzano']);
         $this->identify = rand();
         $this->emitTo('equipo.almacen.show-almacens', 'render');
         $this->emit('alert', 'Actualizado Correctamente');

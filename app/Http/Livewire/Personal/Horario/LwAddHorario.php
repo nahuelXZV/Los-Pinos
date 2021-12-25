@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\Horario;
 
+use App\Models\bitacora;
 use Livewire\Component;
 use App\Models\horario;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,9 @@ class LwAddHorario extends Component
         ]);
         $last = horario::latest('id')->first();
         $this->id = $last->id;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un horario con código: ' . $this->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un horario con código: ' . $this->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un horario con código: ' . $this->id);
         $this->reset(['open_add', 'id', 'dia', 'horaInicio', 'horaFinal']);
         $this->identify = rand();
         $this->emit('actualizar');

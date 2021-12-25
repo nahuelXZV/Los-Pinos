@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ingresoUrb extends Model
-{
+{ 
     use HasFactory;
     protected $fillable = ['id', 'fecha', 'hora', 'motivo', 'idVivienda', 'idMotorizado'];
 

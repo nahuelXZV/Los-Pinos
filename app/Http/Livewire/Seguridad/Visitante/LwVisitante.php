@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Seguridad\Visitante;
 
+use App\Models\bitacora;
 use App\Models\visitante;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -77,7 +78,9 @@ class LwVisitante extends Component
         $this->persona->nroCarnet = $this->numeroDeCarnet;
         $this->persona->sexo = $this->sexo;
         $this->persona->save();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifcó un visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifcó un visitante llamado: ' . $this->nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modifcó un visitante llamado: ' . $this->nombre);
         $this->reset(['open_edit', 'nombre', 'numeroDeCarnet', 'sexo']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -85,9 +88,11 @@ class LwVisitante extends Component
 
     public function delete(visitante $persona)
     {
-       $nombre = $persona->nombre;
+        $nombre = $persona->nombre;
         $persona->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un visitante llamado: ' . $nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un visitante llamado: ' . $nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó un visitante llamado: ' . $nombre);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

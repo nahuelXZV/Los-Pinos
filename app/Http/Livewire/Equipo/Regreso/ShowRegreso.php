@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Equipo\Regreso;
 
+use App\Models\bitacora;
 use App\Models\regreso;
 use App\Models\regresoEquipo;
 use App\Models\equipo;
@@ -144,7 +145,9 @@ class ShowRegreso extends Component
 
         $this->regreso = $regreso;
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso: ' . $this->idRegreso, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso: ' . $this->idRegreso, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el regreso: ' . $this->idRegreso);
         $this->reset(['open_editreg', 'horaRegreso', 'fechaRegreso']);
         $this->identify = rand();
         $this->emitTo('equipo.regreso.show-regreso', 'render');
@@ -186,7 +189,9 @@ class ShowRegreso extends Component
             $regresado->save();
             $equipo->save();
 
-            DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . ' en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
+            //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el regreso del equipo: ' . $equipo->codigo . ' en el regreso : ' . $regresado->idRegresoEquipo, auth()->user()->id]);
+            $bitacora = new bitacora();
+            $bitacora->crear('Modificó el regreso del equipo: ' . $equipo->codigo . ' en el regreso : ' . $regresado->idRegresoEquipo);
             $this->reset(['open_editar', 'codigoEquipo', 'nombreEquipo', 'estadoDevolucion', 'stockRegresado', 'stockRegresadoDañado']);
             $this->identify = rand();
             $this->emitTo('equipo.regreso.show-regreso', 'render');

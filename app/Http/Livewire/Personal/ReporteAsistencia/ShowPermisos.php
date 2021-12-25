@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\ReporteAsistencia;
 
+use App\Models\bitacora;
 use App\Models\ingresoPersonal;
 use App\Models\permiso;
 use App\Models\reporteA;
@@ -127,7 +128,9 @@ class ShowPermisos extends Component
 
         $this->reporte = $reporte;
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el reporte de asistencia: ' . $this->reporte->id);
         $this->reset(['open_edit_report', 'fecha']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -139,7 +142,9 @@ class ShowPermisos extends Component
         $permiso->motivo = $this->motivo;
         $permiso->update();
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el permiso: ' . $this->permiso->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el permiso: ' . $this->permiso->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el permiso: ' . $this->permiso->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->reset(['open_edit_permiso', 'motivo']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -153,7 +158,9 @@ class ShowPermisos extends Component
         }
         $this->ingreso->retraso = $this->retraso;
         $this->ingreso->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el ingreso: ' . $this->ingreso->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el ingreso: ' . $this->ingreso->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el ingreso: ' . $this->ingreso->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->reset(['open_edit_ingreso', 'hora', 'retraso']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -163,7 +170,9 @@ class ShowPermisos extends Component
     {
         $this->salida->hora = $this->horaSalida;
         $this->salida->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $this->salida->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó la salida: ' . $this->salida->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó la salida: ' . $this->salida->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->reset(['open_edit_salida', 'horaSalida']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
@@ -183,7 +192,9 @@ class ShowPermisos extends Component
         $permiso = permiso::latest('id')->first();
         $this->idP = $permiso->id;
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el permiso : ' . $this->idP . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el permiso : ' . $this->idP . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió el permiso : ' . $this->idP . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', '¡Añadido Correctamente!');
         $this->identify = rand();
         $this->reset(['open_add_permiso', 'motivo']);
@@ -207,7 +218,9 @@ class ShowPermisos extends Component
         $ingreso = ingresoPersonal::latest('id')->first();
         $this->idI = $ingreso->id;
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el ingreso : ' . $this->idI . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el ingreso : ' . $this->idI . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió el ingreso : ' . $this->idI . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', '¡Añadido Correctamente!');
         $this->identify = rand();
         $this->reset(['open_add_ingreso', 'hora', 'retraso']);
@@ -227,7 +240,9 @@ class ShowPermisos extends Component
         $salida = salidaPersonal::latest('id')->first();
         $this->idS = $salida->id;
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida : ' . $this->idS . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió la salida : ' . $this->idS . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió la salida : ' . $this->idS . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', '¡Añadido Correctamente!');
         $this->identify = rand();
         $this->reset(['open_add_salida', 'horaSalida']);
@@ -237,7 +252,9 @@ class ShowPermisos extends Component
     {
         $p = $permiso = permiso::find($idPermiso);
         $permiso->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el permiso: ' . $p->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el permiso: ' . $p->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el permiso: ' . $p->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
@@ -245,7 +262,9 @@ class ShowPermisos extends Component
     {
         $i = $ingreso = ingresoPersonal::find($idIngreso);
         $ingreso->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el ingreso: ' . $i->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el ingreso: ' . $i->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el ingreso: ' . $i->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
@@ -253,7 +272,9 @@ class ShowPermisos extends Component
     {
         $s = $salida = salidaPersonal::find($idSalida);
         $salida->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida: ' . $s->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó la salida: ' . $s->id . ' del reporte de asistencia: ' . $this->reporte->id, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó la salida: ' . $s->id . ' del reporte de asistencia: ' . $this->reporte->id);
         $this->emit('alert', 'Eliminado Correctamente');
     }
 
@@ -277,7 +298,7 @@ class ShowPermisos extends Component
             $salidas = salidaPersonal::where('idReporteA', '=', $this->reporte->id)
                 ->Where('id', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort, $this->direction)->get();
-        }else{
+        } else {
             $salidas = [];
         }
         return view('livewire.personal.reporte-asistencia.show-permisos', compact('permisos', 'ingresos', 'salidas'));

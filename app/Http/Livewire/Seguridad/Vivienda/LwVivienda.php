@@ -107,7 +107,9 @@ class LwVivienda extends Component
         $this->vivienda->estadoVivienda = $this->estadoDeVivienda;
         $this->vivienda->update();
         //BITACORA
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifico una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modifico una vivienda con número de casa: ' . $this->nroCasa);
         //END BITACORA
         $this->reset(['open_edit', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();
@@ -117,7 +119,9 @@ class LwVivienda extends Component
     {
         $nroC = $vivienda->nroCasa;
         $vivienda->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una vivienda con número de casa: ' . $nroC, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó una vivienda con número de casa: ' . $nroC, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó una vivienda con número de casa: ' . $nroC);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()

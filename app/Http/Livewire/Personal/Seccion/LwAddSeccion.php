@@ -35,12 +35,8 @@ class LwAddSeccion extends Component
             'manzano' => $this->manzano,
         ]);
         $seccion = seccion::latest('id')->first();
-        bitacora::create([
-            'fecha' => now()->format('Y-m-d'),
-            'hora' => now()->format('H:i'),
-            'accion' => 'Añadio una nueva Seccion con Codigo: ' . $seccion->id,
-            'idUsuario' => auth()->user()->id
-        ]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió una nueva Sección con código: ' . $seccion->id);
         $this->reset(['open', 'calle', 'manzano']);
         $this->identify = rand();
         $this->emit('actualizar');

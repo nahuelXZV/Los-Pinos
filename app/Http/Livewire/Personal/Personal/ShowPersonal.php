@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\Personal;
 
+use App\Models\bitacora;
 use Livewire\Component;
 use App\Models\personal;
 use Livewire\WithPagination;
@@ -18,7 +19,7 @@ class ShowPersonal extends Component
     public $sort = 'codigo';
     public $direction = 'desc';
     public $cant = 10;
-   
+
     protected $listeners = ['render', 'delete'];
 
     protected $queryString = [
@@ -58,12 +59,14 @@ class ShowPersonal extends Component
             $this->direction = 'asc';
         }
     }
-    
+
     public function delete(personal $personal)
     {
         $miembro = $personal;
         $personal->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó al miembro del personal: ' . $miembro->nombre . ' con código: ' . $miembro->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó al miembro del personal: ' . $miembro->nombre . ' con código: ' . $miembro->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó al miembro del personal: ' . $miembro->nombre . ' con código: ' . $miembro->codigo);
         $this->emit('alert', 'Eliminado Correctamente!');
         $this->reset();
     }

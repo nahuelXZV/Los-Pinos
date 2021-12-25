@@ -25,7 +25,7 @@ class ReservaController extends Controller
         return view('AreaComun.reserva', compact('areas', 'residentes'));
     }
 
-    public function reservas(Reserva $reserva)
+    public function reservas()
     {
         $reserva = reserva::all();
         return response()->json($reserva);

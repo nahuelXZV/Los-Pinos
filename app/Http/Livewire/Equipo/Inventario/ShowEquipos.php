@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Equipo\Inventario;
 
 use App\Models\almacen;
+use App\Models\bitacora;
 use Livewire\Component;
 use App\Models\equipo;
 use Livewire\WithPagination;
@@ -28,15 +29,6 @@ class ShowEquipos extends Component
 
     //Listener que manda el equipo al metodo delete de otra vista
     protected $listeners = ['render', 'delete'];
-
-    //Arreglo para acortar link de la página en casos especificos
-    protected $queryString = [
-        'cant' => ['except' => '10'],
-        'sort' => ['except' => 'codigo'],
-        'direction' => ['except' => 'desc'],
-        'search' => ['except' => ''],
-    ];
-
     //Validaciones del formulario
     protected $rules = [
         'nombre' => 'required',
@@ -73,7 +65,7 @@ class ShowEquipos extends Component
             ->orWhere('estadoFuncionamiento', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
-            
+
         $almacens = almacen::all();
         return view('livewire.equipo.inventario.show-equipos', compact('equipos', 'almacens'));
     }
@@ -133,7 +125,9 @@ class ShowEquipos extends Component
         $this->equipo->idAlmacen = $this->idAlmacen;
         $this->equipo->update();
 
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el equipo: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el equipo: ' . $this->nombre . ' con código: ' . $this->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el equipo: ' . $this->nombre . ' con código: ' . $this->codigo);
         $this->reset(['open', 'nombre', 'modelo', 'marca', 'descripcion', 'stock', 'multiplicidad', 'estadoServicio', 'estadoFuncionamiento']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -151,7 +145,9 @@ class ShowEquipos extends Component
     {
         $e = equipo::find($equipo->codigo);
         $equipo->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el equipo: ' . $e->nombre . ' con código: ' . $e->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el equipo: ' . $e->nombre . ' con código: ' . $e->codigo, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el equipo: ' . $e->nombre . ' con código: ' . $e->codigo);
         $this->emit('alert', 'Eliminado Correctamente!');
         $this->reset();
     }

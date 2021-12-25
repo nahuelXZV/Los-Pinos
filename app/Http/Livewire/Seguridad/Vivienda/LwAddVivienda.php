@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Carbon\Doctrine\CarbonType;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+
 class LwAddVivienda extends Component
 {
     public $nroCasa;
@@ -47,7 +48,9 @@ class LwAddVivienda extends Component
             'estadoResidencia' => $this->estadoDeResidencia,
             'estadoVivienda' => $this->estadoDeVivienda
         ]);
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió una vivienda con número de casa: ' . $this->nroCasa, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió una vivienda con número de casa: ' . $this->nroCasa);
         $this->reset(['open_add', 'nroCasa', 'calle', 'manzano', 'lote', 'estadoDeResidencia', 'estadoDeVivienda']);
         $this->identify = rand();
         $this->emit('actualizar');

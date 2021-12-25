@@ -23,10 +23,10 @@ class motorizado extends Model
 
     public function ingresoUrb()
     {
-        return $this->hasMany(ingresoUrb::class,'idMotorizado');
+        return $this->hasMany(ingresoUrb::class, 'idMotorizado');
     }
     public function salidaUrb()
     {
-        return $this->hasMany(salidaUrb::class);
+        return $this->hasMany(salidaUrb::class, 'idMotorizado');
     }
 }

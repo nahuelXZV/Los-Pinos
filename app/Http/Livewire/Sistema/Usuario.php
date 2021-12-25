@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sistema;
 
+use App\Models\bitacora;
 use App\Models\personal;
 use App\Models\User;
 use Livewire\Component;
@@ -96,8 +97,11 @@ class Usuario extends Component
         $persona = personal::find($this->userA->Vpersonal->codigo);
         $persona->cargo = $this->idRol;
         $persona->save();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un usuario con código: ' . $persona->codigo, auth()->user()->id]);
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el cargo del empleado: ' . $persona->nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un usuario con código: ' . $persona->codigo, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el cargo del empleado: ' . $persona->nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó un usuario con código: ' . $persona->codigo);
+        $bitacora->crear('Modificó el cargo del empleado: ' . $persona->nombre);
         $this->reset(['open_edit', 'idRol', 'rolAct']);
         $this->resetSelect();
         $this->identify = rand();
@@ -109,7 +113,9 @@ class Usuario extends Component
     {
         $nombre = $persona->Vpersonal->nombre;
         $persona->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el usuario de: ' . $nombre, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el usuario de: ' . $nombre, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el usuario de: ' . $nombre);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

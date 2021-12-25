@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sistema;
 
+use App\Models\bitacora;
 use App\Models\personal;
 use App\Models\User;
 use Livewire\Component;
@@ -56,7 +57,9 @@ class AddUsuario extends Component
             'password' => bcrypt($this->contra),
             'codigoPersonal' => $this->codigoPersonal
         ])->assignRole($rol->name);
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un usuario para el empleado con código: ' . $this->codigoPersonal, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un usuario para el empleado con código: ' . $this->codigoPersonal, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió un usuario para el empleado con código: ' . $this->codigoPersonal);
         $this->reset(['open_add', 'contra', 'email']);
         $this->resetSelect();
         $this->identify = rand();

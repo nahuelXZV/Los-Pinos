@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Equipo\Almacen;
 
 use App\Models\almacen;
+use App\Models\bitacora;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +42,9 @@ class CreateAlmacens extends Component
         ]);
         $last = almacen::latest('id')->first();
         $this->idA = $last->id;
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadió el almacén: ' . $this->nombre . ' con ID: ' . $this->idA);
         $this->reset(['open', 'idA', 'nombre', 'calle', 'manzano']);
 
         $this->emitTo('equipo.almacen.show-almacens', 'render');

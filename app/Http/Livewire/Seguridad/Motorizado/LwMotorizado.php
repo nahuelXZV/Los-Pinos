@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Seguridad\Motorizado;
 
+use App\Models\bitacora;
 use App\Models\motorizado;
 use App\Models\residente;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\visitante;
 use Illuminate\Support\Facades\DB;
+
 class LwMotorizado extends Component
 {
     use WithPagination;
@@ -33,8 +35,6 @@ class LwMotorizado extends Component
     {
         $this->identify = rand();
         $this->motorizado = new motorizado();
-
-
     }
 
     public function order($sort)
@@ -84,7 +84,9 @@ class LwMotorizado extends Component
         $this->motorizado->idVisitante = $this->idVisitante;
         $this->motorizado->idResidente = $this->idResidente;
         $this->motorizado->save();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un motorizado con placa: ' . $this->placa, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó un motorizado con placa: ' . $this->placa, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó un motorizado con placa: ' . $this->placa);
         $this->reset(['open', 'descripcion', 'placa', 'idVisitante', 'idResidente']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -94,7 +96,9 @@ class LwMotorizado extends Component
     {
         $placa = $motorizado->placa;
         $motorizado->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un motorizado con placa: ' . $placa, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un motorizado con placa: ' . $placa, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó un motorizado con placa: ' . $placa);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
     public function render()

@@ -145,7 +145,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteIngresoV',{{ $persona->ingresoV->id }})">
+                                    wire:click="$emit('deleteSalidaV',{{ $persona->salidaV->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -181,7 +181,7 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap flex">
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteIngresoR',{{ $persona->ingresoR->id }})">
+                                    wire:click="$emit('deleteSalidaR',{{ $persona->salidaR->id }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -219,7 +219,7 @@
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_V',false)" wire:loading.attr='disabled'>
+            <x-jet-secondary-button wire:click="$set('open_V',false)">
                 Cancelar
             </x-jet-secondary-button>
             <x-jet-danger-button wire:click='saveV()' wire:loading.attr='disabled' class="disabled:opacity-15">
@@ -242,15 +242,17 @@
                             <option value="{{ $persona->id }}">{{ $persona->nombre }}</option>
                         @endforeach
                     </select>
+
                 </label>
             </div>
+            <x-jet-input-error for="idResidente" />
         </x-slot>
 
         <x-slot name='footer'>
-            <x-jet-secondary-button wire:click="$set('open_R',false)" wire:loading.attr='disabled'>
+            <x-jet-secondary-button wire:click="$set('open_R',false)">
                 Cancelar
             </x-jet-secondary-button>
-            <x-jet-danger-button wire:click='saveR()' wire:loading.attr='disabled' class="disabled:opacity-15">
+            <x-jet-danger-button wire:click="saveRe()" wire:loading.attr='disabled' class="disabled:opacity-15">
                 Guardar
             </x-jet-danger-button>
         </x-slot>

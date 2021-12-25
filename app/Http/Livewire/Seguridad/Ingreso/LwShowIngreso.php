@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Seguridad\Ingreso;
 
+use App\Models\bitacora;
 use App\Models\ingresoR;
 use App\Models\ingresoUrb;
 use App\Models\ingresoV;
@@ -19,7 +20,7 @@ class LwShowIngreso extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $pagination = 10;
-    protected $listeners = ['actualizar' => 'actualizar'];
+    protected $listeners = ['actualizar' => 'actualizar', 'delete' => 'delete'];
     public $open = false;
     public $identify;
 
@@ -28,9 +29,8 @@ class LwShowIngreso extends Component
     public $fecha;
     public $hora;
     public $motivo;
-    public $idVivienda = null;
-    public $idMotorizado = null;
-    public $idPersona = null;
+    public $idVivienda;
+    public $idMotorizado;
 
     protected $rules = [
         'fecha' => 'required',
@@ -38,10 +38,21 @@ class LwShowIngreso extends Component
         'motivo' => 'required|max:50',
     ];
 
+    //Mensajes de Validaciones
+    protected $messages = [
+        'fecha.required' => 'El campo fecha es obligatorio.',
+        'hora.required' => 'El campo hora es obligatorio.',
+        'motivo.required' => 'El campo motivo es obligatorio.'
+    ];
+
     public function mount(ingresoUrb $ingreso)
     {
         $this->identify = rand();
         $this->ingreso = $ingreso;
+        $m = motorizado::all()->first();
+        $v = vivienda::all()->first();
+        $this->idMotorizado = $m->id;
+        $this->idVivienda = $v->id;
     }
 
     public function order($sort)
@@ -68,10 +79,14 @@ class LwShowIngreso extends Component
         $this->render();
         $this->emit('alert', 'Añadido Correctamente!');
     }
-
-    public function datos($idIngreso)
+    public function delete()
     {
-        $this->ingreso = ingresoUrb::find($idIngreso);
+        $this->render();
+        $this->emit('alert', 'Eliminado Correctamente!');
+    }
+
+    public function datos()
+    {
         $this->fecha = $this->ingreso->fecha;
         $this->hora = $this->ingreso->hora;
         $this->motivo = $this->ingreso->motivo;
@@ -89,6 +104,8 @@ class LwShowIngreso extends Component
         $this->ingreso->idVivienda = $this->idVivienda;
         $this->ingreso->idMotorizado = $this->idMotorizado;
         $this->ingreso->save();
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó un ingreso con código: ' . $this->ingreso->id);
         $this->reset(['open', 'fecha', 'hora', 'motivo', 'idVivienda', 'idMotorizado']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');

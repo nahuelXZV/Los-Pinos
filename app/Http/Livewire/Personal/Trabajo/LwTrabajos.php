@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Personal\Trabajo;
 
+use App\Models\bitacora;
 use App\Models\seccion;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -32,7 +33,7 @@ class LwTrabajos extends Component
         'actividad' => 'required',
         'idSeccion' => 'required',
     ];
- 
+
     //Mensajes de Validaciones
     protected $messages = [
         'actividad.required' => 'El campo actividad es obligatorio.',
@@ -70,7 +71,7 @@ class LwTrabajos extends Component
     //Abrir modal de editar
     public function open_modal_edit(trabajo $trabajo)
     {
-        $this->reset(['open_edit','id', 'actividad', 'idSeccion']);
+        $this->reset(['open_edit', 'id', 'actividad', 'idSeccion']);
         $this->trabajo = $trabajo;
         $this->idT = $this->trabajo->id;
         $this->actividad = $this->trabajo->actividad;
@@ -86,8 +87,10 @@ class LwTrabajos extends Component
         //$this->trabajo->idT = $this->id;
         $this->trabajo->idSeccion = $this->idSeccion;
         $this->trabajo->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el trabajo : ' . $this->trabajo->actividad, auth()->user()->id]);
-        $this->reset(['open_edit','id', 'actividad', 'idSeccion']);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el trabajo : ' . $this->trabajo->actividad, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el trabajo : ' . $this->trabajo->actividad);
+        $this->reset(['open_edit', 'id', 'actividad', 'idSeccion']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente');
     }
@@ -97,7 +100,9 @@ class LwTrabajos extends Component
     {
         $idT = $trabajo->id;
         $trabajo->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el trabajo con código : ' . $idT , auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el trabajo con código : ' . $idT, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el trabajo con código : ' . $idT);
         $this->emit('alert', 'Eliminado Correctamente');
         $this->reset();
     }
@@ -120,8 +125,6 @@ class LwTrabajos extends Component
             ->paginate($this->pagination);
 
         $secciones = seccion::all();
-        return view('livewire.personal.trabajo.lw-trabajos', compact('trabajos','secciones'));
-        
+        return view('livewire.personal.trabajo.lw-trabajos', compact('trabajos', 'secciones'));
     }
-
 }

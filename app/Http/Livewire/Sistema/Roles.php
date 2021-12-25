@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Livewire\Sistema;
- 
+
+use App\Models\bitacora;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 use Livewire\WithPagination;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class Roles extends Component
 {
     use WithPagination;
-    
+
     //Atributos de la vista
     public $search = '';
     public $sort = 'id';
@@ -96,7 +97,9 @@ class Roles extends Component
         foreach ($this->permisosR as $permi) {
             $role->givePermissionTo($permi);
         }
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadio el rol: ' . $this->name, auth()->user()->id]);
+        // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadio el rol: ' . $this->name, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Añadio el rol: ' . $this->name);
         $this->reset(['open_add', 'name', 'permisosR']);
         $this->identify = rand();
         $this->emit('alert', 'Añadido Correctamente!');
@@ -120,7 +123,9 @@ class Roles extends Component
             $this->role->givePermissionTo($permi);
         }
         $this->role->update();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el rol: ' . $this->name, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modificó el rol: ' . $this->name, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Modificó el rol: ' . $this->name);
         $this->reset(['open_edit', 'name', 'permisosR', 'selectPermissions']);
         $this->identify = rand();
         $this->emit('alert', 'Actualizado Correctamente!');
@@ -131,7 +136,9 @@ class Roles extends Component
     {
         $name = $idrole->name;
         $idrole->delete();
-        DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el rol: ' . $name, auth()->user()->id]);
+        //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó el rol: ' . $name, auth()->user()->id]);
+        $bitacora = new bitacora();
+        $bitacora->crear('Eliminó el rol: ' . $name);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 

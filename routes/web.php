@@ -20,7 +20,7 @@ use App\Http\Controllers\sistemaController;
 */
 
 Route::get('/', [inicioController::class, 'dashboard'])->name('inicio')->middleware('auth');
- 
+
 /* MODULO EQUIPOS */
 Route::get('/equipos', [EquipoController::class, 'index'])->name('equipos')->middleware('auth');;
 Route::get('/almacenes', [EquipoController::class, 'almacens'])->name('almacenes')->middleware('auth');;
@@ -45,7 +45,7 @@ Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name
 Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
 Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
 Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
-Route::get('/reserva/show/{id}', [ReservaController::class, 'show'])->name('reserva.show')->middleware('auth');
+Route::get('/reserva/{id}', [ReservaController::class, 'show'])->name('reserva.show')->middleware('auth');
 Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
 
 /*MODULO DE SEGURIDAD */
@@ -54,9 +54,9 @@ Route::get('/visitantes', [seguridadController::class, 'visitantes'])->name('vis
 Route::get('/motorizados', [seguridadController::class, 'motorizados'])->name('motorizados')->middleware('auth');
 Route::get('/viviendas', [seguridadController::class, 'viviendas'])->name('viviendas')->middleware('auth');
 Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos')->middleware('auth');
-Route::get('/ingreso/show/{id}', [seguridadController::class, 'showIngreso'])->name('ingresos.show')->middleware('auth');
+Route::get('/ingreso/{id}', [seguridadController::class, 'showIngreso'])->name('ingresos.show')->middleware('auth');
 Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas')->middleware('auth');
-Route::get('/salida/show/{id}', [seguridadController::class, 'showSalidas'])->name('salidas.show')->middleware('auth');
+Route::get('/salida/{id}', [seguridadController::class, 'showSalida'])->name('salidas.show')->middleware('auth');
 
 /*MODULO SISTEMA */
 Route::get('/usuarios', [sistemaController::class, 'usuarios'])->name('usuarios')->middleware('auth');

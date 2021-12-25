@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Seguridad\Ingreso;
+namespace App\Http\Livewire\Seguridad\Salida;
 
 use App\Models\bitacora;
-use App\Models\ingresoR;
-use App\Models\ingresoUrb;
-use App\Models\motorizado;
-use App\Models\vivienda;
+use App\Models\salidaUrb;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class LwIngreso extends Component
+class LwSalida extends Component
 {
     use WithPagination;
     public $search = '';
@@ -21,17 +18,6 @@ class LwIngreso extends Component
     public $open = false;
     public $identify;
 
-    protected $rules = [
-        'fecha' => 'required',
-        'hora' => 'required',
-        'motivo' => 'required|max:50',
-    ];
-
-    protected $messages = [
-        'fecha.required' => 'El campo fecha es obligatorio.',
-        'hora.required' => 'El campo hora es obligatorio.',
-        'motivo.required' => 'El campo motivo es obligatorio.'
-    ];
     public function mount()
     {
         $this->identify = rand();
@@ -62,24 +48,21 @@ class LwIngreso extends Component
         $this->render();
     }
 
-    public function delete(ingresoUrb $ingreso)
+    public function delete(salidaUrb $salida)
     {
-        $iding = $ingreso->id;
-        $ingreso->delete();
+        $iding = $salida->id;
+        $salida->delete();
         $bitacora = new bitacora();
-        $bitacora->crear('Eliminó un ingreso con código: ' . $iding);
+        $bitacora->crear('Eliminó una salida con código: ' . $iding);
         $this->emit('alert', 'Eliminado Correctamente!');
     }
 
     public function render()
     {
-        $ingresos = ingresoUrb::where('fecha', 'like', '%' . $this->search . '%')
-            ->orWhere('motivo', 'like', '%' . $this->search . '%')
-            ->orWhere('idVivienda', 'like', '%' . $this->search . '%')
+        $salidas = salidaUrb::where('fecha', 'like', '%' . $this->search . '%')
+            ->orWhere('idMotorizado', 'like', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->pagination);
-        $viviendas = vivienda::all();
-        $motorizados = motorizado::all();
-        return view('livewire.seguridad.ingreso.lw-ingreso', compact('ingresos', 'viviendas', 'motorizados'));
+        return view('livewire.seguridad.salida.lw-salida', compact('salidas'));
     }
 }

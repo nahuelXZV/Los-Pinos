@@ -54,7 +54,6 @@ class LwShowReserva extends Component
     public function mount(reserva $reserva)
     {
         $this->identify = rand();
-
         $this->reserva = $reserva;
     }
 

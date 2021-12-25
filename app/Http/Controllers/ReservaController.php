@@ -20,9 +20,7 @@ class ReservaController extends Controller
 
     public function index()
     {
-        $areas = areaComun::where('estadoRes', 'Reservacion')->get();
-        $residentes = residente::all();
-        return view('AreaComun.reserva', compact('areas', 'residentes'));
+        return view('AreaComun.reserva');
     }
 
     public function reservas()

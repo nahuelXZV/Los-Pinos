@@ -17,8 +17,6 @@ class LwReservaCalendario extends Component
     public $open_add = false;
     public $open_edit = false;
     public $identify;
-    public $residentes;
-    public $areas;
     public $reserva;
     public $NareaComun;
     public $Nresidente;
@@ -54,12 +52,10 @@ class LwReservaCalendario extends Component
     ];
 
     //Iniciador
-    public function mount($areas, $residentes)
+    public function mount()
     {
         $this->identify = rand();
         $this->reserv = new reserva();
-        $this->areas = $areas;
-        $this->residentes = $residentes;
         $areasc = areaComun::all()->first();
         $residente = residente::all()->first();
         $this->idResidente = $residente->id;
@@ -254,6 +250,8 @@ class LwReservaCalendario extends Component
     //Metodo de renderizado
     public function render()
     {
-        return view('livewire.area-comun.calendario.lw-reserva-calendario');
+        $areas = areaComun::where('estadoRes', 'Reservacion')->get();
+        $residentes = residente::all();
+        return view('livewire.area-comun.calendario.lw-reserva-calendario', compact('areas', 'residentes'));
     }
 }

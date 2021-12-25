@@ -60,7 +60,7 @@ class LwNewVisitante extends Component
             'horaIngreso' => $this->horaIngreso,
             'horaSalida' => $this->horaSalida,
         ]);
-        DB::table('reservas')->increment('cantsPers');
+        // DB::table('reservas')->increment('cantsPers');
         //  DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con nombre ' . $this->nombre . ' a la reserva con código: ' . $this->codigoRes, auth()->user()->id]);
         $bitacora = new bitacora();
         $bitacora->crear('Añadió un nuevo invitado con nombre ' . $this->nombre . ' a la reserva con código: ' . $this->codigoRes);

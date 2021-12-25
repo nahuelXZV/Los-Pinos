@@ -129,7 +129,7 @@ class LwListaInvitados extends Component
             'horaIngreso' => $this->horaIngreso,
             'horaSalida' => $this->horaSalida,
         ]);
-        DB::table('reservas')->increment('cantsPers');
+        //DB::table('reservas')->increment('cantsPers');
         // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con codigo ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
         $bitacora->crear('Añadió un nuevo invitado con codigo ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id);
@@ -143,7 +143,7 @@ class LwListaInvitados extends Component
     {
         $invitado = invitado::find($invitadod);
         $invitado->delete();
-        DB::table('reservas')->decrement('cantsPers');
+       // DB::table('reservas')->decrement('cantsPers');
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
         $bitacora->crear('Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id);

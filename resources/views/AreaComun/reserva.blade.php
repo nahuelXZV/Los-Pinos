@@ -9,6 +9,6 @@
 
 @section('content')
     <script src="{{ asset('js/reserva.js') }}" defer></script>
-    @livewire('area-comun.calendario.lw-reserva-calendario',['areas' => $areas ,'residentes' => $residentes])
+    @livewire('area-comun.calendario.lw-reserva-calendario')
     <div id='calendar'></div>
 @endsection

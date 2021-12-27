@@ -56,4 +56,10 @@ class InventarioController extends Controller
         $reserva = reserva::find($id);
         return view('AreaComun.show', compact('reserva'));
     }
+    
+    public function reservas()
+    {
+        $reserva = reserva::all();
+        return response()->json($reserva);
+    }
 }

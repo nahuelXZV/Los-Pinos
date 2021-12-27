@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initialView: 'dayGridMonth',
         locale: 'es',
         displayEventTime: false,
-        events: "http://los-pinos.herokuapp.com/reserva/all",
+        events: "http://los-pinos.herokuapp.com/reservas",
         eventClick: function (info) {
             var reserva = info.event;
             Livewire.emit('open_modal_edit', reserva.id);

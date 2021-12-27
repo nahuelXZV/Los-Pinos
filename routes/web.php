@@ -52,7 +52,7 @@ Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'trabajo_realizad
 
 /*MODULO AREAS COMUNES */
 Route::get('/calendario', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
-Route::get('/reservas', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
+Route::get('/reservas', [InventarioController::class, 'reservas'])->name('reserva.all')->middleware('auth');
 Route::get('/lista', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
 Route::get('/reserva/{id}', [InventarioController::class, 'reservaShow'])->name('reserva.show')->middleware('auth');
 Route::get('/detalles/{id}', [ReservaController::class, 'detallesReserva'])->name('reserva.detalles')->middleware('auth');

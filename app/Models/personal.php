@@ -16,7 +16,7 @@ class personal extends Model
     // relacion de uno a muchos
     public function reporteT()
     {
-        return $this->hasMany(reporteT::class, 'codigoPersonal');
+        return $this->hasMany(reporteT::class, 'codPersonal');
     }
 
     // relacion de uno a muchos

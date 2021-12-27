@@ -1,7 +1,7 @@
 @extends('layouts.plantilla')
 
 @section('title')
-    Personal
+    Reporte de Asistencia
 @endsection
 @section('action')
     <a href="{{ route('reporte.asistencia') }}" class="hover:underline ">Reporte de asistencia </a>

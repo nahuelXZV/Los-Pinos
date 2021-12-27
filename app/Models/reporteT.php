@@ -12,7 +12,7 @@ class reporteT extends Model
 
     // relacion de muchos a uno
     public function personal(){
-        return $this->belongsTo(personal::class, 'codigoPersonal');
+        return $this->belongsTo(personal::class, 'codPersonal');
     }
 
     // relacion de uno a muchos

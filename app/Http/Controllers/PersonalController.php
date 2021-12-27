@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\personal;
 use App\Models\reporteA;
+use App\Models\reporteT;
 use Illuminate\Http\Request;
 
 class PersonalController extends Controller
@@ -52,4 +53,16 @@ class PersonalController extends Controller
         $reporte = reporteA::find($id);
         return view('Personal.permisos', compact('reporte'));
     }
+
+    public function reportes_trabajo()
+    {
+        return view('Personal.reporteT');
+    }
+
+    public function trabajo_realizado($id)
+    {
+        $reporte = reporteT::find($id);
+        return view('Personal.trabajo-realizado', compact('reporte'));
+    }
+
 }

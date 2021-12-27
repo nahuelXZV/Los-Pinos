@@ -567,3 +567,41 @@ Livewire.on('deleteHorarioPersonal', horarioPersonal => {
         }
     })
 });
+
+Livewire.on('deleteReporteT',
+    reporteID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('personal.reporte-trabajo.show-reporte', 'delete', reporteID)
+
+            }
+        })
+    });
+
+Livewire.on('deleteRealizoT',
+    realizoID => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Los datos se borrarán permanentemente",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('personal.reporte-trabajo.show-realizo', 'delete', realizoID)
+
+            }
+        })
+    });

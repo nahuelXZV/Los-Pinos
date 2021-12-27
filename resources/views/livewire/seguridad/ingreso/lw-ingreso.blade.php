@@ -1,5 +1,5 @@
 <div>
-    <x-table> 
+    <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
                 <span class="mr-2 font-bold ">Paginar</span>
@@ -15,8 +15,9 @@
 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
-
-            @livewire('seguridad.ingreso.lw-add-ingreso')
+            @can('ingresos.add')
+                @livewire('seguridad.ingreso.lw-add-ingreso')
+            @endcan
         </div>
         @if ($ingresos->count())
             <table class="min-w-full divide-y divide-gray-200">
@@ -188,9 +189,13 @@
                                 </svg>
                             @endif
                         </th>
-                        <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
-                            Acciones
-                        </th>
+                        @if (auth()->user()->can('ingresos.delete') ||
+    auth()->user()->can('ingresos.show'))
+                            <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
+                                Acciones
+                            </th>
+                        @endif
+
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -262,24 +267,32 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap flex">
-                                <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                    href="{{ route('ingresos.show', $ingreso->id) }}"">
-                                    <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-                                    </svg>
-                                </a>
-                                <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                    wire:click="$emit('deleteIngreso',{{ $ingreso }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </a>
-                            </td>
+                            @if (auth()->user()->can('ingresos.delete') ||
+                                auth()->user()->can('ingresos.show'))
+                                <td class="px-6 py-4 whitespace-nowrap flex">
+                                    @can('ingresos.show')
+                                        <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                            href="{{ route('ingresos.show', $ingreso->id) }}"">
+                                          <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                    @can('ingresos.delete')
+                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                            wire:click="$emit('deleteIngreso',{{ $ingreso }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </a>
+                                    @endcan
+                                </td>
+                            @endif
+
                         </tr>
                     @endforeach
                 </tbody>

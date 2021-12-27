@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\regresoEquipo;
 use App\Models\salidaEquipo;
+use Illuminate\Http\Request;
 
-class EquipoController extends Controller
+class InventarioController extends Controller
 {
     public function __construct()
     {
         $this->middleware('can:equipos')->only('equipos');
-        $this->middleware('can:almacenes')->only('almacens');
-        $this->middleware('can:salidaEquipos')->only('salidas');
-        $this->middleware('can:regresoEquipos')->only('regresos');
-        $this->middleware('can:salidaEquipos.show')->only('show_salidas');
-        $this->middleware('can:regresoEquipos.show')->only('show_regresos');
+        $this->middleware('can:almacenes')->only('almacen');
+        $this->middleware('can:salidaEquipos')->only('salida');
+        $this->middleware('can:regresoEquipos')->only('regreso');
+        $this->middleware('can:salidaEquipos.show')->only('salidaShow');
+        $this->middleware('can:regresoEquipos.show')->only('regresoShow');
     }
 
     public function equipos()
@@ -22,28 +23,28 @@ class EquipoController extends Controller
         return view('equipo.equipos');
     }
 
-    public function almacens()
+    public function almacen()
     {
         return view('equipo.almacens');
     }
 
-    public function salidas()
+    public function salida()
     {
         return view('equipo.salidas');
     }
 
-    public function regresos()
+    public function regreso()
     {
         return view('equipo.regresos');
     }
 
-    public function show_regresos($id)
+    public function regresoShow($id)
     {
         $regreso = regresoEquipo::find($id);
         return view('equipo.show-regreso', compact('regreso'));
     }
 
-    public function show_salidas($id)
+    public function salidaShow($id)
     {
         $salida = salidaEquipo::find($id);
         return view('equipo.show-salida', compact('salida'));

@@ -4,10 +4,12 @@
             <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">Información sobre el Ingreso:
                 {{ $ingreso->id }}
             </h1>
-            <x-jet-danger-button wire:click="datos()" class="flex-none bg-green-600 hover:bg-green-500"
-                wire:loading.attr='disabled'>
-                Editar Ingreso
-            </x-jet-danger-button>
+            @can('ingresos.edit')
+                <x-jet-danger-button wire:click="datos()" class="flex-none bg-green-600 hover:bg-green-500"
+                    wire:loading.attr='disabled'>
+                    Editar Ingreso
+                </x-jet-danger-button>
+            @endcan
         </div>
         <div class="px-6 py-4 w-auto">
             <div>

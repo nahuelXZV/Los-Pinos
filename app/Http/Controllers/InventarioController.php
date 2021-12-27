@@ -20,7 +20,7 @@ class InventarioController extends Controller
 
     public function equipos()
     {
-        return view('equipo.equipos');
+        return view('inventario.equipos');
     }
 
     public function almacen()

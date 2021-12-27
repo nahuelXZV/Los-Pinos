@@ -46,8 +46,8 @@ Route::get('/seccion', [PersonalController::class, 'seccion'])->name('seccion')-
 Route::get('/horario', [PersonalController::class, 'horario'])->name('horario')->middleware('auth');
 Route::get('/reporteAsistencia', [PersonalController::class, 'reportes'])->name('reporte.asistencia')->middleware('auth');
 Route::get('/reporteAsistencia/show/{id}', [PersonalController::class, 'permisos'])->name('reporteAsistencia.show')->middleware('auth');
-Route::get('/reporteTrabajo', [PersonalController::class, 'trabajo_realizado'])->name('reporte.trabajo')->middleware('auth');
-Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name('reporte.trabajo.show')->middleware('auth');
+Route::get('/reporteTrabajo', [PersonalController::class, 'reportes_trabajo'])->name('reporte.trabajo')->middleware('auth');
+Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'trabajo_realizado'])->name('reporteTrabajo.show')->middleware('auth');
 
 
 /*MODULO AREAS COMUNES */

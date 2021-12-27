@@ -24,28 +24,28 @@ class inicioController extends Controller
     }
     public function almacens()
     {
-        return view('equipo.almacens');
+        return view('Equipo.almacens');
     }
 
     public function salidas()
     {
-        return view('equipo.salidas');
+        return view('Equipo.salidas');
     }
 
     public function regresos()
     {
-        return view('equipo.regresos');
+        return view('Equipo.regresos');
     }
 
     public function show_regresos($id)
     {
         $regreso = regresoEquipo::find($id);
-        return view('equipo.show-regreso', compact('regreso'));
+        return view('Equipo.show-regreso', compact('regreso'));
     }
 
     public function show_salidas($id)
     {
         $salida = salidaEquipo::find($id);
-        return view('equipo.show-salida', compact('salida'));
+        return view('Equipo.show-salida', compact('salida'));
     }
 }

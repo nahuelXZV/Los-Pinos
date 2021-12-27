@@ -14,7 +14,7 @@ class ReservaController extends Controller
         $this->middleware('can:reserva')->only('index');
         $this->middleware('can:reserva.all')->only('reservas');
         $this->middleware('can:reserva.list')->only('list');
-        $this->middleware('can:reserva.show')->only('show');
+        $this->middleware('can:reserva.show')->only('reservaShow');
         $this->middleware('can:areacomun')->only('areas');
     }
 
@@ -33,8 +33,8 @@ class ReservaController extends Controller
     {
         return view('AreaComun.list');
     }
- 
-    public function show($id)
+
+    public function reservaShow($id)
     {
         $reserva = reserva::find($id);
         return view('AreaComun.reservaShow', compact('reserva'));
@@ -44,5 +44,4 @@ class ReservaController extends Controller
     {
         return view('AreaComun.areacomun');
     }
-
 }

@@ -101,7 +101,7 @@ class LwListaInvitados extends Component
         $this->invitado->update();
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifió un invitado con codigo ' . $this->invitado->idVisitante . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
-        $bitacora->crear('Modifió un invitado con codigo ' . $this->invitado->idVisitante . ' de la reserva con código: ' . $this->reserva->id);
+        $bitacora->crear('Modificó un invitado con código ' . $this->invitado->idVisitante . ' de la reserva con código: ' . $this->reserva->id);
         $this->reset(['open_edit', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
         $visitante = visitante::all()->first();
         $this->idVisitante = $visitante->id;
@@ -128,7 +128,7 @@ class LwListaInvitados extends Component
         //DB::table('reservas')->increment('cantsPers');
         // DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió un nuevo invitado con codigo ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
-        $bitacora->crear('Añadió un nuevo invitado con codigo ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id);
+        $bitacora->crear('Añadió un nuevo invitado con código ' . $this->idVisitante . ' a la reserva con código: ' . $this->reserva->id);
         $this->reset(['open_add', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
         $this->identify = rand();
         $this->emit('guardar');
@@ -142,7 +142,7 @@ class LwListaInvitados extends Component
         // DB::table('reservas')->decrement('cantsPers');
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
-        $bitacora->crear('Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id);
+        $bitacora->crear('Eliminó un invitado con código ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id);
         $this->emit('eliminar');
     }
 

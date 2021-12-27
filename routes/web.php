@@ -23,7 +23,7 @@ use App\Http\Controllers\sistemaController;
 Route::get('/', [inicioController::class, 'dashboard'])->name('inicio')->middleware('auth');
 
 /* MODULO EQUIPOS */
-Route::get('/equipos', [EquipoController::class, 'equipos'])->name('equipos')->middleware('auth');
+Route::get('/equipos', [inicioController::class, 'equipos'])->name('equipos')->middleware('auth');
 Route::get('/almacenes', [EquipoController::class, 'almacens'])->name('almacenes')->middleware('auth');
 Route::get('/salidaEquipos', [EquipoController::class, 'salidas'])->name('salidasEquipo')->middleware('auth');
 Route::get('/salidaEquipos/show/{id}', [EquipoController::class, 'show_salidas'])->name('salidasEquipos.show')->middleware('auth');

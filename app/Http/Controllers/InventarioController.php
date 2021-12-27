@@ -21,7 +21,6 @@ class InventarioController extends Controller
 
     public function equipos()
     {
-
         return view('inventario.equipos');
     }
 

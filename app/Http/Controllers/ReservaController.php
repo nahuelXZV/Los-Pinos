@@ -41,12 +41,6 @@ class ReservaController extends Controller
         return view('AreaComun.show', compact('reserva'));
     }
 
-    public function detallesReserva($id)
-    {
-        $ingreso = ingresoUrb::find($id);
-        return view('seguridad.showIngreso', compact('ingreso'));
-    }
-
     public function areas()
     {
         return view('AreaComun.areacomun');

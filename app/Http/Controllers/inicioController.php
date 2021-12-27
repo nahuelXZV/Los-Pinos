@@ -10,8 +10,14 @@ class inicioController extends Controller
     {
         $this->middleware('can:inicio')->only('dashboard');
     }
+
     public function dashboard()
     {
         return view('dashboard');
+    }
+
+    public function equipos()
+    {
+        return view('Equipo.equipos');
     }
 }

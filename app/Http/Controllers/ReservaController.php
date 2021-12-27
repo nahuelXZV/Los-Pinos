@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\areaComun;
+use App\Models\ingresoUrb;
 use App\Models\Reserva;
 use App\Models\residente;
 
@@ -42,8 +43,8 @@ class ReservaController extends Controller
 
     public function detallesReserva($id)
     {
-        $reserva = reserva::find($id);
-        return view('AreaComun.reservaShow', compact('reserva'));
+        $ingreso = ingresoUrb::find($id);
+        return view('seguridad.showIngreso', compact('ingreso'));
     }
 
     public function areas()

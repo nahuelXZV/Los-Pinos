@@ -233,7 +233,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap flex">
                                     @can('reserva.show')
                                         <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            href=" {{ route('reserva.show', 1006) }}">
+                                            href=" {{ route('reserva.show', $reserva->id) }}">
                                             <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -243,7 +243,7 @@
                                     @endcan
                                     @can('reserva.show')
                                         <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            href=" {{ route('areacomun') }}">
+                                            href=" {{ route('ingresos.show',110 ) }}">
                                             <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

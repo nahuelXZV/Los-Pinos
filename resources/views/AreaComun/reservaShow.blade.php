@@ -10,6 +10,6 @@
 
 @section('content')
 
-    @livewire('area-comun.area-comun.lw-area-comun')
+    <h1> DA</h1>
 
 @endsection

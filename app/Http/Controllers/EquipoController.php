@@ -7,6 +7,15 @@ use App\Models\salidaEquipo;
 
 class EquipoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:equipos')->only('equipos');
+        $this->middleware('can:almacenes')->only('almacens');
+        $this->middleware('can:salidaEquipos')->only('salidas');
+        $this->middleware('can:regresoEquipos')->only('regresos');
+        $this->middleware('can:salidaEquipos.show')->only('show_salidas');
+        $this->middleware('can:regresoEquipos.show')->only('show_regresos');
+    }
 
     public function equipos()
     {

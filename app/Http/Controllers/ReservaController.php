@@ -37,7 +37,7 @@ class ReservaController extends Controller
     public function show($id)
     {
         $reserva = reserva::find($id);
-        return view('AreaComun.show', compact('reserva'));
+        return view('AreaComun.reservaShow', compact('reserva'));
     }
 
     public function areas()

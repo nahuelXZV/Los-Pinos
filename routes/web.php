@@ -30,6 +30,14 @@ Route::get('/salidaEquipos/show/{id}', [inicioController::class, 'show_salidas']
 Route::get('/regresoEquipos', [inicioController::class, 'regresos'])->name('regresosEquipo')->middleware('auth');
 Route::get('/regresoEquipos/show/{id}', [inicioController::class, 'show_regresos'])->name('regresosEquipos.show')->middleware('auth');
 
+
+Route::get('/equipo',[InventarioController::class,'equipos'])->name('equipo')->middleware('auth');
+Route::get('/almacen',[InventarioController::class,'almacen'])->name('almacen')->middleware('auth');
+Route::get('/salidaEquipo',[InventarioController::class,'salida'])->name('salidaEquipo')->middleware('auth');
+Route::get('/salidaEquipo/{id}',[InventarioController::class,'salidaShow'])->name('salidaEquipo.show')->middleware('auth');
+Route::get('/regresoEquipo',[InventarioController::class,'regreso'])->name('regresoEquipo')->middleware('auth');
+Route::get('/regresoEquipo/{id}',[InventarioController::class,'regresoShow'])->name('regresoEquipo.show')->middleware('auth');
+
 /* MODULO PERSONAL */
 Route::get('/personal', [PersonalController::class, 'personal'])->name('personal')->middleware('auth');
 Route::get('/personal/show/{id}', [PersonalController::class, 'datos'])->name('personal.show')->middleware('auth');

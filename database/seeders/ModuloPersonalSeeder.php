@@ -29,7 +29,6 @@ class ModuloPersonalSeeder extends Seeder
 
         //---------- TABA PERSONAL ----------//
         personal::create([
-            'codigo' => 100,
             'nombre' => "Jose Fernando Alvarez Guzman",
             'carnet' => "12457963",
             'telefono' => "69024157",
@@ -43,7 +42,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 101,
             'nombre' => "Sergio Andres Copi Añez",
             'carnet' => "45783698",
             'telefono' => "77645120",
@@ -57,7 +55,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 102,
             'nombre' => "Paola Salazar Quiroga",
             'carnet' => "14980266",
             'telefono' => "69045671",
@@ -71,7 +68,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 103,
             'nombre' => "Renato Fernandez Ribera",
             'carnet' => "14780255",
             'telefono' => "77984570",
@@ -85,7 +81,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Inactivo",
         ]);
         personal::create([
-            'codigo' => 104,
             'nombre' => "Sonia Añez Copi",
             'carnet' => "36125487",
             'telefono' => "69065841",
@@ -99,7 +94,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Inactivo",
         ]);
         personal::create([
-            'codigo' => 105,
             'nombre' => "Fernando Suarez Suarez",
             'carnet' => "78123598",
             'telefono' => "65084321",
@@ -113,7 +107,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 106,
             'nombre' => "Hugo Cruz Rojas",
             'carnet' => "12457698",
             'telefono' => "62841534",
@@ -127,7 +120,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 107,
             'nombre' => "Humberto Carrasco Gutierrez",
             'carnet' => "45983687",
             'telefono' => "77981548",
@@ -141,7 +133,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 108,
             'nombre' => "Carlos Gomez Zambrana",
             'carnet' => "32015478",
             'telefono' => "69842715",
@@ -155,7 +146,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 109,
             'nombre' => "David Hurtado Escobar",
             'carnet' => "12487596",
             'telefono' => "69065198",
@@ -169,7 +159,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Inactivo",
         ]);
         personal::create([
-            'codigo' => 110,
             'nombre' => "Gabriel Blanco Alegria",
             'carnet' => "45120836",
             'telefono' => "77321548",
@@ -183,7 +172,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Inactivo",
         ]);
         personal::create([
-            'codigo' => 111,
             'nombre' => "Elena Garcia Taborga",
             'carnet' => "48798165",
             'telefono' => "69058437",
@@ -197,7 +185,6 @@ class ModuloPersonalSeeder extends Seeder
             'estado' => "Inactivo",
         ]);
         personal::create([
-            'codigo' => 112,
             'nombre' => "Jose Flores Justiniano",
             'carnet' => "12478656",
             'telefono' => "77656632",
@@ -353,105 +340,105 @@ class ModuloPersonalSeeder extends Seeder
         //---------- REPORTE T ----------//
         reporteT::create([
             'fecha' => "2021/08/01",
-            'codPersonal' => 104,
+            'codPersonal' => 4,
         ]);
         reporteT::create([
             'fecha' => "2021/02/15",
-            'codPersonal' => 105,
+            'codPersonal' => 5,
         ]);
         reporteT::create([
             'fecha' => "2021/03/21",
-            'codPersonal' => 104,
+            'codPersonal' => 4,
         ]);
         reporteT::create([
             'fecha' => "2021/07/14",
-            'codPersonal' => 103,
+            'codPersonal' => 3,
         ]);
         reporteT::create([
             'fecha' => "2021/09/11",
-            'codPersonal' => 103,
+            'codPersonal' => 3,
         ]);
         reporteT::create([
             'fecha' => "2021/08/08",
-            'codPersonal' => 104,
+            'codPersonal' => 4,
         ]);
         reporteT::create([
             'fecha' => "2021/09/22",
-            'codPersonal' => 102,
+            'codPersonal' => 2,
         ]);
         reporteT::create([
             'fecha' => "2021/06/13",
-            'codPersonal' => 102,
+            'codPersonal' => 2,
         ]);
         reporteT::create([
             'fecha' => "2021/07/15",
-            'codPersonal' => 104,
+            'codPersonal' => 4,
         ]);
         reporteT::create([
             'fecha' => "2021/10/14",
-            'codPersonal' => 102,
+            'codPersonal' => 2,
         ]);
 
         //---------- TABLA DE REPORTE A ----------//
         reporteA::create([
             'fecha' => "2021/06/12",
-            'codigoPersonal' => 107,
+            'codigoPersonal' => 7,
         ]);
         reporteA::create([
             'fecha' => "2021/01/05",
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         reporteA::create([
             'fecha' => "2021/03/15",
-            'codigoPersonal' => 107,
+            'codigoPersonal' => 7,
         ]);
         reporteA::create([
             'fecha' => "2021/02/09",
-            'codigoPersonal' => 106,
+            'codigoPersonal' => 6,
         ]);
         reporteA::create([
             'fecha' => "2021/08/19",
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         reporteA::create([
             'fecha' => "2021/09/29",
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         reporteA::create([
             'fecha' => "2021/02/28",
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
         reporteA::create([
             'fecha' => "2021/10/02",
-            'codigoPersonal' => 105,
+            'codigoPersonal' => 5,
         ]);
         reporteA::create([
             'fecha' => "2021/04/22",
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         reporteA::create([
             'fecha' => "2021/05/26",
-            'codigoPersonal' => 102,
+            'codigoPersonal' => 2,
         ]);
         reporteA::create([
             'fecha' => "2021/05/28",
-            'codigoPersonal' => 107,
+            'codigoPersonal' => 7,
         ]);
         reporteA::create([
             'fecha' => "2021/09/05",
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
         reporteA::create([
             'fecha' => "2021/01/20",
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
         reporteA::create([
             'fecha' => "2021/07/02",
-            'codigoPersonal' => 107,
+            'codigoPersonal' => 7,
         ]);
         reporteA::create([
             'fecha' => "2021/09/06",
-            'codigoPersonal' => 101,
+            'codigoPersonal' => 1,
         ]);
 
         //---------- TABLA PERMISO ----------//
@@ -622,27 +609,27 @@ class ModuloPersonalSeeder extends Seeder
         //---------- TABLA DE HORARIO PERSONAL ----------//
         horarioPersonal::create([
             'idHorario' => 1,
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
         horarioPersonal::create([
             'idHorario' => 11,
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         horarioPersonal::create([
             'idHorario' => 10,
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
         horarioPersonal::create([
             'idHorario' => 4,
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         horarioPersonal::create([
             'idHorario' => 10,
-            'codigoPersonal' => 104,
+            'codigoPersonal' => 4,
         ]);
         horarioPersonal::create([
             'idHorario' => 13,
-            'codigoPersonal' => 100,
+            'codigoPersonal' => 1,
         ]);
 
         //---------- TABLA REALIZO ----------//

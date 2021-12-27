@@ -16,7 +16,6 @@ class UserSeeder extends Seeder
     public function run()
     {
         personal::create([
-            'codigo' => 113,
             'nombre' => "Nahuel Zalazar Villca",
             'carnet' => "12499553",
             'telefono' => "69341427",
@@ -30,7 +29,6 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 114,
             'nombre' => "Daniela Carrasco",
             'carnet' => "58654124",
             'telefono' => "63526985",
@@ -44,7 +42,6 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 115,
             'nombre' => "David Suares Sandoval",
             'carnet' => "586957412",
             'telefono' => "78545652",
@@ -58,7 +55,6 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 116,
             'nombre' => "Paul Cruz Vargas",
             'carnet' => "586841244",
             'telefono' => "75452536",
@@ -72,7 +68,6 @@ class UserSeeder extends Seeder
             'estado' => "Activo",
         ]);
         personal::create([
-            'codigo' => 117,
             'nombre' => "Diego Hurtado Vargas",
             'carnet' => "25365478",
             'telefono' => "785452159",
@@ -89,31 +84,31 @@ class UserSeeder extends Seeder
             'name' => "Nahuel Zalazar Villca",
             'email' => "Nahuel@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 113
+            'codigoPersonal' => 14
         ])->assignRole('Administrador');
         User::create([
             'name' => "Diego Hurtado",
             'email' => "Diego@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 117
+            'codigoPersonal' => 18
         ])->assignRole('Administrador');
         User::create([
             'name' => "Paul Cruz",
             'email' => "Paul@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 116
+            'codigoPersonal' => 17
         ])->assignRole('Administrador');
         User::create([
             'name' => "Daniela Carrasco",
             'email' => "Daniela@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 114
+            'codigoPersonal' => 15
         ])->assignRole('Administrador');
         User::create([
             'name' => "David Suarez",
             'email' => "David@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 115
+            'codigoPersonal' => 16
         ])->assignRole('Administrador');
 
 
@@ -122,19 +117,19 @@ class UserSeeder extends Seeder
             'name' => "Elena Garcia Taborga",
             'email' => "gerente@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 111
+            'codigoPersonal' => 12
         ])->assignRole('Gerente');
         User::create([
             'name' => "Hugo Cruz Rojas",
             'email' => "portero@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 106
+            'codigoPersonal' => 7
         ])->assignRole('Portero');
         User::create([
             'name' => "Renato Fernandez Ribera",
             'email' => "guardia@gmail.com",
             'password' => bcrypt('12345678'),
-            'codigoPersonal' => 103
+            'codigoPersonal' => 4
         ])->assignRole('Guardia');
     }
 }

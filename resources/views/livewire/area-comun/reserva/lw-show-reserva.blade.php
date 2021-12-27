@@ -59,13 +59,7 @@
         </div>
     </x-table>
 
-    @can('reserva.reporte')
-        @livewire('area-comun.reserva.lw-reporte-reserva',['reserva' => $reserva->id])
-    @endcan
 
-    @can('reserva.invitado')
-        @livewire('area-comun.reserva.lw-lista-invitados',['reserva' => $reserva->id])
-    @endcan
 
     <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name='title'>

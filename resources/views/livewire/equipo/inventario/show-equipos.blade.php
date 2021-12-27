@@ -251,7 +251,7 @@
                         </th>
 
                         @if (auth()->user()->can('equipos.edit') ||
-    auth()->user()->can('equipos.delete'))
+            auth()->user()->can('equipos.delete'))
                             <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
                                 Acciones
                             </th>

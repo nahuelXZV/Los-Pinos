@@ -9,5 +9,5 @@
 
 @section('content')
 
-    @livewire('area-comun.area-comun.lw-area-comun')
+    @livewire('area-comun.reserva.lw-show-reserva', ['reserva' => 1006])
 @endsection

@@ -250,7 +250,7 @@ class LwReservaCalendario extends Component
     //Metodo de renderizado
     public function render()
     {
-        $areas = areaComun::where('estadoRes', 'Reservacion')->get();
+        $areas = areaComun::where('estadoRes', 'Reservación')->get();
         $residentes = residente::all();
         return view('livewire.area-comun.calendario.lw-reserva-calendario', compact('areas', 'residentes'));
     }

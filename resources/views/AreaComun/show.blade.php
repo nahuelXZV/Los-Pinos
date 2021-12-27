@@ -10,6 +10,6 @@
 
 @section('content')
 
-    @livewire('area-comun.reservas.lw-show-reservas', ['reserva' => $reserva])
+    @livewire('area-comun.reserva.lw-show-reserva', ['reserva' => $reserva])
 
 @endsection

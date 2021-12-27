@@ -53,7 +53,8 @@ class LwListaInvitados extends Component
     {
         $this->identify = rand();
         $this->reserva = reserva::find($reserva);
-        $this->resetSelect();
+        $visitante = visitante::all()->first();
+        $this->idVisitante = $visitante->id;
     }
 
     //Metodo de ordenado
@@ -72,12 +73,6 @@ class LwListaInvitados extends Component
         }
     }
 
-    //Metodo para reiniciar los select
-    public function resetSelect()
-    {
-        $visitante = visitante::all()->first();
-        $this->idVisitante = $visitante->id;
-    }
     //Metodo de reinicio de buscador
     public function updatingSearch()
     {
@@ -108,7 +103,8 @@ class LwListaInvitados extends Component
         $bitacora = new bitacora();
         $bitacora->crear('Modifió un invitado con codigo ' . $this->invitado->idVisitante . ' de la reserva con código: ' . $this->reserva->id);
         $this->reset(['open_edit', 'idVisitante', 'nombre', 'nroCarnet', 'horaIngreso', 'horaSalida']);
-        $this->resetSelect();
+        $visitante = visitante::all()->first();
+        $this->idVisitante = $visitante->id;
         $this->identify = rand();
         $this->emit('actualizar');
     }
@@ -143,7 +139,7 @@ class LwListaInvitados extends Component
     {
         $invitado = invitado::find($invitadod);
         $invitado->delete();
-       // DB::table('reservas')->decrement('cantsPers');
+        // DB::table('reservas')->decrement('cantsPers');
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id, auth()->user()->id]);
         $bitacora = new bitacora();
         $bitacora->crear('Eliminó un invitado con codigo ' . $invitado->id . ' de la reserva con código: ' . $this->reserva->id);

@@ -54,7 +54,7 @@ Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name
 Route::get('/calendario', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
 Route::get('/reservas', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
 Route::get('/lista', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
-Route::get('/reserva/{id}', [ReservaController::class, 'reservaShow'])->name('reserva.show')->middleware('auth');
+Route::get('/reserva/{id}', [InventarioController::class, 'reservaShow'])->name('reserva.show')->middleware('auth');
 Route::get('/detalles/{id}', [ReservaController::class, 'detallesReserva'])->name('reserva.detalles')->middleware('auth');
 Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
 

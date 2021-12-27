@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\regresoEquipo;
+use App\Models\reserva;
 use App\Models\salidaEquipo;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class InventarioController extends Controller
 
     public function equipos()
     {
+
         return view('inventario.equipos');
     }
 
@@ -48,5 +50,11 @@ class InventarioController extends Controller
     {
         $salida = salidaEquipo::find($id);
         return view('equipo.show-salida', compact('salida'));
+    }
+
+    public function reservaShow($id)
+    {
+        $reserva = reserva::find($id);
+        return view('AreaComun.show', compact('reserva'));
     }
 }

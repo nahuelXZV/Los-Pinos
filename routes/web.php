@@ -51,9 +51,9 @@ Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'reporte'])->name
 
 
 /*MODULO AREAS COMUNES */
-Route::get('/reserva', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
-Route::get('/reserva/all', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
-Route::get('/reserva/list', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
+Route::get('/calendario', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
+Route::get('/reservas', [ReservaController::class, 'reservas'])->name('reserva.all')->middleware('auth');
+Route::get('/lista', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
 Route::get('/reserva/{id}', [ReservaController::class, 'reservaShow'])->name('reserva.show')->middleware('auth');
 Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
 

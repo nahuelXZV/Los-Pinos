@@ -45,7 +45,4 @@ class ReservaController extends Controller
         return view('AreaComun.areacomun');
     }
 
-    public function pruebas()
-    {
-    }
 }

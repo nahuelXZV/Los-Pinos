@@ -67,6 +67,8 @@ Route::get('/ingreso', [seguridadController::class, 'ingresos'])->name('ingresos
 Route::get('/ingreso/{id}', [seguridadController::class, 'showIngreso'])->name('ingresos.show')->middleware('auth');
 Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas')->middleware('auth');
 Route::get('/salida/{id}', [seguridadController::class, 'showSalida'])->name('salidas.show')->middleware('auth');
+Route::get('/pdfsalida/{id}', [seguridadController::class, 'pdfsalida'])->name('salidas.pdf')->middleware('auth');
+Route::get('/pdfingreso/{id}', [seguridadController::class, 'pdfingreso'])->name('ingreso.pdf')->middleware('auth');
 
 /*MODULO SISTEMA */
 Route::get('/usuarios', [sistemaController::class, 'usuarios'])->name('usuarios')->middleware('auth');

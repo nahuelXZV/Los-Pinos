@@ -53,4 +53,29 @@ class seguridadController extends Controller
         $salida = salidaUrb::find($id);
         return view('seguridad.showSalida', compact('salida'));
     }
+
+
+
+    public function pdfsalida($id)
+    {
+        $salida  = salidaUrb::find($id);
+        $listaResidentes = salidaUrb::find($id)->salidaR()->get();
+        $listaVisitantes = salidaUrb::find($id)->salidaV()->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.salida', compact('salida', 'listaVisitantes', 'listaResidentes'));
+        //$pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream('reporte salida de ' . $salida->fecha);
+    }
+
+    public function pdfingreso($id)
+    {
+        $ingreso  = ingresoUrb::find($id);
+        $listaVisitantes = ingresoUrb::find($id)->ingresoV()->get();
+        $listaResidentes = ingresoUrb::find($id)->ingresoR()->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.ingreso', compact('ingreso', 'listaVisitantes', 'listaResidentes'));
+        //$pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream('reporte ingreso de ' . $ingreso->fecha);
+    }
 }

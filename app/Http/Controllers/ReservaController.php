@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\areaComun;
+use App\Models\bitacora;
 use App\Models\ingresoUrb;
 use App\Models\Reserva;
 use App\Models\residente;
@@ -52,6 +53,9 @@ class ReservaController extends Controller
         $reportes = reserva::find($reserva->id)->reporteAC()->get();
         $lista = reserva::find($reserva->id)->invitado()->get();
 
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de detalles de reserva de código: ' . $id);
+
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reserva', compact('reserva', 'reportes', 'lista'));
         return $pdf->download('reserva: ' . $reserva->fecha . '.pdf');
@@ -63,7 +67,8 @@ class ReservaController extends Controller
             $search = '';
         $reservas = reserva::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
-
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de reservas');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reservaLista', compact('reservas'));
         return $pdf->download('lista de reservas: ' . now() . '.pdf');

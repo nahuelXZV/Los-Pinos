@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bitacora;
 use App\Models\ingresoUrb;
 use App\Models\salidaUrb;
 use Illuminate\Http\Request;
@@ -61,9 +62,13 @@ class seguridadController extends Controller
         $salida  = salidaUrb::find($id);
         $listaResidentes = salidaUrb::find($id)->salidaR()->get();
         $listaVisitantes = salidaUrb::find($id)->salidaV()->get();
+
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de detalles de salidas de código: ' . $id);
+
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.salida', compact('salida', 'listaVisitantes', 'listaResidentes'));
-        return $pdf->download('reporte salida de ' . $salida->fecha);
+        return $pdf->download('reporte salida de ' . $salida->fecha  . '.pdf');
     }
 
     public function pdfingreso($id)
@@ -71,10 +76,12 @@ class seguridadController extends Controller
         $ingreso  = ingresoUrb::find($id);
         $listaVisitantes = ingresoUrb::find($id)->ingresoV()->get();
         $listaResidentes = ingresoUrb::find($id)->ingresoR()->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de detalles de ingresos de código: ' . $id);
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.ingreso', compact('ingreso', 'listaVisitantes', 'listaResidentes'));
-        return $pdf->download('reporte ingreso de ' . $ingreso->fecha);
+        return $pdf->download('reporte ingreso de ' . $ingreso->fecha  . '.pdf');
     }
 
 
@@ -85,6 +92,8 @@ class seguridadController extends Controller
         $salidas = salidaUrb::where('fecha', 'like', '%' . $search . '%')
             ->orWhere('idMotorizado', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de salidas');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.salidalista', compact('salidas'));
         return $pdf->download('reporte de salidas: ' . now() . '.pdf');
@@ -98,6 +107,8 @@ class seguridadController extends Controller
             ->orWhere('motivo', 'like', '%' . $search . '%')
             ->orWhere('idVivienda', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de ingresos');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.ingresolista', compact('ingresos'));
         return $pdf->download('reporte de ingresos: ' . now() . '.pdf');

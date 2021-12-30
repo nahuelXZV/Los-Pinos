@@ -64,7 +64,7 @@
     <style>
         .datagrid table {
             border-collapse: collapse;
-            text-align: center;
+            text-align: left;
             width: 100%;
         }
 
@@ -88,6 +88,8 @@
             font-size: 13px;
             font-weight: bold;
             border-left: 0px solid #36752D;
+            text-align: left;
+
         }
 
         .datagrid table thead th:first-child {
@@ -203,8 +205,20 @@
                             <td>{{ $persona->id }}</td>
                             <td> {{ $persona->nombre }}</td>
                             <td> {{ $persona->nroCarnet }}</td>
-                            <td>{{ $persona->invitado->horaIngreso }}</td>
-                            <td>{{ $persona->invitado->horaSalida }}</td>
+                            <td>
+                                @if ($persona->invitado->horaIngreso)
+                                    {{ $persona->invitado->horaIngreso }}
+                                @else
+                                    -
+                                @endif
+                            </td>
+                            <td>
+                                @if ($persona->invitado->horaSalida)
+                                    {{ $persona->invitado->horaSalida }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

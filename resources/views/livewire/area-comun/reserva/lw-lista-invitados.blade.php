@@ -196,12 +196,20 @@
                     </td>
                     <td class="px-6 py-4 ">
                         <div class="text-sm text-gray-900">
-                            {{ $visitantes->invitado->horaIngreso }}
+                            @if ($visitantes->invitado->horaIngreso)
+                                {{ $visitantes->invitado->horaIngreso }}
+                            @else
+                                -
+                            @endif
                         </div>
                     </td>
                     <td class="px-6 py-4 ">
                         <div class="text-sm text-gray-900">
-                            {{ $visitantes->invitado->horaSalida }}
+                            @if ($visitantes->invitado->horaSalida)
+                                {{ $visitantes->invitado->horaSalida }}
+                            @else
+                                -
+                            @endif
                         </div>
                     </td>
                     @if (auth()->user()->can('reserva.invitado.edit') ||

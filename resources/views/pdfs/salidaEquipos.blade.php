@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Reportes de asistencias</title>
+    <title>Salida de equipo</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -167,23 +167,36 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Reportes de asistencias</h4>
+        <h4>REPORTE: <br> Salida de equipo: {{ $salida->id }}</h4>
+
+        <p>
+            <span>Datos del reporte:</span> <br>
+            <span>Código del Trabajador:</span> {{ $salida->personal->codigo }}. <br>
+            <span>Nombre del Trabajador:</span> {{ $salida->personal->nombre }}. <br>
+            <span>Fecha:</span> {{ $salida->fecha }}. <br>
+            <span>Hora:</span> {{ $salida->hora }}. <br>
+        </p>
         <div class="datagrid">
             <table>
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Código y nombre del personal</th>
-                        <th>Fecha</th>
-
+                        <th>Código del equipo</th>
+                        <th>Nombre del equipo</th>
+                        <th>Tipo</th>
+                        <th>Cantidad retirada</th>
+                        <th>Estado de salida</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reportes as $reporte)
+                    @foreach ($lista as $equipos)
                         <tr>
-                            <td>{{ $reporte->id }}</td>
-                            <td>{{ $reporte->personal->codigo }} - {{ $reporte->personal->nombre }}</td>
-                            <td>{{ $reporte->fecha }}</td>
+                            <td> {{ $equipos->saco->id }}</td>
+                            <td> {{ $equipos->codigo }}</td>
+                            <td> {{ $equipos->nombre }}</td>
+                            <td> {{ $equipos->multiplicidad }}</td>
+                            <td> {{ $equipos->saco->stockRequerido }}</td>
+                            <td> {{ $equipos->saco->estadoSalida }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bitacora;
 use App\Models\ingresoPersonal;
 use App\Models\permiso;
 use App\Models\personal;
@@ -76,6 +77,10 @@ class PersonalController extends Controller
     {
         $reporte = reporteT::find($id);
         $realizos = realizo::where('idReporteT', '=', $reporte->id)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de detalles de trabajos de código: ' . $id);
+
+
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reporteTrabajo', compact('realizos', 'reporte'));
         return $pdf->download('reporte de trabajo: ' . $reporte->fecha . '.pdf');
@@ -87,6 +92,8 @@ class PersonalController extends Controller
             $search = '';
         $reportes = reporteT::where('codPersonal', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de trabajos');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reporteTrabajoLista', compact('reportes'));
         return $pdf->download('reportes de trabajos: ' . now() . '.pdf');
@@ -99,6 +106,9 @@ class PersonalController extends Controller
         $permisos = permiso::where('idReporteA', '=', $id)->get();
         $ingresos = ingresoPersonal::where('idReporteA', '=', $id)->get();
         $salidas = salidaPersonal::where('idReporteA', '=', $id)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de detalles de asistencia de código: ' . $id);
+
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reporteAsistencia', compact('reporte', 'permisos', 'ingresos', 'salidas'));
@@ -111,6 +121,8 @@ class PersonalController extends Controller
             $search = '';
         $reportes = reporteA::where('codigoPersonal', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.reporteAsistenciaLista', compact('reportes'));
         return $pdf->download('reportes de asistencias: ' . now() . '.pdf');

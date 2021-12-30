@@ -55,7 +55,7 @@ class seguridadController extends Controller
     }
 
 
-
+    //PDFS
     public function pdfsalida($id)
     {
         $salida  = salidaUrb::find($id);
@@ -63,8 +63,7 @@ class seguridadController extends Controller
         $listaVisitantes = salidaUrb::find($id)->salidaV()->get();
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.salida', compact('salida', 'listaVisitantes', 'listaResidentes'));
-        //$pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream('reporte salida de ' . $salida->fecha);
+        return $pdf->download('reporte salida de ' . $salida->fecha);
     }
 
     public function pdfingreso($id)
@@ -75,7 +74,32 @@ class seguridadController extends Controller
 
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.ingreso', compact('ingreso', 'listaVisitantes', 'listaResidentes'));
-        //$pdf->loadHTML('<h1>Test</h1>');
-        return $pdf->stream('reporte ingreso de ' . $ingreso->fecha);
+        return $pdf->download('reporte ingreso de ' . $ingreso->fecha);
+    }
+
+
+    public function pdfsalidalista($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $salidas = salidaUrb::where('fecha', 'like', '%' . $search . '%')
+            ->orWhere('idMotorizado', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.salidalista', compact('salidas'));
+        return $pdf->download('reporte de salidas: ' . now() . '.pdf');
+    }
+
+    public function pdfingresolista($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $ingresos = ingresoUrb::where('fecha', 'like', '%' . $search . '%')
+            ->orWhere('motivo', 'like', '%' . $search . '%')
+            ->orWhere('idVivienda', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.ingresolista', compact('ingresos'));
+        return $pdf->download('reporte de ingresos: ' . now() . '.pdf');
     }
 }

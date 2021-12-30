@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ingreso de la urbanización</title>
+    <title>Ingresos de la urbanización</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -165,50 +165,37 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Ingreso a la urbanización: {{ $ingreso->id }}</h4>
-
-        <p>
-            <span>Datos del ingreso a la urbanización:</span> <br>
-            <span>Código de ingreso:</span> {{ $ingreso->id }}. <br>
-            <span>Mótivo:</span> {{ $ingreso->motivo }}. <br>
-            <span>Fecha:</span> {{ $ingreso->fecha }}. <br>
-            <span>Hora:</span> {{ $ingreso->hora }}. <br>
-            @if ($ingreso->vivienda)
-                <span>Vivienda:</span> {{ $ingreso->vivienda->nroCasa }}. <br>
-            @else
-                <span>Vivienda:</span> Sin vivienda.<br>
-            @endif
-            @if ($ingreso->motorizado)
-                <span>Motorizado:</span> {{ $ingreso->motorizado->placa }}. <br>
-            @else
-                <span>Motorizado:</span> Sin motorizado.<br>
-            @endif
-        </p>
+        <h4>REPORTE: <br> Ingresos de la urbanización</h4>
         <div class="datagrid">
             <table>
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Número de carnet</th>
-                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Motivo</th>
+                        <th>Vivienda</th>
+                        <th>Motorizado</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listaResidentes as $persona)
+                    @foreach ($ingresos as $ingreso)
                         <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Residente</td>
-                        </tr>
-                    @endforeach
-                    @foreach ($listaVisitantes as $persona)
-                        <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Visitante</td>
+                            <td>{{ $ingreso->id }}</td>
+                            <td>{{ $ingreso->fecha }}</td>
+                            <td>{{ $ingreso->hora }}</td>
+                            <td>{{ $ingreso->motivo }}</td>
+                            @if ($ingreso->vivienda)
+                                <td> {{ $ingreso->vivienda->nroCasa }}</td>
+                            @else
+                                <td>Sin vivienda</td>
+                            @endif
+                            @if ($ingreso->motorizado)
+                                <td> {{ $ingreso->motorizado->placa }}</td>
+                            @else
+                                <td> Sin motorizado</td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

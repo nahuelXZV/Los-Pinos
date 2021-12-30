@@ -45,4 +45,27 @@ class ReservaController extends Controller
     {
         return view('AreaComun.areacomun');
     }
+
+    public function reservaPdf($id)
+    {
+        $reserva = Reserva::find($id);
+        $reportes = reserva::find($reserva->id)->reporteAC()->get();
+        $lista = reserva::find($reserva->id)->invitado()->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reserva', compact('reserva', 'reportes', 'lista'));
+        return $pdf->download('reserva: ' . $reserva->fecha . '.pdf');
+    }
+
+    public function listaReserva($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $reservas = reserva::where('id', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reservaLista', compact('reservas'));
+        return $pdf->download('lista de reservas: ' . now() . '.pdf');
+    }
 }

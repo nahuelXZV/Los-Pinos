@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ingresoPersonal;
+use App\Models\permiso;
 use App\Models\personal;
+use App\Models\realizo;
 use App\Models\reporteA;
 use App\Models\reporteT;
+use App\Models\salidaPersonal;
 use Illuminate\Http\Request;
 
 class PersonalController extends Controller
@@ -65,4 +69,50 @@ class PersonalController extends Controller
         return view('Personal.trabajo-realizado', compact('reporte'));
     }
 
+
+
+    //PDFS
+    public function pdfShowRtrabajo($id)
+    {
+        $reporte = reporteT::find($id);
+        $realizos = realizo::where('idReporteT', '=', $reporte->id)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reporteTrabajo', compact('realizos', 'reporte'));
+        return $pdf->download('reporte de trabajo: ' . $reporte->fecha . '.pdf');
+    }
+
+    public function pdfListaRtrabajo($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $reportes = reporteT::where('codPersonal', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reporteTrabajoLista', compact('reportes'));
+        return $pdf->download('reportes de trabajos: ' . now() . '.pdf');
+    }
+
+
+    public function pdfShowRasistencua($id)
+    {
+        $reporte = reporteA::find($id);
+        $permisos = permiso::where('idReporteA', '=', $id)->get();
+        $ingresos = ingresoPersonal::where('idReporteA', '=', $id)->get();
+        $salidas = salidaPersonal::where('idReporteA', '=', $id)->get();
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reporteAsistencia', compact('reporte', 'permisos', 'ingresos', 'salidas'));
+        return $pdf->download('reporte de asistencia: ' . $reporte->fecha . '.pdf');
+    }
+
+    public function pdfListaRasistencia($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $reportes = reporteA::where('codigoPersonal', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reporteAsistenciaLista', compact('reportes'));
+        return $pdf->download('reportes de asistencias: ' . now() . '.pdf');
+    }
 }

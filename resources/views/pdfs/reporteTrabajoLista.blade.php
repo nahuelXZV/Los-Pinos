@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ingreso de la urbanización</title>
+    <title>Reportes de trabajo</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -165,50 +165,23 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Ingreso a la urbanización: {{ $ingreso->id }}</h4>
-
-        <p>
-            <span>Datos del ingreso a la urbanización:</span> <br>
-            <span>Código de ingreso:</span> {{ $ingreso->id }}. <br>
-            <span>Mótivo:</span> {{ $ingreso->motivo }}. <br>
-            <span>Fecha:</span> {{ $ingreso->fecha }}. <br>
-            <span>Hora:</span> {{ $ingreso->hora }}. <br>
-            @if ($ingreso->vivienda)
-                <span>Vivienda:</span> {{ $ingreso->vivienda->nroCasa }}. <br>
-            @else
-                <span>Vivienda:</span> Sin vivienda.<br>
-            @endif
-            @if ($ingreso->motorizado)
-                <span>Motorizado:</span> {{ $ingreso->motorizado->placa }}. <br>
-            @else
-                <span>Motorizado:</span> Sin motorizado.<br>
-            @endif
-        </p>
+        <h4>REPORTE: <br> Reportes de trabajo</h4>
         <div class="datagrid">
             <table>
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Número de carnet</th>
-                        <th>Tipo</th>
+                        <th>Código y nombre del personal</th>
+                        <th>Fecha</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listaResidentes as $persona)
+                    @foreach ($reportes as $reporte)
                         <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Residente</td>
-                        </tr>
-                    @endforeach
-                    @foreach ($listaVisitantes as $persona)
-                        <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Visitante</td>
+                            <td>{{ $reporte->id }}</td>
+                            <td>{{ $reporte->personal->codigo }} - {{ $reporte->personal->nombre }}</td>
+                            <td>{{ $reporte->fecha }}</td>
                         </tr>
                     @endforeach
                 </tbody>

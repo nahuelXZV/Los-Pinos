@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ingreso de la urbanización</title>
+    <title>Reporte de trabajo</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -165,50 +165,34 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Ingreso a la urbanización: {{ $ingreso->id }}</h4>
+        <h4>REPORTE: <br> Reporte de trabajo: {{ $reporte->id }}</h4>
 
         <p>
-            <span>Datos del ingreso a la urbanización:</span> <br>
-            <span>Código de ingreso:</span> {{ $ingreso->id }}. <br>
-            <span>Mótivo:</span> {{ $ingreso->motivo }}. <br>
-            <span>Fecha:</span> {{ $ingreso->fecha }}. <br>
-            <span>Hora:</span> {{ $ingreso->hora }}. <br>
-            @if ($ingreso->vivienda)
-                <span>Vivienda:</span> {{ $ingreso->vivienda->nroCasa }}. <br>
-            @else
-                <span>Vivienda:</span> Sin vivienda.<br>
-            @endif
-            @if ($ingreso->motorizado)
-                <span>Motorizado:</span> {{ $ingreso->motorizado->placa }}. <br>
-            @else
-                <span>Motorizado:</span> Sin motorizado.<br>
-            @endif
+            <span>Datos del reporte:</span> <br>
+            <span>Código de reporte:</span> {{ $reporte->id }}. <br>
+            <span>Fecha:</span> {{ $reporte->fecha }}. <br>
+            <span>Codigo del Trabajador:</span> {{ $reporte->personal->codigo }}. <br>
+            <span>Nombre del Trabajador:</span> {{ $reporte->personal->nombre }}. <br>
         </p>
         <div class="datagrid">
             <table>
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Número de carnet</th>
-                        <th>Tipo</th>
+                        <th>Hora</th>
+                        <th>Descripción del trabajo</th>
+                        <th>Calle</th>
+                        <th>Manzano</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listaResidentes as $persona)
+                    @foreach ($realizos as $realizo)
                         <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Residente</td>
-                        </tr>
-                    @endforeach
-                    @foreach ($listaVisitantes as $persona)
-                        <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Visitante</td>
+                            <td>{{ $realizo->id }}</td>
+                            <td> {{ $realizo->hora }}</td>
+                            <td> {{ $realizo->trabajo->actividad }}</td>
+                            <td> {{ $realizo->trabajo->seccion->calle }}</td>
+                            <td> {{ $realizo->trabajo->seccion->manzano }}</td>
                         </tr>
                     @endforeach
                 </tbody>

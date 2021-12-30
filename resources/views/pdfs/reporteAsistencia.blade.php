@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ingreso de la urbanización</title>
+    <title>Reporte asistencia</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -165,50 +165,60 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Ingreso a la urbanización: {{ $ingreso->id }}</h4>
+        <h4>REPORTE: <br> reporte de asistencia: {{ $reporte->id }}</h4>
 
         <p>
-            <span>Datos del ingreso a la urbanización:</span> <br>
-            <span>Código de ingreso:</span> {{ $ingreso->id }}. <br>
-            <span>Mótivo:</span> {{ $ingreso->motivo }}. <br>
-            <span>Fecha:</span> {{ $ingreso->fecha }}. <br>
-            <span>Hora:</span> {{ $ingreso->hora }}. <br>
-            @if ($ingreso->vivienda)
-                <span>Vivienda:</span> {{ $ingreso->vivienda->nroCasa }}. <br>
-            @else
-                <span>Vivienda:</span> Sin vivienda.<br>
-            @endif
-            @if ($ingreso->motorizado)
-                <span>Motorizado:</span> {{ $ingreso->motorizado->placa }}. <br>
-            @else
-                <span>Motorizado:</span> Sin motorizado.<br>
-            @endif
+            <span>Datos del reporte de asistencia:</span> <br>
+            <span>Código de reporte:</span> {{ $reporte->id }}. <br>
+            <span>Código de trabajador:</span> {{ $reporte->personal->codigo }}. <br>
+            <span>Nombre de trabajador:</span> {{ $reporte->personal->nombre }}. <br>
+            <span>Fecha:</span> {{ $reporte->fecha }}. <br>
         </p>
+        <span>Permisos del reporte:</span>
+        @if ($permisos)
+            @foreach ($permisos as $permiso)
+                <p>- {{ $permiso->motivo }}.</p>
+            @endforeach
+        @else
+            <p> No hay permisos. </p>
+        @endif
+
+        <span>Ingresos del reporte</span> <br>
         <div class="datagrid">
             <table>
                 <thead>
                     <tr>
                         <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Número de carnet</th>
-                        <th>Tipo</th>
+                        <th>Hora de ingreso</th>
+                        <th>Retraso</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($listaResidentes as $persona)
+                    @foreach ($ingresos as $ingreso)
                         <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Residente</td>
+                            <td>{{ $ingreso->id }}</td>
+                            <td> {{ $ingreso->hora }}</td>
+                            <td>{{ $ingreso->retraso }}</td>
                         </tr>
                     @endforeach
-                    @foreach ($listaVisitantes as $persona)
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <span>Salidas del reporte</span><br>
+        <div class="datagrid">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Hora de salida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($salidas as $salida)
                         <tr>
-                            <td>{{ $persona->id }}</td>
-                            <td> {{ $persona->nombre }}</td>
-                            <td>{{ $persona->nroCarnet }}</td>
-                            <td>Visitante</td>
+                            <td>{{ $salida->id }}</td>
+                            <td> {{ $salida->hora }}</td>
                         </tr>
                     @endforeach
                 </tbody>

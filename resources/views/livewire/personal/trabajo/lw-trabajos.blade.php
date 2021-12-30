@@ -1,4 +1,4 @@
-<div> 
+<div>
     <x-table>
         <div class="px-6 py-4 flex items-center">
             <div class="flex items-center">
@@ -12,10 +12,10 @@
                 </select>
                 <span class="mr-2 font-bold">Buscar</span>
             </div>
- 
+
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
-
+                
             @can('trabajos.add')
                 @livewire('personal.trabajo.lw-add-trabajos')
             @endcan
@@ -109,8 +109,8 @@
                             @endif
 
                         </th>
-                        
-                
+
+
                         @if (auth()->user()->can('trabajos.delete') ||
     auth()->user()->can('trabajos.edit'))
                             <th scope="col" class="w-20 px-6 py-4 text-xs font-bold uppercase tracking-wider">
@@ -203,13 +203,13 @@
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
 
                     @foreach ($secciones as $seccion)
-                        <option value="{{$seccion->id}}">{{$seccion->id}}</option>
+                        <option value="{{ $seccion->id }}">{{ $seccion->id }}</option>
                     @endforeach
-                  
+
                 </select>
                 <x-jet-input-error for="estadoRes" />
             </div>
-           
+
         </x-slot>
 
         <x-slot name='footer'>

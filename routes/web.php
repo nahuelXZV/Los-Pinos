@@ -31,12 +31,12 @@ Route::get('/regresoEquipos', [inicioController::class, 'regresos'])->name('regr
 Route::get('/regresoEquipos/show/{id}', [inicioController::class, 'show_regresos'])->name('regresosEquipos.show')->middleware('auth');
 
 
-Route::get('/equipo',[InventarioController::class,'equipos'])->name('equipo')->middleware('auth');
-Route::get('/almacen',[InventarioController::class,'almacen'])->name('almacen')->middleware('auth');
-Route::get('/salidaEquipo',[InventarioController::class,'salida'])->name('salidaEquipo')->middleware('auth');
-Route::get('/salidaEquipo/{id}',[InventarioController::class,'salidaShow'])->name('salidaEquipo.show')->middleware('auth');
-Route::get('/regresoEquipo',[InventarioController::class,'regreso'])->name('regresoEquipo')->middleware('auth');
-Route::get('/regresoEquipo/{id}',[InventarioController::class,'regresoShow'])->name('regresoEquipo.show')->middleware('auth');
+Route::get('/equipo', [InventarioController::class, 'equipos'])->name('equipo')->middleware('auth');
+Route::get('/almacen', [InventarioController::class, 'almacen'])->name('almacen')->middleware('auth');
+Route::get('/salidaEquipo', [InventarioController::class, 'salida'])->name('salidaEquipo')->middleware('auth');
+Route::get('/salidaEquipo/{id}', [InventarioController::class, 'salidaShow'])->name('salidaEquipo.show')->middleware('auth');
+Route::get('/regresoEquipo', [InventarioController::class, 'regreso'])->name('regresoEquipo')->middleware('auth');
+Route::get('/regresoEquipo/{id}', [InventarioController::class, 'regresoShow'])->name('regresoEquipo.show')->middleware('auth');
 
 /* MODULO PERSONAL */
 Route::get('/personal', [PersonalController::class, 'personal'])->name('personal')->middleware('auth');
@@ -49,14 +49,23 @@ Route::get('/reporteAsistencia/show/{id}', [PersonalController::class, 'permisos
 Route::get('/reporteTrabajo', [PersonalController::class, 'reportes_trabajo'])->name('reporte.trabajo')->middleware('auth');
 Route::get('/reporteTrabajo/{id}', [PersonalController::class, 'trabajo_realizado'])->name('reporteTrabajo.show')->middleware('auth');
 
+Route::get('/reporteTrabajo/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaRtrabajo'])->name('reporteTrabajoLista.pdf')->middleware('auth');
+Route::get('/reporteTrabajo/pdf/{id}', [PersonalController::class, 'pdfShowRtrabajo'])->name('reporteTrabajo.pdf')->middleware('auth');
+Route::get('/reporteAsistencia/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaRasistencia'])->name('reporteAsistenciaLista.pdf')->middleware('auth');
+Route::get('/reporteAsistencia/pdf/{id}', [PersonalController::class, 'pdfShowRasistencua'])->name('reporteAsistencia.pdf')->middleware('auth');
+
 
 /*MODULO AREAS COMUNES */
+Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
 Route::get('/calendario', [ReservaController::class, 'index'])->name('reserva')->middleware('auth');
 Route::get('/reservas', [InventarioController::class, 'reservas'])->name('reserva.all')->middleware('auth');
 Route::get('/lista', [ReservaController::class, 'list'])->name('reserva.list')->middleware('auth');
 Route::get('/reserva/{id}', [InventarioController::class, 'reservaShow'])->name('reserva.show')->middleware('auth');
 Route::get('/detalles/{id}', [ReservaController::class, 'detallesReserva'])->name('reserva.detalles')->middleware('auth');
-Route::get('/areacomun', [ReservaController::class, 'areas'])->name('areacomun')->middleware('auth');
+Route::get('/pdfReservaLista/pdf/{search}/{sort}/{direction}', [ReservaController::class, 'listaReserva'])->name('listaReserva.pdf')->middleware('auth');
+Route::get('/pdfReserva/{id}', [ReservaController::class, 'reservaPdf'])->name('reservaPdf.pdf')->middleware('auth');
+
+
 
 /*MODULO DE SEGURIDAD */
 Route::get('/residentes', [seguridadController::class, 'residentes'])->name('residentes')->middleware('auth');
@@ -69,6 +78,8 @@ Route::get('/salida', [seguridadController::class, 'salidas'])->name('salidas')-
 Route::get('/salida/{id}', [seguridadController::class, 'showSalida'])->name('salidas.show')->middleware('auth');
 Route::get('/pdfsalida/{id}', [seguridadController::class, 'pdfsalida'])->name('salidas.pdf')->middleware('auth');
 Route::get('/pdfingreso/{id}', [seguridadController::class, 'pdfingreso'])->name('ingreso.pdf')->middleware('auth');
+Route::get('/pdfsalida/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfsalidalista'])->name('salidaslista.pdf')->middleware('auth');
+Route::get('/pdfingreso/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfingresolista'])->name('ingresolista.pdf')->middleware('auth');
 
 /*MODULO SISTEMA */
 Route::get('/usuarios', [sistemaController::class, 'usuarios'])->name('usuarios')->middleware('auth');

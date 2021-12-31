@@ -64,7 +64,7 @@
     <style>
         .datagrid table {
             border-collapse: collapse;
-            text-align: center;
+            text-align: left;
             width: 100%;
         }
 
@@ -88,6 +88,8 @@
             font-size: 13px;
             font-weight: bold;
             border-left: 0px solid #36752D;
+            text-align: left;
+
         }
 
         .datagrid table thead th:first-child {

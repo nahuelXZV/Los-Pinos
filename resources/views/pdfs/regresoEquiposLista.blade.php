@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Reportes de asistencias</title>
+    <title>Regreso de equipos</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -89,7 +89,6 @@
             font-weight: bold;
             border-left: 0px solid #36752D;
             text-align: left;
-
         }
 
         .datagrid table thead th:first-child {
@@ -167,7 +166,7 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Reportes de asistencias</h4>
+        <h4>REPORTE: <br> Regreso de equipos</h4>
         <div class="datagrid">
             <table>
                 <thead>
@@ -175,15 +174,20 @@
                         <th>Código</th>
                         <th>Código y nombre del personal</th>
                         <th>Fecha</th>
-
+                        <th>Hora</th>
+                        <th>Código de salida</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reportes as $reporte)
+                    @foreach ($regresos as $regreso)
                         <tr>
-                            <td>{{ $reporte->id }}</td>
-                            <td>{{ $reporte->personal->codigo }} - {{ $reporte->personal->nombre }}</td>
-                            <td>{{ $reporte->fecha }}</td>
+                            <td>{{ $regreso->id }}</td>
+                            <td>{{ $regreso->personal->codigo }} -
+                                {{ $regreso->personal->nombre }}
+                            </td>
+                            <td>{{ $regreso->fecha }}</td>
+                            <td>{{ $regreso->hora }}</td>
+                            <td>{{ $regreso->idSalidaEquipo }}</td>
                         </tr>
                     @endforeach
                 </tbody>

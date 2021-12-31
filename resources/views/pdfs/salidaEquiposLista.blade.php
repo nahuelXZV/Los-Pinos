@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Reportes de asistencias</title>
+    <title>Salida de equipos</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css" media="screen">
     <style>
         @page {
@@ -167,7 +167,7 @@
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
-        <h4>REPORTE: <br> Reportes de asistencias</h4>
+        <h4>REPORTE: <br> Salida de equipos</h4>
         <div class="datagrid">
             <table>
                 <thead>
@@ -175,15 +175,20 @@
                         <th>Código</th>
                         <th>Código y nombre del personal</th>
                         <th>Fecha</th>
-
+                        <th>Hora</th>
+                        <th>Motivo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($reportes as $reporte)
+                    @foreach ($salidas as $salida)
                         <tr>
-                            <td>{{ $reporte->id }}</td>
-                            <td>{{ $reporte->personal->codigo }} - {{ $reporte->personal->nombre }}</td>
-                            <td>{{ $reporte->fecha }}</td>
+                            <td>{{ $salida->id }}</td>
+                            <td>{{ $salida->personal->codigo }} -
+                                {{ $salida->personal->nombre }}
+                            </td>
+                            <td>{{ $salida->fecha }}</td>
+                            <td>{{ $salida->hora }}</td>
+                            <td>{{ $salida->motivo }}</td>
                         </tr>
                     @endforeach
                 </tbody>

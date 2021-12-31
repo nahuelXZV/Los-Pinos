@@ -76,7 +76,7 @@
     
                         @foreach ($permisos as $permiso)
     
-                            <li class="border-gray-400 whitespace-normal flex flex-row">
+                            <li class="container border-gray-400 whitespace-normal flex flex-row">
                                 <div
                                     class="select-none flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-green-600">
                                     <div class="flex-1 pl-1 mr-16">

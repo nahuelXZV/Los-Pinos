@@ -115,4 +115,15 @@ class PersonalController extends Controller
         $pdf->loadView('pdfs.reporteAsistenciaLista', compact('reportes'));
         return $pdf->download('reportes de asistencias: ' . now() . '.pdf');
     }
+
+    public function pdfListaPersonal($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $personal = personal::where('codigo', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.personalLista', compact('personal'));
+        return $pdf->download('Lista del Personal: ' . now() . '.pdf');
+    }
 }

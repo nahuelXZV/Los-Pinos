@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\equipo;
 use App\Models\regresoEquipo;
 use App\Models\salidaEquipo;
 
@@ -47,5 +48,26 @@ class EquipoController extends Controller
     {
         $salida = salidaEquipo::find($id);
         return view('equipo.show-salida', compact('salida'));
+    }
+
+    //PDFS
+    public function pdfShowRtrabajo($id)
+    {
+        $reporte = reporteT::find($id);
+        $realizos = realizo::where('idReporteT', '=', $reporte->id)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.reporteTrabajo', compact('realizos', 'reporte'));
+        return $pdf->download('reporte de trabajo: ' . $reporte->fecha . '.pdf');
+    }
+
+    public function pdfListaEquipo($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $equipos = equipo::where('codigo', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.equipoLista', compact('equipos'));
+        return $pdf->download('Lista de equipos: ' . now() . '.pdf');
     }
 }

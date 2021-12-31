@@ -19,6 +19,18 @@
             <x-jet-input type="text" placeholder="Introduzca el código o el nombre del personal" wire:model="search"
                 class=" mx-4 mr-4 flex-1 rounded-full w-full">
             </x-jet-input>
+            <a class="font-bold text-white rounded cursor-pointer bg-green-600 hover:bg-green-500 py-2 px-4 "
+                @if ($search == '')
+                href="{{ route('personalLista.pdf', ['_@_', $sort, $direction]) }}"
+            @else
+                href="{{ route('personalLista.pdf', [$search, $sort, $direction]) }}"
+                @endif>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                </svg>
+            </a>
 
             @livewire('personal.personal.create-personal')
 

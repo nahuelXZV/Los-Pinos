@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\seguridadController;
 use App\Http\Controllers\sistemaController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,9 @@ Route::get('/salidaEquipo/{id}', [InventarioController::class, 'salidaShow'])->n
 Route::get('/regresoEquipo', [InventarioController::class, 'regreso'])->name('regresoEquipo')->middleware('auth');
 Route::get('/regresoEquipo/{id}', [InventarioController::class, 'regresoShow'])->name('regresoEquipo.show')->middleware('auth');
 
+Route::get('/listaEquipo/pdf/{search}/{sort}/{direction}', [EquipoController::class, 'pdfListaEquipo'])->name('equipoLista.pdf')->middleware('auth');
+
+
 /* MODULO PERSONAL */
 Route::get('/personal', [PersonalController::class, 'personal'])->name('personal')->middleware('auth');
 Route::get('/personal/show/{id}', [PersonalController::class, 'datos'])->name('personal.show')->middleware('auth');
@@ -53,6 +57,8 @@ Route::get('/reporteTrabajo/pdf/{search}/{sort}/{direction}', [PersonalControlle
 Route::get('/reporteTrabajo/pdf/{id}', [PersonalController::class, 'pdfShowRtrabajo'])->name('reporteTrabajo.pdf')->middleware('auth');
 Route::get('/reporteAsistencia/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaRasistencia'])->name('reporteAsistenciaLista.pdf')->middleware('auth');
 Route::get('/reporteAsistencia/pdf/{id}', [PersonalController::class, 'pdfShowRasistencua'])->name('reporteAsistencia.pdf')->middleware('auth');
+
+Route::get('/listaPersonal/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaPersonal'])->name('personalLista.pdf')->middleware('auth');
 
 
 /*MODULO AREAS COMUNES */

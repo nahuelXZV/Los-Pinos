@@ -36,8 +36,6 @@ Route::get('/salidaEquipos/pdf/{id}', [inicioController::class, 'salidaEquipos']
 Route::get('/regresoEquipos/pdf/{search}/{sort}/{direction}', [inicioController::class, 'regresoEquiposlista'])->name('regresoEquiposlista.pdf')->middleware('auth');
 Route::get('/regresoEquipos/pdf/{id}', [inicioController::class, 'regresoEquipos'])->name('regresoEquipos.pdf')->middleware('auth');
 
-
-
 Route::get('/listaEquipo/pdf/{search}/{sort}/{direction}', [EquipoController::class, 'pdfListaEquipo'])->name('equipoLista.pdf')->middleware('auth');
 
 
@@ -73,6 +71,7 @@ Route::get('/pdfReserva/{id}', [ReservaController::class, 'reservaPdf'])->name('
 
 
 
+
 /*MODULO DE SEGURIDAD */
 Route::get('/residentes', [seguridadController::class, 'residentes'])->name('residentes')->middleware('auth');
 Route::get('/visitantes', [seguridadController::class, 'visitantes'])->name('visitantes')->middleware('auth');
@@ -88,12 +87,20 @@ Route::get('/pdfingreso/{id}', [seguridadController::class, 'pdfingreso'])->name
 Route::get('/pdfsalida/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfsalidalista'])->name('salidaslista.pdf')->middleware('auth');
 Route::get('/pdfingreso/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfingresolista'])->name('ingresolista.pdf')->middleware('auth');
 
+Route::get('/pdfResidenteLista/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfListaResidente'])->name('listaResidente.pdf')->middleware('auth');
+Route::get('/pdfVisitanteLista/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfListaVisitante'])->name('listaVisitante.pdf')->middleware('auth');
+Route::get('/pdfMotorizadoLista/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfListaMotorizado'])->name('listaMotorizado.pdf')->middleware('auth');
+Route::get('/pdfViviendaLista/pdf/{search}/{sort}/{direction}', [seguridadController::class, 'pdfListaVivienda'])->name('listaVivienda.pdf')->middleware('auth');
+
 
 
 /*MODULO SISTEMA */
 Route::get('/usuarios', [sistemaController::class, 'usuarios'])->name('usuarios')->middleware('auth');
 Route::get('/roles', [sistemaController::class, 'roles'])->name('roles')->middleware('auth');
 Route::get('/bitacora', [sistemaController::class, 'bitacora'])->name('bitacora')->middleware('auth');
+
+Route::get('/pdfUsuarioLista/pdf/{search}/{sort}/{direction}', [sistemaController::class, 'pdfListaUsuario'])->name('listaUsuario.pdf')->middleware('auth');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

@@ -66,6 +66,8 @@ class EquipoController extends Controller
             $search = '';
         $equipos = equipo::where('codigo', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.equipoLista', compact('equipos'));
         return $pdf->download('Lista de equipos: ' . now() . '.pdf');

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\bitacora;
 use App\Models\ingresoUrb;
+use App\Models\motorizado;
+use App\Models\residente;
 use App\Models\salidaUrb;
+use App\Models\visitante;
+use App\Models\vivienda;
 use Illuminate\Http\Request;
 
 class seguridadController extends Controller
@@ -113,4 +117,57 @@ class seguridadController extends Controller
         $pdf->loadView('pdfs.ingresolista', compact('ingresos'));
         return $pdf->download('reporte de ingresos: ' . now() . '.pdf');
     }
+
+    public function pdfListaResidente($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $residentes = residente::where('id', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.residenteLista', compact('residentes'));
+        return $pdf->download('Lista de residentes: ' . now() . '.pdf');
+    }
+
+    public function pdfListaVisitante($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $visitantes = visitante::where('id', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.visitanteLista', compact('visitantes'));
+        return $pdf->download('Lista de visitantes: ' . now() . '.pdf');
+    }
+
+    public function pdfListaMotorizado($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $motorizados = motorizado::where('id', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.motorizadoLista', compact('motorizados'));
+        return $pdf->download('Lista de motorizados: ' . now() . '.pdf');
+    }
+
+    public function pdfListaVivienda($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $viviendas = vivienda::where('id', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de asistencias');
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.viviendaLista', compact('viviendas'));
+        return $pdf->download('Lista de viviendas: ' . now() . '.pdf');
+    }
+    
 }

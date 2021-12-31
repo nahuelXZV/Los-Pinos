@@ -15,6 +15,18 @@
 
             <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba lo que esta buscando"
                 wire:model="search" />
+                <a class="font-bold text-white rounded cursor-pointer bg-green-600 hover:bg-green-500 py-2 px-4 "
+                @if ($search == '')
+                href="{{ route('listaUsuario.pdf', ['_@_', $sort, $direction]) }}"
+            @else
+                href="{{ route('listaUsuario.pdf', [$search, $sort, $direction]) }}"
+                @endif>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                </svg>
+            </a>
 
             @can('usuarios.add')
                 @livewire('sistema.add-usuario')

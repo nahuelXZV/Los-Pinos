@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\bitacora;
+use App\Models\equipo;
 use App\Models\regresoEquipo;
 use App\Models\salidaEquipo;
 use Illuminate\Support\Facades\DB;
@@ -102,5 +103,17 @@ class inicioController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.regresoEquiposLista', compact('regresos'));
         return $pdf->download('regresos de equipos: ' . now() . '.pdf');
+    }
+    public function pdfListaEquipo($search, $sort, $direction)
+    {
+        if ($search == '_@_')
+            $search = '';
+        $equipos = equipo::where('codigo', 'like', '%' . $search . '%')
+            ->orderBy($sort, $direction)->get();
+        $bitacora = new bitacora();
+        $bitacora->crear('Descargó el reporte de equipos');
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('pdfs.equipoLista', compact('equipos'));
+        return $pdf->download('Lista de equipos: ' . now() . '.pdf');
     }
 }

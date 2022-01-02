@@ -152,7 +152,7 @@ class ShowRealizo extends Component
 
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Añadió el trabajo realizado : ' . $this->idR . ' del reporte de trabajo: ' . $this->reporte->id, auth()->user()->id]);
         $bitacora = new bitacora();
-        $bitacora->crear('Añadió el trabajo relizado : ' . $this->idR . ' del reporte de trabajo: ' . $this->reporte->id);
+        $bitacora->crear('Añadió el trabajo realizado : ' . $this->idR . ' del reporte de trabajo: ' . $this->reporte->id);
         $this->emit('alert', '¡Añadido Correctamente!');
         $this->identify = rand();
         $this->reset(['open_add_realizo', 'hora', 'actividad']);

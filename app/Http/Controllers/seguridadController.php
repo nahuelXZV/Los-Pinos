@@ -125,7 +125,7 @@ class seguridadController extends Controller
         $residentes = residente::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
         $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte de residentes');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.residenteLista', compact('residentes'));
         return $pdf->download('Lista de residentes: ' . now() . '.pdf');
@@ -138,7 +138,7 @@ class seguridadController extends Controller
         $visitantes = visitante::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
         $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte de visitantes');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.visitanteLista', compact('visitantes'));
         return $pdf->download('Lista de visitantes: ' . now() . '.pdf');
@@ -151,7 +151,7 @@ class seguridadController extends Controller
         $motorizados = motorizado::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
         $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte de motorizados');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.motorizadoLista', compact('motorizados'));
         return $pdf->download('Lista de motorizados: ' . now() . '.pdf');
@@ -164,7 +164,7 @@ class seguridadController extends Controller
         $viviendas = vivienda::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
         $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte de viviendas');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.viviendaLista', compact('viviendas'));
         return $pdf->download('Lista de viviendas: ' . now() . '.pdf');

@@ -35,8 +35,7 @@ Route::get('/salidaEquipos/pdf/{search}/{sort}/{direction}', [inicioController::
 Route::get('/salidaEquipos/pdf/{id}', [inicioController::class, 'salidaEquipos'])->name('salidaEquipos.pdf')->middleware('auth');
 Route::get('/regresoEquipos/pdf/{search}/{sort}/{direction}', [inicioController::class, 'regresoEquiposlista'])->name('regresoEquiposlista.pdf')->middleware('auth');
 Route::get('/regresoEquipos/pdf/{id}', [inicioController::class, 'regresoEquipos'])->name('regresoEquipos.pdf')->middleware('auth');
-
-Route::get('/listaEquipo/pdf/{search}/{sort}/{direction}', [EquipoController::class, 'pdfListaEquipo'])->name('equipoLista.pdf')->middleware('auth');
+Route::get('/listaEquipo/pdf/{search}/{sort}/{direction}', [inicioController::class, 'pdfListaEquipo'])->name('equipoLista.pdf')->middleware('auth');
 
 
 /* MODULO PERSONAL */
@@ -54,7 +53,6 @@ Route::get('/reporteTrabajo/pdf/{search}/{sort}/{direction}', [PersonalControlle
 Route::get('/reporteTrabajo/pdf/{id}', [PersonalController::class, 'pdfShowRtrabajo'])->name('reporteTrabajo.pdf')->middleware('auth');
 Route::get('/reporteAsistencia/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaRasistencia'])->name('reporteAsistenciaLista.pdf')->middleware('auth');
 Route::get('/reporteAsistencia/pdf/{id}', [PersonalController::class, 'pdfShowRasistencua'])->name('reporteAsistencia.pdf')->middleware('auth');
-
 Route::get('/listaPersonal/pdf/{search}/{sort}/{direction}', [PersonalController::class, 'pdfListaPersonal'])->name('personalLista.pdf')->middleware('auth');
 
 

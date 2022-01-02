@@ -38,7 +38,7 @@ class sistemaController extends Controller
         $usuarios = User::where('id', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
         $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte de usuarios');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.usuarioLista', compact('usuarios'));
         return $pdf->download('Lista de usuarios: ' . now() . '.pdf');

@@ -135,7 +135,7 @@ class PersonalController extends Controller
         $personal = personal::where('codigo', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
             $bitacora = new bitacora();
-        $bitacora->crear('Descargó el reporte de asistencias');
+        $bitacora->crear('Descargó el reporte del personal');
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.personalLista', compact('personal'));
         return $pdf->download('Lista del Personal: ' . now() . '.pdf');

@@ -48,6 +48,11 @@
             text-align: center;
             font-size: 20px;
             font-weight: bolder;
+            text-decoration: underline;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ddd;
         }
 
         h1 {
@@ -58,6 +63,21 @@
 
         span {
             font-weight: bold;
+        }
+
+        img {
+            margin: auto;
+            display: block;
+            width: 7rem;
+            height: 7rem;
+            position: absolute;
+            padding-left: 35rem;
+        }
+
+        table {
+            border-top-width: 0px;
+            border-bottom-width: 1px;
+            border-color: rgb(17 24 39);
         }
 
     </style>
@@ -77,18 +97,26 @@
         .datagrid table td,
         .datagrid table th {
             padding:
-                8px 0px;
+                20px 0px;
+        }
+
+        .datagrid table thead {
+            border-bottom: solid 5px #0F362D;
         }
 
         .datagrid table thead th {
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#36752D',
                     endColorstr='#275420');
-            background-color: #cff0cb;
+            background-color: #246355;
             color: #000000;
             font-size: 13px;
             font-weight: bold;
             border-left: 0px solid #36752D;
             text-align: left;
+        }
+
+        .datagrid table thead tr th {
+            color: white;
         }
 
         .datagrid table thead th:first-child {
@@ -162,10 +190,13 @@
 <body>
 
     <main>
-        <h1>Urbanización Los Pinos</h1>
+        <h4>Urbanización Los Pinos</h4>
+        <img class="logo" src="https://i.ytimg.com/vi/RNpUAlspnCg/maxresdefault.jpg" alt="">
+
         <p> <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.
         </p>
+        <br>
         <h4>REPORTE: <br> Ingreso a la urbanización: {{ $ingreso->id }}</h4>
 
         <p>

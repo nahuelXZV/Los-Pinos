@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bitacora;
 use App\Models\equipo;
+use App\Models\realizo;
 use App\Models\regresoEquipo;
+use App\Models\reporteT;
 use App\Models\salidaEquipo;
 
 class EquipoController extends Controller

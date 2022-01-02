@@ -29,6 +29,7 @@
                 </svg>
             </a>
 
+            @can('reporteAsistencia.add')
             <x-jet-danger-button class="ml-2 mr-2 bg-green-600 hover:bg-green-500" wire:click="open_add()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -37,6 +38,7 @@
                 </svg>
                 Añadir
             </x-jet-danger-button>
+            @endcan
         </div>
 
         @if (count($reportes))
@@ -154,7 +156,11 @@
                                 {{ $reporte->fecha }}
                             </td>
 
+                            @if (auth()->user()->can('reporteAsistencia.show') ||
+    auth()->user()->can('reporteAsistencia.delete'))
                             <td class="my-3 px-6 py-4 whitespace-nowrap flex">
+                                @can('reporteAsistencia.show')
+                                    
                                 <a class="font-bold text-white rounded cursor-pointer bg-green-600 hover:bg-green-500 py-2 px-4 "
                                     href="{{ route('reporteAsistencia.pdf', $reporte->id) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -163,6 +169,10 @@
                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                                     </svg>
                                 </a>
+
+                                @endcan
+
+                                @can('reporteAsistencia.delete')
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
                                     href=" {{ route('reporteAsistencia.show', $reporte->id) }}">
                                     <svg xmlns=" http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -171,6 +181,7 @@
                                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                                     </svg>
                                 </a>
+                                @endcan
 
                                 <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
                                     wire:click="$emit('deleteReporteA', {{ $reporte->id }})">

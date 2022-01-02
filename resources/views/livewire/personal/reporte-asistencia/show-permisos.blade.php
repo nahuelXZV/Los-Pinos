@@ -8,10 +8,12 @@
                 {{ $reporte->id }}
             </h1>
 
-            <x-jet-danger-button wire:click='openEditReport({{ $reporte->id }})'
-                class=" mx-5 bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
-                Editar Reporte
-            </x-jet-danger-button>
+            @can('reporteAsistencia.edit')
+                <x-jet-danger-button wire:click='openEditReport({{ $reporte->id }})'
+                    class=" mx-5 bg-green-600 hover:bg-green-500" wire:loading.attr='disabled'>
+                    Editar Reporte
+                </x-jet-danger-button>
+            @endcan
 
         </div>
 
@@ -60,22 +62,25 @@
         <div class="flex mt-4 ">
             <h1 class="px-6 py-2 font-mono text-xl font-bold uppercase flex-grow ">
                 Permisos de {{ $reporte->personal->nombre }}</h1>
-            <x-jet-danger-button wire:click='openAdd()' class=" mx-5 bg-green-600 hover:bg-green-500"
-                wire:loading.attr='disabled'>
-                Crear Permiso
-            </x-jet-danger-button>
+
+            @can('reporteAsistencia.show.add')
+                <x-jet-danger-button wire:click='openAdd()' class=" mx-5 bg-green-600 hover:bg-green-500"
+                    wire:loading.attr='disabled'>
+                    Crear Permiso
+                </x-jet-danger-button>
+            @endcan
         </div>
 
         @if (count($permisos))
 
             <!-- component -->
-            <div class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full">
+            <div
+                class="mb-4 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full">
                 <div class="container mb-2 flex mx-auto items-center justify-center">
-                    <ul class="w-min flex flex-col p-4 w-full"
-                    rows="1" readonly>
-    
+                    <ul class="w-min flex flex-col p-4 w-full" rows="1" readonly>
+
                         @foreach ($permisos as $permiso)
-    
+
                             <li class="container border-gray-400 whitespace-normal flex flex-row">
                                 <div
                                     class="select-none flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 p-6 hover:shadow-2xl border-green-600">
@@ -85,27 +90,31 @@
                                         </div>
                                     </div>
                                     <div class="whitespace-nowrap flex">
-                                        <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
-                                            wire:click='openEditPermiso({{ $permiso->id }})'>
-    
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
-                                        <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                            wire:click="$emit('deletePermiso', {{ $permiso->id }})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </a>
+                                        @can('reporteAsistencia.show.edit')
+                                            <a class="font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4"
+                                                wire:click='openEditPermiso({{ $permiso->id }})'>
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                        @endcan
+                                        @can('reporteAsistencia.show.delete')
+                                            <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                                wire:click="$emit('deletePermiso', {{ $permiso->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </a>
+                                        @endcan
                                     </div>
                                 </div>
                             </li>
-    
+
                         @endforeach
                     </ul>
                 </div>
@@ -154,14 +163,16 @@
                 <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el código del Ingreso"
                     wire:model="search" />
 
-                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="openAddIngreso()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                    </svg>
-                    Añadir
-                </x-jet-danger-button>
+                @can('reporteAsistencia.show.add')
+                    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="openAddIngreso()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        Añadir
+                    </x-jet-danger-button>
+                @endcan
             </div>
 
             @if ($ingresos->count())
@@ -287,24 +298,33 @@
                                     </td>
                                 @endif
 
-                                <td class="px-6 py-4 whitespace-nowrap flex">
-                                    <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                        wire:click="openEditIngreso({{ $ingreso->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
-                                    <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                        wire:click="$emit('deleteIngresoP', {{ $ingreso->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </a>
-                                </td>
+                                @if (auth()->user()->can('reporteAsistencia.show.edit') ||
+    auth()->user()->can('reporteAsistencia.show.delete'))
+                                    <td class="px-6 py-4 whitespace-nowrap flex">
+                                        @can('reporteAsistencia.show.add')
+                                            <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
+                                                wire:click="openEditIngreso({{ $ingreso->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+
+                                        @endcan
+                                        @can('reporteAsistencia.show.add')
+
+                                            <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                                wire:click="$emit('deleteIngresoP', {{ $ingreso->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </a>
+                                        @endcan
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -351,14 +371,16 @@
                 <x-jet-input type="text" class="flex-1 mr-2 rounded-full" placeholder="Escriba el código de la Salida"
                     wire:model="search" />
 
-                <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="openAddSalida()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                    </svg>
-                    Añadir
-                </x-jet-danger-button>
+                @can('reporteAsistencia.show.add')
+                    <x-jet-danger-button class="mr-2 bg-green-600 hover:bg-green-500" wire:click="openAddSalida()">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        Añadir
+                    </x-jet-danger-button>
+                @endcan
             </div>
 
             @if ($salidas->count())
@@ -443,25 +465,31 @@
                                     </div>
                                 </td>
 
-
-                                <td class="px-6 py-4 whitespace-nowrap flex">
-                                    <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
-                                        wire:click="openEditSalida({{ $salida->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </a>
-                                    <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
-                                        wire:click="$emit('deleteSalidaP', {{ $salida->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </a>
-                                </td>
+                                @if (auth()->user()->can('reporteAsistencia.show.edit') ||
+    auth()->user()->can('reporteAsistencia.show.delete'))
+                                    <td class="px-6 py-4 whitespace-nowrap flex">
+                                        @can('reporteAsistencia.show.edit')
+                                            <a class="ml-2 font-bold text-white rounded cursor-pointer bg-blue-600 hover:bg-blue-500 py-2 px-4 "
+                                                wire:click="openEditSalida({{ $salida->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                        @endcan
+                                        @can('reporteAsistencia.show.delete')
+                                            <a class="ml-2 font-bold text-white rounded cursor-pointer bg-red-600 hover:bg-red-500 py-2 px-4 "
+                                                wire:click="$emit('deleteSalidaP', {{ $salida->id }})">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </a>
+                                        @endcan
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

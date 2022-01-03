@@ -8,7 +8,7 @@
     <title>Iniciar sesión</title>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+    <link rel="icon" type="image/png" href="{{ asset('favicon2.png') }}">
     <style>
         .efectoButton {
             transition: 0.5s;

@@ -70,7 +70,7 @@
                 </x-jet-danger-button>
             @endcan
         </div>
-
+        <br>
         @if (count($permisos))
 
             <!-- component -->

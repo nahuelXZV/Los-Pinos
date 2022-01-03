@@ -342,8 +342,8 @@
                  @endcan
                  @can('reporteTrabajo')
                      <a href="{{ route('reporte.trabajo') }}"
-                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reporte.trabajo') || request()->routeIs('reporte.trabajo.show')) bg-gray-700 @endif"
-                         :class="{'justify-center': !isSidebarOpen}">
+                         class="flex items-center p-2 space-x-2 rounded-md hover:bg-gray-700 @if (request()->routeIs('reporte.trabajo') || request()->routeIs('reporteTrabajo.show')) bg-gray-700 @endif"
+                         :class="{'justify-center': !isSidebarOpen}"> 
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor">
                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

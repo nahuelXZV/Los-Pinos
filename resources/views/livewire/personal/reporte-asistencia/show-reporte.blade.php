@@ -157,7 +157,7 @@
                             </td>
 
                             @if (auth()->user()->can('reporteAsistencia.show') ||
-    auth()->user()->can('reporteAsistencia.delete'))
+                                 auth()->user()->can('reporteAsistencia.delete'))
                                 <td class="my-3 px-6 py-4 whitespace-nowrap flex">
                                     @can('reporteAsistencia.show')
 

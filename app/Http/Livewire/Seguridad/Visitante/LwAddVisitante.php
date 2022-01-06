@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 class LwAddVisitante extends Component
 {
     public $open_add = false;
-    public $idR;
     public $nombre;
     public $numeroDeCarnet;
     public $sexo = 'M';
@@ -20,9 +19,11 @@ class LwAddVisitante extends Component
         'numeroDeCarnet' => 'required',
         'sexo' => 'required',
     ];
+
     protected $messages = [
         'numeroDeCarnet.required' => 'El campo número de carnet es obligatorio.',
     ];
+    
     public function mount()
     {
         $this->identify = rand();

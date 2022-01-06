@@ -16,18 +16,20 @@
         <x-slot name='content'>
             <div class="mb-4">
                 <x-jet-label value='Nombre Completo' class="mb-2" />
-                <x-jet-input wire:model.defer='nombre' type='text' class="w-full" placeholder='Escriba el nombre completo'/>
+                <x-jet-input wire:model.defer='nombre' type='text' class="w-full"
+                    placeholder='Escriba el nombre completo' />
                 <x-jet-input-error for="nombre" />
             </div>
 
             <div class="mb-4">
                 <x-jet-label value='Numero de carnet' class="mb-2" />
-                <x-jet-input wire:model.defer='numeroDeCarnet' type='text' class="w-full" placeholder='Escriba el número de carnet' />
+                <x-jet-input wire:model.defer='numeroDeCarnet' type='text' class="w-full"
+                    placeholder='Escriba el número de carnet' />
                 <x-jet-input-error for="numeroDeCarnet" />
             </div>
             <div class="mb-4">
                 <x-jet-label value='Sexo' class="mb-2" />
-                <select wire:model='sexo'
+                <select wire:model.defer='sexo'
                     class="w-full border-gray-300 rounded-lg mr-2 px-6 py-3 text-left text-xs font-medium text-black-500 uppercase tracking-wider">
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>

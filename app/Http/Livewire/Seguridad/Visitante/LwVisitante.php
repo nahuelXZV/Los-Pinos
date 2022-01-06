@@ -77,7 +77,7 @@ class LwVisitante extends Component
         $this->persona->nombre = $this->nombre;
         $this->persona->nroCarnet = $this->numeroDeCarnet;
         $this->persona->sexo = $this->sexo;
-        $this->persona->save();
+        $this->persona->update();
         //DB::statement('CALL newBitacora(?,?,?,?)', [now()->format('Y-m-d'), now()->format('H:i'), 'Modifcó un visitante llamado: ' . $this->nombre, auth()->user()->id]);
         $bitacora = new bitacora();
         $bitacora->crear('Modifcó un visitante llamado: ' . $this->nombre);

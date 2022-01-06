@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 class LwAddResidente extends Component
 {
     public $open_add = false;
-    public $idR;
     public $nombre;
     public $numeroDeCarnet;
     public $sexo = 'M';
@@ -26,10 +25,12 @@ class LwAddResidente extends Component
         'telefono' => 'required',
         'tipoResidente' => 'required',
     ];
+
     protected $messages = [
         'numeroDeCarnet.required' => 'El campo número de carnet es obligatorio.',
         'tipoResidente.required' => 'El campo tipo de residente es obligatorio.',
     ];
+    
     public function mount()
     {
         $primero = vivienda::all()->first();

@@ -48,7 +48,7 @@
 
     @livewireScripts
     <script>
-        Livewire.on('alert', function(message){
+        Livewire.on('alert', function(message) {
             Swal.fire(
                 'Good job!',
                 meassage,

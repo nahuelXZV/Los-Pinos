@@ -205,6 +205,7 @@
             <span>Nombre de trabajador:</span> {{ $reporte->personal->nombre }}. <br>
             <span>Fecha:</span> {{ $reporte->fecha }}. <br>
         </p>
+        
         <span>Permisos del reporte:</span>
         @if ($permisos)
             @foreach ($permisos as $permiso)

@@ -200,9 +200,11 @@
             <span>Usuario:</span> {{ auth()->user()->name }}. <br><span>Fecha:</span> {{ now()->format('Y-m-d') }}.
             <br><span>Hora:</span> {{ now()->format('H:i') }}.        
         </p>
+
         <h4>
             <div> EQUIPOS: </div> <br> Datos de Equipos
         </h4>
+        
         <div class="datagrid">
             <table>
                 <thead>

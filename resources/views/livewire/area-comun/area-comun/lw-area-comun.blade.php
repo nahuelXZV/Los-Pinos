@@ -19,7 +19,6 @@
             @can('areacomun.add')
                 @livewire('area-comun.area-comun.lw-add-area-comun')
             @endcan
-
         </div>
         @if ($areas->count())
             <table class="min-w-full divide-y divide-gray-200">

@@ -93,11 +93,14 @@ class seguridadController extends Controller
     {
         if ($search == '_@_')
             $search = '';
+
         $salidas = salidaUrb::where('fecha', 'like', '%' . $search . '%')
             ->orWhere('idMotorizado', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+
         $bitacora = new bitacora();
         $bitacora->crear('Descargó el reporte de salidas');
+
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.salidalista', compact('salidas'));
         return $pdf->download('reporte de salidas: ' . now() . '.pdf');
@@ -107,12 +110,15 @@ class seguridadController extends Controller
     {
         if ($search == '_@_')
             $search = '';
+
         $ingresos = ingresoUrb::where('fecha', 'like', '%' . $search . '%')
             ->orWhere('motivo', 'like', '%' . $search . '%')
             ->orWhere('idVivienda', 'like', '%' . $search . '%')
             ->orderBy($sort, $direction)->get();
+
         $bitacora = new bitacora();
         $bitacora->crear('Descargó el reporte de ingresos');
+
         $pdf = app('dompdf.wrapper');
         $pdf->loadView('pdfs.ingresolista', compact('ingresos'));
         return $pdf->download('reporte de ingresos: ' . now() . '.pdf');
@@ -169,5 +175,4 @@ class seguridadController extends Controller
         $pdf->loadView('pdfs.viviendaLista', compact('viviendas'));
         return $pdf->download('Lista de viviendas: ' . now() . '.pdf');
     }
-    
 }

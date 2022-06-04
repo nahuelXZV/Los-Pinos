@@ -23,7 +23,7 @@
 
         @if (count($almacens))
             <table class=" min-w-full divide-y divide-gray-200 ">
-                <thead class=" rounded-3xl bg-green-500 text-white">
+                <thead class=" rounded-3xl bg-green-900 text-white">
                     <tr>
                         <th scope="col"
                             class="cursor-pointer px-6 py-3 text-left text-xs font-bold uppercase tracking-wider"
@@ -186,7 +186,6 @@
                                         </a>
                                     @endcan
                                 </td>
-
                             @endif
                         </tr>
                     @endforeach
@@ -200,7 +199,7 @@
             @endif
         @else
             <div class="px-6 py-4">
-                No hay equipos en el inventario con esas características
+                No hay almacenes en el inventario con esas características
             </div>
         @endif
     </x-table>
